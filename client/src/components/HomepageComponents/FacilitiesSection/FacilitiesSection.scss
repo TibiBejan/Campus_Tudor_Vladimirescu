@@ -1,0 +1,178 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.facilities-section {
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 0.1rem;
+        width: 100%;
+        background-color: $primary-dark-blue-2 //$primary-dark-gray-2
+    }
+
+    &-inner {
+        position: relative;
+
+        .facilities-slider {
+            position: relative;
+            width: 100%;
+
+            .swiper-wrapper {
+                width: 100%;
+                display: grid;
+                grid-auto-flow: column;
+
+                .swiper-slide {
+                    height: 100%;
+                    width: 100%;
+
+                    .facilities-slide {
+                        min-height: 85rem;
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        
+                        @media screen and (max-width: $desktop-utility-bp-medium) {
+                            @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+                        }
+
+                        .slide-inner-content {
+                            position: relative;
+                            height: 100%;
+                            @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: center);
+                            height: 100%;
+                            padding: 0 12rem;
+            
+                            @media screen and (min-width: $bp-mobile) {
+                                &::after {
+                                    content: '';
+                                    position: absolute;
+                                    top: 0;
+                                    bottom: 0;
+                                    right: 0;
+                                    height: 100%;
+                                    width: 0.1rem;
+                                    background-color: $primary-dark-blue-2 //$primary-dark-gray-2
+                                }
+                            }
+                
+                            @media screen and (max-width: $bp-mobile) {
+                                &::after {
+                                    content: '';
+                                    position: absolute;
+                                    bottom: 0;
+                                    left: 0;
+                                    right: 0;
+                                    height: 0.1rem;
+                                    width: 100%;
+                                    background-color: $primary-dark-blue-2 //$primary-dark-gray-2
+                                }
+                            }
+            
+                            @media screen and (max-width: $bp-large) {
+                                padding: 10rem;
+                            }
+                
+                            @media screen and (max-width: $bp-medium) {
+                                padding: 9rem;
+                            }
+                
+                            @media screen and (max-width: $bp-small) {
+                                padding: 7rem;
+                            }
+                
+                            @media screen and (max-width: $bp-mobile) {
+                                padding: 4rem;
+                            }
+            
+                            .content-heading, 
+                            .content-paragraph {
+                                height: auto;
+                                overflow: hidden;
+                
+                                .content-heading-title {
+                                    font-size: 3vw;
+                
+                                    @media screen and (max-width: $bp-medium) {
+                                        font-size: 4.5vw;
+                                    }
+                                }
+                            }
+                
+                            .content-heading {
+                                margin-bottom: var(--margin-large);
+                
+                                @media screen and (max-width: $desktop-utility-bp-medium) {
+                                    margin-bottom: var(--margin-medium);
+                                }
+                            }
+                        }
+
+                        .facilities-slide-showcase {
+                            position: relative;
+                            overflow: hidden;
+            
+                            @media screen and (max-width: $desktop-utility-bp-medium) {
+                                height: 50rem;
+                                width: 100%;
+                            }
+                 
+                            @media screen and (max-width: $bp-mobile) {
+                                height: 35rem;
+                            }
+                 
+                            // .showcase-prev-button,
+                            // .showcase-next-button {
+                            //     position: absolute;
+                            //     top: 50%;
+                            //     transform: translateY(-50%);
+                            //     width: 7.5rem;
+                            //     height: 7.5rem;
+                            //     @include flex-setup($align-items: center, $justify-content: center);
+                            //     background-color: rgba(0,0,0,0.6);
+                            //     z-index: 100;
+                            // }
+                 
+                            // .showcase-prev-button {
+                            //     left: 0;
+                            // }
+                 
+                            // .showcase-next-button {
+                            //     right: 0;
+                            // }
+                 
+                            .showcase-background {
+                                position: relative;
+                                width: 100%;
+                                height: 100%;
+            
+                                &-overlay {
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width:  100%;
+                                    height: 100%;
+                                    background-color: royalblue;
+                                    transform: translateX(-100%);
+                                    z-index: 99;
+                                }
+            
+                                &-media {
+                                    height: 100%;
+
+                                    .background-image {
+                                        filter: brightness(70%);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

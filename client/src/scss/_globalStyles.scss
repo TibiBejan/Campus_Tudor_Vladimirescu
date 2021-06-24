@@ -1,0 +1,86 @@
+@import './variables';
+@import './mixins';
+
+:root {
+	--margin-small: 2.5rem;
+	--margin-medium: 5rem;
+	--margin-large: 7.5rem;
+	--margin-xlarge: 10rem;
+	--margin-xxlarge: 12.5rem;
+
+	--general-padding-mobile: 3rem;
+	--general-padding-small: 5rem;
+	--general-padding-medium: 10rem;
+	--general-padding-large: 15rem;
+	--section-padding: 20rem;
+
+	--hover-transition: 0.35s cubic-bezier(0.47, 0, 0.745, 0.715);
+}
+
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+	font-family: $primary-font;
+	font-size: 62.5%;
+	font-weight: 300;
+
+	@media screen and (max-width: $bp-mobile) {
+		font-size: 50%;
+	}
+}
+
+body {
+	background-color: $primary-dark-blue-1; // $primary-dark-gray-1;
+	color: $primary-light-gray-1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	overscroll-behavior-y: none;
+	overflow-y: auto;
+}
+
+.App {
+	visibility: hidden;
+}
+
+.smooth-container {
+	position: relative;
+	width: 100%;
+}
+
+.page-content {
+	padding-left: 12rem;
+
+    @media screen and (max-width: $bp-large) {
+        padding-left: 10rem;
+    }
+
+    @media screen and (max-width: $bp-medium) {
+        padding-left: 9rem;
+    }
+
+    @media screen and (max-width: $bp-small) {
+       padding-left: 0;
+    }
+
+    @media screen and (max-width: $bp-mobile) {
+        padding: 0;
+    }
+}
+
+.leaflet-container {
+	width: 100%;
+	height: 100%;
+}
+
+.background-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}

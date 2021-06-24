@@ -1,0 +1,156 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.vertical-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    min-height: 95rem;
+    width: 12rem;
+    display: grid;
+    grid-template-rows: 1fr minmax(min-content, max-content);
+    padding-top: 12rem;
+    z-index: 999;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        width: 0.1rem;
+        background-color: $primary-dark-blue-2; //$primary-dark-gray-2
+    }
+
+    @media screen and (max-width: $bp-large) {
+        width: 10rem;
+        padding-top: 10rem;
+    }
+
+    @media screen and (max-width: $bp-medium) {
+        width: 9rem;
+        padding-top: 9rem;
+    }
+
+    @media screen and (max-width: $bp-small) {
+        display: none;
+    }
+
+    &-content {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+
+        .content-page-links,
+        .content-page-social-links {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            @include flex-setup($flex-flow: column, $align-items: center, $justify-content: flex-end);
+            padding: var(--general-padding-small) 0;
+            transform: translateX(0%);
+            transition: var(--hover-transition);
+
+            &.fade-out {
+                transform: translateX(-100%);
+            }
+
+            &.fade-in {
+                transform: translateX(0%);
+            }
+
+            .page-links-list-item,
+            .social-links-list-item {
+                width: 100%;
+
+                &:not(:first-child) {
+                    margin-top: var(--margin-medium);
+                }
+
+                &:hover .page-link .page-link-label::before,
+                &:hover .social-link .page-link-label::before {
+                    transform: scaleY(1);
+                }
+
+                .page-link,
+                .social-link {
+                    width: auto;
+                    @include flex-setup($flex-flow: column, $align-items: center, $justify-content: center);
+                    transform: rotate(180deg);
+
+                    .page-link-label {
+                        position: relative;
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            bottom: 0;
+                            left: 0;
+                            height: 100%;
+                            width: 0.15rem;
+                            background-color: $primary-light-text-1; //$primary-light-gray-1;
+                            transform: scaleY(0);
+                            transform-origin: top;
+                            transition: var(--hover-transition);
+                        }
+                    }
+                }
+            }   
+        }
+
+        .content-page-social-links {
+            transform: translateX(100%);
+        }
+    }
+
+    &-link {
+        position: relative;
+        width: 100%;
+        height: 12rem;
+        background-color: transparent;
+        transition: var(--hover-transition);
+
+        @media screen and (max-width: $bp-large) {
+            height: 10rem;
+        }
+
+        @media screen and (max-width: $bp-medium) {
+            height: 9rem;
+        }
+
+        @media screen and (max-width: $bp-small) {
+            height: 7rem;
+        }
+
+        &:hover {
+            background-color: $primary-dark-blue-2; //$primary-dark-gray-2
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 0.1rem;
+            background-color: $primary-dark-blue-2; //$primary-dark-gray-2
+        }
+
+        .link-wrapper {
+            height: 100%;
+            @include flex-setup( $align-items: center, $justify-content: center);
+
+            svg{
+                width: 35%;
+                height: 35%;
+                fill: $primary-light-text-1; //$primary-light-gray-1;
+            }
+        }
+    }
+}

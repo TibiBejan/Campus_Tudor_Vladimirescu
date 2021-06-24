@@ -1,0 +1,110 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.showcase-banner-small {
+    position: relative;
+    width: 100%;
+    height: 70rem;
+    padding: 0 12rem;
+    overflow: hidden;
+
+    @media screen and (max-width: $bp-large) {
+        padding: 0 10rem;
+    }
+
+    @media screen and (max-width: $bp-medium) {
+        padding: 0 9rem;
+    }
+
+    @media screen and (max-width: $bp-small) {
+        padding: 0
+    }
+
+    @media screen and (max-width: $bp-mobile) {
+        padding: 0 4rem;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width:100%;
+        height: 0.1rem;
+        background-color: $primary-dark-blue-2; // $primary-dark-gray-2
+    }
+
+    &-media {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100%;
+        user-select: none;
+        pointer-events: none;
+        
+        .background-image {
+            filter: brightness(50%);
+        }
+    }
+
+    &-content {
+        width: 100%;
+        min-height: 70rem;
+        @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: center);
+        margin-left: 12rem;
+        padding-top: 12rem;
+        z-index: 100;
+
+        @media screen and (max-width: $bp-large) {
+            margin-left: 10rem;
+            padding-top: 10rem;
+        }
+
+        @media screen and (max-width: $bp-medium) {
+            margin-left: 9rem;
+            padding-top: 9rem;
+        }
+
+        @media screen and (max-width: $bp-small) {
+            margin-left: 7rem;
+            padding-top: 7rem;
+        }
+
+        @media screen and (max-width: $bp-mobile) {
+            // margin-top: 8rem;
+            margin-left: 0;
+            padding-top: 0;
+        }
+
+        .content-heading-wrapper {
+            width: 100%;
+            @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content:  flex-start);
+            margin-bottom: var(--margin-medium);
+            z-index: 100;
+
+            .heading-wrapper-line {
+                height: auto;
+                overflow: hidden;
+            }
+        }
+
+        .paragraph-wrapper {
+            width: 100%;
+            max-width: 70%;
+            z-index: 100;
+
+            @media screen and (max-width: $bp-large) {
+                max-width: 85%;
+            }
+
+            @media screen and (max-width: $bp-mobile) {
+                max-width: 100%;
+            }
+
+            .paragraph-showcase {
+                margin-bottom: var(--margin-small);
+            }
+        }
+    }
+}

@@ -1,0 +1,54 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.residence-halls {
+    position: relative;
+    width: 100%;
+
+    @media screen and (max-width: $bp-mobile) {
+        padding: 0 4rem;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 0.1rem;
+        width: 100%;
+        background-color: $primary-dark-blue-2; // $primary-dark-gray-2
+    }
+
+    &-inner {
+        padding: var(--general-padding-medium) 0;
+        margin: 0 4rem;
+
+        @media screen and (max-width: $bp-mobile) {
+            margin: 0;
+        }
+
+        .swiper-container {
+            min-height: 50rem;
+            display: grid;
+            grid-auto-flow: column;
+            width: 100%;
+
+            .swiper-slide {
+                height: 100%;
+                min-height: 50rem;
+
+                .preview-card-wrapper .preview-card {
+                    .preview-card-content {
+                        min-height: 20rem;
+                        text-align: center;
+                    }
+
+                    .preview-card-showcase {
+                        min-height: 30rem;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,57 @@
+// FONTS
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Numans&display=swap');
+
+$primary-font: 'Roboto', sans-serif;
+$secondary-font: 'Playfair Display', serif;
+$headings-font: 'Numans', sans-serif;
+$numbers-font: 'Cinzel', serif;
+
+// COLORS
+$white: #fff;
+$black: #111;
+
+$primary-dark-gray-1: #1a1a1a; // GENERAL
+$primary-dark-gray-2: #464646; // PSEUDO
+$primary-dark-gray-3: #272727; // FOOTER
+$secondary-dark-gray-1: #7d7d7d; // SECONDARY TEXT
+$secondary-dark-gray-2: #575757; 
+$secondary-dark-gray-3: #323232;
+
+$primary-light-gray-1: #fafafa; // GENERAL TEXT
+$primary-light-gray-2: #eaeaea; 
+
+// SECONDARY COLOR PALLETE
+$primary-dark-blue-1:  #1a1a1a;
+$primary-dark-blue-2: #464646;
+$primary-dark-blue-3: #272727;
+
+$secondary-dark-blue-1: #7d7d7d;
+$secondary-dark-blue-2: #575757;
+$secondary-dark-blue-3: #323232;
+
+$primary-light-text-1: #fafafa;
+$primary-light-text-2: #eaeaea;
+
+$primary-yellow: #d3a14c;
+
+// BREAKPOINTS
+$bp-mobile-small: 360px;
+$bp-mobile-medium: 450px;
+$bp-mobile: 650px;
+$bp-small: 768px; 
+$bp-medium: 1023px; 
+$bp-large: 1366px; 
+$bp-xlarge: 1920px; 
+$bp-xxlarge: 2560px;
+
+$desktop-utility-bp-large: 1500px;
+$desktop-utility-bp-medium: 1300px;
+$desktop-utility-bp-small: 1150px;
+
+$mobile-utility-bp-medium: 525px;
+// $mobile-utility-bp-large: 610px;
+// $mobile-utility-bp: 400px;

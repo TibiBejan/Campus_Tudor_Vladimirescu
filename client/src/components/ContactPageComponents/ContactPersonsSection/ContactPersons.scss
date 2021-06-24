@@ -1,0 +1,46 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.contact-persons {
+    position: relative;
+    width: 100%;
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 0.1rem;
+        width: 100%;
+        background-color: $primary-dark-blue-2; //$primary-dark-gray-2;
+    }
+
+    &-inner  {
+        width: 100%;
+        height: 100%;
+
+        .swiper-wrapper {
+            display: grid;
+            grid-auto-flow: column;
+
+            .swiper-slide {
+                position: relative;
+                flex: 1;
+
+                &:not(:last-child){
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        right: 0;
+                        height: 100%;
+                        width: 0.1rem;
+                        background-color: $primary-dark-blue-2; //$primary-dark-gray-2;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,67 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.organisation-card {
+    height: 100%;
+    @include flex-setup($flex-flow: column);
+    background-color: $secondary-dark-blue-3; // $primary-dark-gray-3
+    transition: var(--hover-transition);
+
+    &:hover {
+        transform: scale(0.98);
+        box-shadow: 0.5rem 0.5rem 1rem rgba(0,0,0,0.4);
+
+        .organisation-card-showcase .showcase-image .background-image {
+            transform: scale(1.1);
+        }
+    }
+
+    &-content {
+        width: 100%;
+        min-height: 25rem;
+        @include flex-setup($flex-flow: column, $align-items: center, $justify-content: center);
+        text-align: center;
+        padding: 5rem;
+         flex: 1;
+
+        .content-label {
+            color: $secondary-dark-blue-1 // $secondary-dark-gray-1
+        }
+
+        .content-title {
+            margin-bottom: var(--margin-medium);
+
+            @media screen and (max-width: $bp-small) {
+                font-size: 4vw;
+            }
+
+            @media screen and (max-width: $bp-mobile-medium) {
+                font-size: 5vw;
+            }
+        }
+    }
+
+    &-showcase {
+        width: 100%;
+        height: 30rem;
+        @include flex-setup($align-items: center, $justify-content: center);
+        background-color: $secondary-dark-blue-3; // $primary-dark-gray-3
+        overflow: hidden;
+
+        .showcase-image {
+            position: relative;
+            width: 17.5rem;
+            height: 17.5rem;
+
+            .background-image {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                transition: var(--hover-transition);
+            }
+        }
+    }
+}

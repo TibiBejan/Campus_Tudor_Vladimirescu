@@ -1,0 +1,300 @@
+@import './variables';
+
+// HEADINGS
+.heading-one {
+    font-family: $headings-font;
+    font-size: 5vw;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    line-height: 1.2;
+    color: $primary-light-text-1; // $primary-light-gray-1;
+
+    @media screen and (max-width: $bp-medium) {
+        font-size: 6vw;
+    }
+}
+
+.heading-two {
+    font-family: $headings-font;
+    font-size: 3.5vw;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    line-height: 1.2;
+    color: $primary-light-text-1; // $primary-light-gray-1;
+
+    @media screen and (max-width: $bp-medium) {
+        font-size: 4.5vw;
+    }
+}
+
+.heading-three {
+    font-family: $headings-font;
+    font-size: 1.5vw;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    line-height: 1.5;
+    color: $primary-light-text-1; // $primary-light-gray-1;
+
+    @media screen and (max-width: $bp-medium) {
+        font-size: 2.2vw;
+    }
+
+    @media screen and (max-width: $bp-small) {
+        font-size: 3vw;
+    }
+}
+
+.heading-four {
+    font-family: $headings-font;
+    font-size: 1.5vw;
+    font-weight: 800;
+    letter-spacing: 0.1rem;
+    line-height: 1.5;
+    color: $primary-light-text-1; // $white
+
+    @media screen and (max-width: $desktop-utility-bp-large) {
+        font-size: 2vw;
+    }
+
+    @media screen and (max-width: $bp-medium) {
+        font-size: 2.5vw;
+    }
+
+    @media screen and (max-width: $bp-mobile) {
+        font-size: 3.5vw;
+    }
+}
+
+.heading-five {
+    font-family: $headings-font;
+    font-size: 1vw;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    line-height: 1.5;
+    color: $primary-light-text-1; // $white
+
+    @media screen and (max-width: $desktop-utility-bp-large) {
+        font-size: 1.5vw;
+    }
+
+    @media screen and (max-width: $bp-medium) {
+        font-size: 2vw;
+    }
+
+    @media screen and (max-width: $bp-mobile) {
+        font-size: 3vw;
+    }
+}
+
+.dark-text {
+    color: $primary-dark-blue-1 !important; //$primary-dark-gray-1
+}
+
+// PARAGRAPHS
+.paragraph-showcase {
+    font-family: $primary-font;
+    font-size: 2.2rem;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    line-height: 1.5;
+    color: $primary-light-text-1; // $primary-light-gray-1;
+
+    @media screen and (max-width: $bp-medium) {
+        font-size: 1.8rem;
+    }
+}
+
+.paragraph {
+    font-family: $primary-font;
+    font-size: 1.9rem;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    line-height: 1.5;
+    color: $primary-light-text-1; // $primary-light-gray-1;
+
+    @media screen and (max-width: $bp-medium) {
+        font-size: 1.6rem;
+    }
+}
+
+.paragraph-medium {
+    font-family: $primary-font;
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    line-height: 1.5;
+    color: $primary-light-text-1; // $primary-light-gray-1;
+
+    @media screen and (max-width: $bp-medium) {
+        font-size: 1.4rem;
+    }
+}
+
+.paragraph-secondary {
+    font-family: $primary-font;
+    font-size: 1.4rem;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    line-height: 1.5;
+    color: $secondary-dark-blue-1; //$secondary-dark-gray-1
+}
+
+.paragraph-quote-large {
+    font-family: $primary-font;
+    font-size: 1.5vw;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    line-height: 2;
+    color:  $primary-light-text-1; // $primary-light-gray-1;
+
+    @media screen and (max-width: $bp-medium) {
+        font-size: 2.5vw;
+    }
+
+    @media screen and (max-width: $bp-small) {
+        font-size: 2.75vw;
+    }
+}
+
+// LABELS
+.label-large {
+    font-family: $primary-font;
+    font-size: 1.5vw;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    line-height: 2;
+    color:  $primary-yellow;
+
+    @media screen and (max-width: $bp-medium) {
+        font-size: 2.5vw;
+    }
+
+    @media screen and (max-width: $bp-small) {
+        font-size: 2.75vw;
+    }
+}
+
+.label {
+    font-family: $primary-font;
+    font-size: 1.9rem;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    line-height: 2;
+    color:  $primary-light-text-1; // $primary-light-gray-1;
+
+    @media screen and (max-width: $bp-medium) {
+        font-size: 1.6rem;
+    }
+}
+
+.label-medium {
+    font-family: $primary-font;
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    line-height: 2;
+    color:  $primary-light-text-1; // $primary-light-gray-1;
+
+    @media screen and (max-width: $bp-medium) {
+        font-size: 1.4rem;
+    }
+}
+
+.label-small {
+    font-family: $primary-font;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1;
+    text-transform: uppercase;
+    color: $primary-dark-blue-1; //$primary-dark-gray-1
+}
+
+.marquee-label {
+    font-size: 3vw;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+    line-height: 1.2;
+    color: $primary-dark-blue-1; //$primary-dark-gray-1
+    -webkit-text-fill-color: $primary-dark-blue-1; //$primary-dark-gray-1
+    -webkit-text-stroke: 0.1rem $primary-light-text-1; // $primary-light-gray-1;
+
+    @media screen and (max-width: $bp-medium) {
+        font-size: 4.5vw;
+    }
+}
+
+.link-label {
+    font-family: $primary-font;
+    font-size: 2.5rem;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    line-height: 2;
+    color: $primary-light-text-1; // $primary-light-gray-1;
+
+    @media screen and (max-width: $desktop-utility-bp-large) {
+        font-size: 2.2rem;
+    }
+
+    @media screen and (max-width: $bp-large) {
+        font-size: 1.8rem;
+    }
+
+    @media screen and (max-width: $bp-medium) {
+        font-size: 1.6rem;
+    }
+
+    @media screen and (max-width: $bp-mobile) {
+        font-size: 2rem;
+    }
+}
+
+.vertical-label {
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+}
+
+.number-label-large {
+    font-family: $numbers-font;
+    font-size: 17.5vw;
+    font-weight: 400;
+    color: $primary-light-text-2; //$primary-light-gray-2;
+    letter-spacing: 0.5rem;
+}
+
+.logo-link-label-primary {
+    font-family: $secondary-font;
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: $primary-light-text-1; // $primary-light-gray-1;
+
+    @media screen and (max-width: $bp-large) {
+        font-size: 2rem;
+    }
+
+    @media screen and (max-width: $bp-small) {
+        font-size: 1.5rem;
+    }
+}
+
+// INPUT
+input,
+textarea {
+    font-family: $primary-font;
+    font-size: 1.9rem;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    line-height: 1.5;
+    color: $primary-light-text-1; // $primary-light-gray-1;
+
+    @media screen and (max-width: $bp-medium) {
+        font-size: 1.6rem;
+    }
+}
+
+// STRONG 
+strong {
+    font-weight: 700;
+    color: $primary-light-text-1; // $primary-light-gray-1;
+}

@@ -1,0 +1,131 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.map {
+    position: relative;
+    width: 100%;
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 0.1rem;
+        width: 100%;
+        background-color: $primary-dark-blue-2; //$primary-dark-gray-2;
+    }
+
+    &-inner {
+        min-height: 60rem;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        
+        @media screen and (max-width: $desktop-utility-bp-medium) {
+            @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+        }
+
+        &-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+            padding: 12rem;
+
+            @media screen and (max-width: $bp-large) {
+                padding: 10rem;
+            }
+
+            @media screen and (max-width: $bp-medium) {
+                padding: 9rem;
+            }
+
+            @media screen and (max-width: $bp-small) {
+                padding: 7rem;
+            }
+
+            @media screen and (max-width: $bp-mobile) {
+                padding: 7rem 4rem;
+            }
+
+            @media screen and (min-width: $desktop-utility-bp-medium) {
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    right: 0;
+                    height: 100%;
+                    width: 0.1rem;
+                    background-color: $primary-dark-blue-2; //$primary-dark-gray-2;
+                }  
+            }
+            
+            @media screen and (max-width: $desktop-utility-bp-medium) {
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    height: 0.1rem;
+                    width: 100%;
+                    background-color: $primary-dark-blue-2; //$primary-dark-gray-2;
+                }  
+            }
+
+            .content-paragraph {
+                margin-bottom: var(--margin-small);
+                color: $primary-light-text-2; //$primary-light-gray-2;
+
+                @media screen and (max-width: $desktop-utility-bp-medium) {
+                    margin-bottom: var(--margin-medium);
+                }
+            }
+
+            .content-links-wrapper {
+                width: 100%;
+                @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+
+                .content-link-wrapper {
+                    width: 100%;
+                    @include flex-setup($flex-flow: row, $align-items: center, $justify-content: flex-start);
+                    margin-bottom: 1rem;
+
+                    .content-link {
+                        position: relative;
+                        margin-left: 5rem;
+
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            right: 0;
+                            height: 0.1rem;
+                            width: 100%;
+                            transform: scaleX(0);
+                            transform-origin: left;
+                            background-color: $primary-light-text-1; //$primary-light-gray-1;
+                            transition: var(--hover-transition);
+                        }
+
+                        &:hover::after {
+                            transform: scaleX(1);
+                        }
+                    }
+                }
+            }
+        }
+
+        &-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+
+            @media screen and (max-width: $desktop-utility-bp-medium) {
+                height: 50rem;
+            }
+        }
+    }
+}

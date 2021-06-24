@@ -1,0 +1,188 @@
+@import '../../../../scss/variables';
+@import '../../../../scss/mixins';
+
+.page-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 12rem;
+    @include flex-setup($align-items: center, $justify-content: space-between);
+    z-index: 999;
+
+    @media screen and (max-width: $bp-mobile) {
+        display: grid;
+        grid-template-columns: 40% 1fr;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 0.1rem;
+        width: 100%;
+        background-color: $secondary-dark-blue-2; //$primary-dark-gray-2
+    }
+
+    @media screen and (max-width: $bp-large) {
+        height: 10rem;
+    }
+
+    @media screen and (max-width: $bp-medium) {
+        height: 9rem;
+    }
+
+    @media screen and (max-width: $bp-small) {
+        height: 7rem;
+    }
+
+    @media screen and (max-width: $bp-mobile) {
+        height: 8rem;
+    }
+
+    &-logo {
+        height: 100%;
+        width: 24rem;
+        background-color: $secondary-dark-blue-2; //$primary-dark-gray-2
+        transition: var(--hover-transition);
+
+        @media screen and (max-width: $bp-large) {
+            width: 20rem;
+        }
+    
+        @media screen and (max-width: $bp-medium) {
+            width: 18rem;
+        }
+    
+        @media screen and (max-width: $bp-small) {
+            width: 14rem;
+        }
+
+        @media screen and (max-width: $bp-small) {
+            width: 16rem;
+        }
+    
+        @media screen and (max-width: $bp-mobile) {
+            width: 100%;
+        }
+
+        &.active-scrolled {
+            width: 12rem;
+            height: 100%;
+            background-color:$primary-light-text-1; //$primary-light-gray-1
+
+            @media screen and (max-width: $bp-large) {
+                width: 10rem;
+            }
+        
+            @media screen and (max-width: $bp-medium) {
+                width: 9rem;
+            }
+        
+            @media screen and (max-width: $bp-small) {
+                width: 7rem;
+            }
+        
+            @media screen and (max-width: $bp-mobile) {
+                width: 100%;
+            }
+        }
+
+        .logo-link {
+            width: 100%;
+            height: 100%;
+            @include flex-setup($align-items: center, $justify-content: center);
+
+            .logo-link-label-primary {
+                transition: var(--hover-transition);
+            }
+        }
+    }
+
+    &-actions {
+        height: 100%;
+        @include flex-setup($align-items: center, $justify-content: flex-end);
+
+        @media screen and (max-width: $bp-mobile) {
+            display: grid;
+            grid-template-columns: 70% 30%;
+        }
+
+        .action-menu-toggler,
+        .action-account {
+            position: relative;
+            height: 100%;
+            @include flex-setup($align-items: center, $justify-content: center);
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                height: 100%;
+                width: 0.1rem;
+                background-color: $secondary-dark-blue-2; //$primary-dark-gray-2
+            }
+
+            .transparent-button {
+                height: 100%;
+                @include flex-setup($align-items: center, $justify-content: center);
+                padding: 0 var(--general-padding-medium);
+                background-color: transparent;
+                transition: var(--hover-transition);
+
+                @media screen and (min-width: $bp-medium) {
+                    &:hover {
+                        background-color: $secondary-dark-blue-2; //$primary-dark-gray-2
+                        padding: 0 12.5rem;
+    
+                        @media screen and (max-width: $bp-medium) {
+                            padding: 0 7.5rem
+                        }
+                    }
+                }
+
+                @media screen and (max-width: $bp-medium) {
+                    padding: 0 var(--general-padding-small);
+                }
+
+                @media screen and (max-width: $bp-mobile) {
+                    width: 100%;
+                    padding: 0;
+                }
+            }
+
+            .action-account-link {
+                height: 100%;
+                @include flex-setup($align-items: center, $justify-content: center);
+                padding: 0 var(--general-padding-small);
+                background-color: transparent;
+                transition: var(--hover-transition);
+
+                @media screen and (max-width: $bp-medium) {
+                    padding: 0 var(--general-padding-small);
+                }
+
+                svg {
+                    height: 22.5%;
+                    width: auto;
+                    fill: $primary-light-text-1; //$primary-light-gray-1
+                }
+
+                @media screen and (min-width: $bp-medium) {
+                    &:hover {
+                        background-color: $secondary-dark-blue-2; //$primary-dark-gray-2
+                        padding: 0 7.5rem;
+    
+                        @media screen and (max-width: $bp-medium) {
+                            padding: 0 7.5rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

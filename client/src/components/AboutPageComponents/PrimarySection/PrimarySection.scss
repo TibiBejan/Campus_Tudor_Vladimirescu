@@ -1,0 +1,200 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.primary-section {
+    position: relative;
+    width: 100%;
+
+    &::after{
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 0.1rem;
+        background-color: $primary-dark-blue-2; //$primary-dark-gray-2;
+    }
+
+    &-inner {
+        position: relative;
+        padding-top: 12rem;
+        overflow: hidden;
+
+        @media screen and (max-width: $bp-large) {
+            padding-top: 10rem;
+        }
+
+        @media screen and (max-width: $bp-medium) {
+            padding-top: 9rem;
+        }
+
+        @media screen and (max-width: $bp-small) {
+            padding-top: 7rem;
+        }
+
+        @media screen and (max-width: $bp-mobile) {
+            padding-top: 8rem;
+        }
+
+        .primary-section-content {
+            width: 100%;
+            min-height: 70rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 15rem;
+            padding: 15rem 12rem;
+
+            @media screen and (max-width: $desktop-utility-bp-large) {
+                column-gap: 7.5rem;
+            }
+
+            @media screen and (max-width: $bp-large) {
+                padding: 15rem 10rem;
+            }
+    
+            @media screen and (max-width: $bp-medium) {
+                padding: 10rem 9rem;
+                @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+            }
+    
+            @media screen and (max-width: $bp-small) {
+                padding: 10rem 7rem;
+            }
+    
+            @media screen and (max-width: $bp-mobile) {
+                padding: 10rem 4rem;
+            }
+
+            .content-left {
+                @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+                padding-top: 10rem;
+
+                @media screen and (max-width: $bp-large) {
+                    grid-column: 1 / -1;
+                    padding-top: 0;
+                }
+
+                &-preview {
+                    @include flex-setup($flex-flow: row, $align-items: center, $justify-content: flex-start);
+                    margin-bottom: var(--margin-large);
+
+                    @media screen and (max-width: $bp-small) {
+                        margin-bottom: var(--margin-medium);
+                    }
+
+                    .hexagon-wrapper {
+                        position: relative;
+                        max-width: 90px;
+                        margin-right: var(--margin-small);
+
+                        &-label {
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            font-size: 2rem;
+                            font-weight: 400;
+                            color: $secondary-dark-blue-1; //$secondary-dark-gray-1;
+                        }   
+                    }
+
+                    .preview-label {
+                        font-weight: 300;
+                        text-transform: uppercase;
+                        color: $secondary-dark-blue-1; //$secondary-dark-gray-1;
+                    }
+                }
+
+                &-description {
+                    @media screen and (max-width: $bp-large) {
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        column-gap: 7.5rem;
+                    }
+
+                    @media screen and (max-width: $bp-medium) {
+                        @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+                    }
+
+                    .description-title-wrapper,
+                    .description-paragraph-wrapper {
+                        height: auto;
+                        overflow: hidden;
+                    }
+
+                    .description-title-wrapper {
+                        margin-bottom: var(--margin-medium);
+
+                        @media screen and (max-width: $bp-large) {
+                            grid-column: 1 / -1;
+                        }
+                    }
+
+                    .description-paragraph-wrapper {
+                        margin-bottom: var(--margin-medium);
+
+                        @media screen and (min-width: $bp-large) {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+            }
+
+            .content-right {
+                @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+
+                @media screen and (max-width: $bp-large) {
+                    grid-column: 1 / -1;
+                    height: 50rem;
+                }
+
+                .image-block {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    overflow: hidden;
+
+                    &-overlay {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: $primary-dark-blue-2; //$primary-dark-gray-2;
+                        transform: scaleX(0);
+                        transform-origin: left;
+                        transition: var(--hover-transition);
+                    }
+
+                    &-showcase {
+                        width: 100%;
+                        height: 100%;
+                        // transform: translateX(-100%);
+                        transition: var(--hover-transition);
+                    }
+                }
+            }
+
+            .content-bottom {
+                grid-column: 1 / -1;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: 15rem;
+                margin-top: var(--margin-medium);
+
+                @media screen and (max-width: $desktop-utility-bp-large) {
+                    column-gap: 7.5rem;
+                }
+
+                @media screen and (max-width: $bp-medium) {
+                    @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+                }
+
+                .description-paragraph-wrapper {
+                    margin-bottom: var(--margin-medium);
+                }
+            }
+        }
+    }
+}

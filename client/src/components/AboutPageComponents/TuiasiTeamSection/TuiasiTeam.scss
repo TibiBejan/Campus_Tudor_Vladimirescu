@@ -1,0 +1,215 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.tuiasi-team-section {
+    position: relative;
+    width: 100%;
+    padding: 15rem 0;
+    background-color: $primary-dark-blue-3; //$primary-dark-gray-3;
+
+    &::after{
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 0.1rem;
+        background-color: $primary-dark-blue-2; //$primary-dark-gray-2;
+    }
+
+    &-inner {
+        position: relative;
+        overflow: hidden;
+
+        .tuiasi-team-section-content {
+            width: 100%;
+            min-height: 30rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 15rem;
+            margin-bottom: 15rem;
+            padding: 0 12rem;
+
+            @media screen and (max-width: $desktop-utility-bp-large) {
+                column-gap: 7.5rem;
+            }
+
+            @media screen and (max-width: $bp-large) {
+                padding: 0 10rem;
+            }
+
+            @media screen and (max-width: $desktop-utility-bp-medium) {
+                @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+                margin-bottom: var(--margin-medium);
+            }
+    
+            @media screen and (max-width: $bp-medium) {
+                margin-bottom: 10rem;
+                padding: 0 9rem;
+            }
+    
+            @media screen and (max-width: $bp-small) {
+                padding: 0 7rem;
+            }
+    
+            @media screen and (max-width: $bp-mobile) {
+                padding: 0 4rem;
+            }
+
+            .content-left {
+                @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+
+                @media screen and (max-width: $desktop-utility-bp-medium) {
+                    margin-bottom: var(--margin-medium);
+                }
+
+                &-description {
+                    .description-title-wrapper {
+                        margin-bottom: var(--margin-medium);
+                    }
+
+                    .description-paragraph-wrapper:not(:last-child) {
+                        margin-bottom: var(--margin-medium);
+                    }
+                }
+            }
+
+            .content-right {
+                height: 100%;
+                @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-end);
+
+                .image-block {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    overflow: hidden;
+
+                    &-overlay {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: $primary-dark-blue-2; //$primary-dark-gray-2;
+                        transform: scaleX(0);
+                        transform-origin: left;
+                        transition: var(--hover-transition);
+                    }
+
+                    &-showcase {
+                        width: 100%;
+                        height: 100%;
+                        // transform: translateX(-100%);
+                        transition: var(--hover-transition);
+                    }
+                }
+            }
+        }
+
+        .tuiasi-team-section-showcase {
+            width: 100%;
+            min-height: 70rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 15rem;
+            padding: 0 12rem;
+
+            
+            @media screen and (max-width: $desktop-utility-bp-large) {
+                column-gap: 7.5rem;
+            }
+
+            @media screen and (max-width: $bp-large) {
+                padding: 0 10rem;
+            }
+
+            @media screen and (max-width: $desktop-utility-bp-medium) {
+                @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-end);
+            }
+    
+            @media screen and (max-width: $bp-medium) {
+                padding: 0 9rem;
+            }
+    
+            @media screen and (max-width: $bp-small) {
+                padding: 0 7rem;
+            }
+    
+            @media screen and (max-width: $bp-mobile) {
+                padding: 0 4rem;
+            }
+
+            .showcase-left {
+                @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+
+                @media screen and (max-width: $desktop-utility-bp-medium) {
+                    margin-bottom: 10rem;
+                }
+                
+                .image-block {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    overflow: hidden;
+
+                    &-overlay {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: $primary-dark-blue-2; //$primary-dark-gray-2;
+                        transform: scaleX(0);
+                        transform-origin: left;
+                        transition: var(--hover-transition);
+                    }
+
+                    &-showcase {
+                        width: 100%;
+                        height: 100%;
+                        // transform: translateX(-100%);
+                        transition: var(--hover-transition);
+                    }
+                }
+            }
+
+            .showcase-right {
+                height: 100%;
+
+                .showcase-right-list {
+                    height: 100%;
+                    @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: center);
+
+                    .showcase-right-list-item {
+                        @include flex-setup($flex-flow: row, $align-items: flex-start, $justify-content: space-between);
+
+                        &:not(:last-child) {
+                            margin-bottom: var(--margin-xlarge);
+
+                            @media screen and (max-width: $desktop-utility-bp-medium) {
+                                margin-bottom: var(--margin-large);
+                            }
+                        }
+
+                        .list-item-number {
+                            font-family: $numbers-font;
+                            margin-right: var(--margin-large);
+                            font-size: 8rem;
+                            font-weight: 300;
+                            color: $primary-light-text-2; //$primary-light-gray-2;
+                        }
+
+                        .list-item-content {
+                            @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+
+                            .content-title {
+                                margin-bottom: var(--margin-small);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

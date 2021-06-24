@@ -1,0 +1,29 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.showcase-image-section {
+    position: relative;
+    width: 100%;
+
+    &::after{
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 0.1rem;
+        background-color: $primary-dark-blue-2; //$primary-dark-gray-2;
+    }
+
+    &-inner {
+        position: relative;
+        height: 70rem;
+        overflow: hidden; 
+
+        .showcase-image-content {
+            height: 100%;
+            width: 100%;   
+        }
+    }
+}

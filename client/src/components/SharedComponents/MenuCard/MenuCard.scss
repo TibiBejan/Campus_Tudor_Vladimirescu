@@ -1,0 +1,58 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.page-menu-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    @media screen and (min-width: $bp-mobile) {
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            height: 100%;
+            width: 0.1rem;
+            background-color: $primary-light-text-2; // $primary-light-gray-2
+        }
+    }
+
+    .card-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(65%);
+    }
+
+    .card-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-end);
+        padding: var(--general-padding-small);
+        z-index: 10;
+
+        @media screen and (max-width: $bp-medium) {
+            padding: var(--general-padding-small) 2.5rem;
+        }
+
+        .card-content-label {
+            @include flex-setup( $align-items: center, $justify-content: center);
+            margin-bottom: 1.5rem;
+            padding: 1rem 1.5rem;
+            background-color: $primary-light-text-1; // $primary-light-gray-1
+            border-radius: 5rem;
+        }
+
+        .heading-four {
+            text-shadow: 0.1rem 0.1rem 0.1rem rgba(0,0,0,0.7);
+        }
+    }
+}

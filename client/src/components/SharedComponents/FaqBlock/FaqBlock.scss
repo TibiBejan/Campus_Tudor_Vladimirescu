@@ -1,0 +1,103 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.faq-list-item {
+    position: relative;
+    width: 100%;
+    @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+
+    &:nth-child( odd ) {
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 0.1rem;
+            background-color: $primary-dark-gray-2;
+        }
+
+        &::before {
+            top: 0;
+        }
+
+        &::after {
+            bottom: 0;
+        }
+    }
+
+    &:last-of-type {
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 0.1rem;
+            background-color: $primary-dark-gray-2;
+        }
+    }
+
+    .faq-question-block {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr minmax(min-content, max-content);
+        column-gap: 5rem;
+        padding: 2.5rem 0;
+
+        &:hover {
+            .question-content .question-content-paragraph {
+                color: $secondary-dark-gray-1;
+            }
+
+            .question-icon-wrapper .question-icon {
+                color: $secondary-dark-gray-1 !important;
+            }
+        }
+
+        .question-content {
+            @include flex-setup($flex-flow: row, $align-items: flex-start, $justify-content: flex-start);
+
+            .question-content-paragraph {
+                text-align: start;
+                transition: var(--hover-transition);
+
+                &.active {
+                    color: $secondary-dark-gray-1;
+                }
+            }
+        }
+
+        .question-icon-wrapper {
+            @include flex-setup($flex-flow: row, $align-items: center, $justify-content: flex-start);
+            height: 100%;
+            transition: var(--hover-transition);
+
+            &.active {
+                transform: rotate(180deg);
+            }
+
+            .question-icon {
+                transition: var(--hover-transition);
+            }
+        }
+    }
+
+    .answear-block {
+        height: 100%;
+        transition: var(--hover-transition);
+        overflow: hidden;
+
+        &-inner {
+            @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+            padding: 2.5rem 0 5rem 0;
+            transition: var(--hover-transition);
+        }
+
+        .answear-block-paragraph {
+            margin-bottom: var(--margin-small);
+        }
+    }
+}

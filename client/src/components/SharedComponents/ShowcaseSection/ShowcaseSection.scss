@@ -1,0 +1,155 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.showcase-section {
+    position: relative;
+    width: 100%;
+    padding: 15rem 0;
+    background-color: $primary-dark-blue-3; //$primary-dark-gray-3;
+
+    &::after{
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 0.1rem;
+        background-color: $primary-dark-blue-2; //$primary-dark-gray-2;
+    }
+
+    &-inner {
+        position: relative;
+        overflow: hidden;
+
+        .showcase-section-content,
+        .showcase-section-bottom-content {
+            width: 100%;
+            min-height: 50rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 15rem;
+            margin-bottom: 15rem;
+            padding: 0 12rem;
+
+            @media screen and (max-width: $desktop-utility-bp-large) {
+                column-gap: 7.5rem;
+            }
+
+            @media screen and (max-width: $bp-large) {
+                padding: 0 10rem;
+            }
+
+            @media screen and (max-width: $desktop-utility-bp-medium) {
+                @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+                margin-bottom: var(--margin-medium);
+            }
+    
+            @media screen and (max-width: $bp-medium) {
+                margin-bottom: 10rem;
+                padding: 0 9rem;
+            }
+    
+            @media screen and (max-width: $bp-small) {
+                padding: 0 7rem;
+            }
+    
+            @media screen and (max-width: $bp-mobile) {
+                padding: 0 4rem;
+            }
+
+            .content-description {
+                @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+
+                @media screen and (max-width: $desktop-utility-bp-medium) {
+                    margin-bottom: var(--margin-medium);
+                }
+
+                &-wrapper {
+                    .description-title-wrapper {
+                        margin-bottom: var(--margin-medium);
+                    }
+
+                    .description-paragraph-wrapper:not(:last-child) {
+                        margin-bottom: var(--margin-medium);
+                    }
+                }
+            }
+
+            .content-images {
+                height: 100%;
+                @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-end);
+
+                @media screen and (max-width: $desktop-utility-bp-medium) {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    column-gap: 5rem;
+                }
+
+                @media screen and (max-width: $bp-mobile) {
+                    @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+                }
+
+                .image-block {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    overflow: hidden;
+
+                    @media screen and (max-width: $bp-medium) {
+                        min-height: 30rem;
+                    }
+
+                    &:not(:last-of-type) {
+                        margin-bottom: var(--margin-medium);
+                    }
+
+                    &-overlay {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: $primary-dark-blue-2; //$primary-dark-gray-2;
+                        transform: scaleX(0);
+                        transform-origin: left;
+                        transition: var(--hover-transition);
+                    }
+
+                    &-showcase {
+                        width: 100%;
+                        height: 100%;
+                        // transform: translateX(-100%);
+                        transition: var(--hover-transition);
+                    }
+                }
+            }
+        }
+
+        .showcase-section-bottom-content {
+            margin-bottom: 0;
+
+            @media screen and (max-width: $desktop-utility-bp-medium) {
+                .content-description {
+                    order: 1;
+                }
+
+                .content-images {
+                    order: 2;
+                    
+                    .image-block {
+                        height: 45rem;
+                        grid-column: 1 / -1;
+                        width: 100%;
+                    }
+
+                    .map-block {
+                        height: 35rem;
+                        grid-column: 1 / -1;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

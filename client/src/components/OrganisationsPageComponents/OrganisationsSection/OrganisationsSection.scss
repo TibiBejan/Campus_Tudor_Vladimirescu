@@ -1,0 +1,59 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.organisations-section {
+    position: relative;
+    width: 100%;
+
+    @media screen and (max-width: $bp-mobile) {
+        padding: 0 4rem;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 0.1rem;
+        width: 100%;
+        background-color: $primary-dark-blue-2; // $primary-dark-gray-2
+    }
+
+    &-inner {
+        margin-left:  12rem;
+        padding: var(--general-padding-medium) 0;
+
+        @media screen and (max-width: $desktop-utility-bp-large) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media screen and (max-width: $bp-large) {
+            margin-left: 10rem;
+        }
+
+        @media screen and (max-width: $bp-medium) {
+            margin-left: 9rem;
+        }
+
+        @media screen and (max-width: $bp-small) {
+            margin-left: 7rem;
+        }
+
+        @media screen and (max-width: $bp-mobile) {
+            margin: 0;
+        }
+
+        .swiper-container {
+            // min-height: 65rem;
+            height: 100%;
+            display: grid;
+            grid-auto-flow: column;
+            width: 100%;
+
+            .swiper-slide {
+                height: auto;
+            }
+        }
+    }
+}

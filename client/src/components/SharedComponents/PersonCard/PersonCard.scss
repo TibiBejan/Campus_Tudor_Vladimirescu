@@ -1,0 +1,92 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.person-card {
+    position: relative;
+    @include flex-setup($flex-flow: column);
+
+    &-bio{
+        @include flex-setup($flex-flow: column, $align-items: center, $justify-content: center);
+        padding: 12rem;
+        text-align: center;
+
+        @media screen and (max-width: $bp-large) {
+            padding: 10rem;
+        }
+
+        @media screen and (max-width: $bp-medium) {
+            padding: 9rem;
+        }
+
+        @media screen and (max-width: $bp-small) {
+            padding: 7rem;
+        }
+
+        @media screen and (max-width: $bp-mobile) {
+            padding: 7rem 4rem;
+        }
+
+        .profile-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            margin-bottom: var(--margin-medium);
+            background-color: $secondary-dark-blue-3;
+
+            @media screen and (max-width: $bp-mobile-medium) {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        .person-name {
+            margin-bottom: 1rem;
+
+            @media screen and (max-width: $bp-mobile) {
+                font-size: 5vw;
+            }
+        }
+
+        .paragraph {
+            margin-bottom: var(--margin-small);
+            color: $secondary-dark-blue-2; // $primary-dark-gray-2
+        }
+
+        .contact-group {
+            width: 100%;
+            @include flex-setup($flex-flow: column, $align-items: center, $justify-content: flex-start);
+            text-align: center;
+
+            .contact-group-link {
+                position: relative;
+                margin-bottom: 1rem;
+
+                @media screen and (max-width: $bp-mobile) {
+                    font-size: 1.8rem;
+                }
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    height: 0.1rem;
+                    width: 100%;
+                    transform: scaleX(0);
+                    transform-origin: left;
+                    background-color: $primary-light-text-1; // $primary-light-gray-1
+                    transition: var(--hover-transition);
+                }
+
+                &:hover::after {
+                    transform: scaleX(1);
+                }
+
+                &:last-child {
+                    letter-spacing: 0.35rem;
+                }
+            }
+        }
+    }
+}

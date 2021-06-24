@@ -1,0 +1,57 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.marquee-section {
+    padding: 1.5rem 0;
+
+    .container-fluid {
+        padding: 0 1.5rem;
+
+        .marquee {
+            width: 100%;
+            @include flex-setup($flex-flow: row, $align-items: center, $justify-content: flex-start);
+            overflow: hidden;
+        }
+
+        .marquee-content {
+            @include flex-setup($flex-flow: row, $align-items: center, $justify-content: flex-start);
+            white-space: nowrap;
+            animation: infiniteText 50s linear infinite;
+            animation-play-state: play;
+        }
+
+        .marquee-content-label {
+            @include flex-setup($flex-flow: row, $align-items: center, $justify-content: flex-start);
+
+            .marquee-text {
+                margin-right: var(--margin-small);
+            }
+
+            .marquee-line {
+                margin-right: var(--margin-small);
+                height: 1rem;
+                width: 4rem;
+                border: 0.15rem solid $primary-light-text-1; //$primary-light-gray-1
+                background-color: transparent;
+
+                @media screen and (max-width: $bp-large) {
+                    width: 3.5rem;
+                }
+
+                @media screen and (max-width: $bp-small) {
+                    width: 3rem;
+                }
+            }
+        }
+    }
+}
+
+@keyframes infiniteText {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}

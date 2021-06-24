@@ -1,0 +1,147 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+
+.review-section {
+    position: relative;
+    width: 100%;
+    padding: 15rem 0;
+
+    @media screen and (max-width: $bp-medium) {
+        padding: 10rem 0;
+    }
+
+    &::after{
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 0.1rem;
+        background-color: $secondary-dark-blue-2; // $primary-dark-gray-2
+    }
+
+    &-inner {
+        position: relative;
+        min-height: 50rem;
+        display: grid;
+        grid-template-columns: 35% 1fr;
+        column-gap: 15rem;
+        align-items: center;
+        padding: 0 12rem;
+        overflow: hidden;
+
+        @media screen and (max-width: $desktop-utility-bp-large) {
+            column-gap: 7.5rem;
+        }
+
+        @media screen and (max-width: $bp-large) {
+            padding: 0 10rem;
+        }
+
+        @media screen and (max-width: $desktop-utility-bp-medium) {
+            grid-template-columns: 45% 1fr;
+        }
+
+        @media screen and (max-width: $bp-medium) {
+            @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+            padding: 0 9rem;
+        }
+
+        @media screen and (max-width: $bp-small) {
+            padding: 0 7rem;
+        }
+
+        @media screen and (max-width: $bp-mobile) {
+            padding: 0 4rem;
+        }
+
+        .review-section-left {
+            height: 100%;
+
+            @media screen and (max-width: $bp-medium) {
+                height: 40rem;
+                margin-bottom: var(--margin-medium);
+            }
+
+            @media screen and (max-width: $bp-medium) {
+                width: 100%;
+            }
+
+
+            .image-block {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+
+                &-overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: $secondary-dark-blue-2; // $primary-dark-gray-2
+                    transform: scaleX(0);
+                    transform-origin: left;
+                    transition: var(--hover-transition);
+                }
+
+                &-showcase {
+                    width: 100%;
+                    height: 100%;
+                    // transform: translateX(-100%);
+                    transition: var(--hover-transition);
+                }
+            }
+        }
+        
+        .review-section-right {
+            width: 100%;
+            
+            .quote-content {
+                display: grid;
+                grid-template-columns: minmax(min-content, max-content) 1fr;
+                grid-template-rows: repeat(2, minmax(min-content, max-content));
+                gap: 3.5rem;
+
+                .quote-symbol {
+                    grid-column: 1 / 2;
+                    grid-row: 1 / 2;
+                }
+
+                .quote-text {
+                    grid-column: 2 / 3;
+                    grid-row: 1 / 2;
+                }
+
+                .quote-meta {
+                    grid-column: 2 / 3;
+                    grid-row: 2 / 3;
+                    @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+
+                    .quote-name {
+                        position: relative;
+                        padding-top: 1rem;
+                        
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 50%;
+                            height: 0.1rem;
+                            background-color: $primary-light-text-2; // $primary-light-gray-2
+                        }
+                    }
+
+                    .quote-label {
+                        text-transform: uppercase;
+                        color: $secondary-dark-blue-2; // $primary-dark-gray-2
+                    }
+                }
+            }
+        }
+    }   
+}

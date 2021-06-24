@@ -1,0 +1,89 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.descriptive-section {
+    position: relative;
+    width: 100%;
+    height: auto;
+
+    @media screen and (max-width: $bp-mobile) {
+        padding: 0 4rem;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 0.1rem;
+        width: 100%;
+        background-color: $primary-dark-blue-2 //$primary-dark-gray-2
+    }
+
+    &-inner {
+        @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+        margin: 0 12rem;
+        padding: var(--general-padding-medium) 0;
+
+        @media screen and (max-width: $bp-large) {
+            margin: 0 10rem;
+        }
+
+        @media screen and (max-width: $bp-medium) {
+            margin: 0 9rem;
+        }
+
+        @media screen and (max-width: $bp-small) {
+            margin: 0 7rem;
+        }
+
+        @media screen and (max-width: $bp-mobile) {
+            margin: 0;
+        }
+
+        .descriptive-heading {
+            @include flex-setup($flex-flow: column, $align-items: center, $justify-content: flex-start);
+            text-align: center;
+
+            .descriptive-heading-subtitle {
+                margin-bottom: var(--margin-small);
+            }
+
+            .descriptive-heading-title {
+                max-width: 80%;
+
+                @media screen and (max-width: $bp-large) {
+                    max-width: 90%;
+                }
+
+                @media screen and (max-width: $bp-large) {
+                    max-width: 100%;
+                }
+            }
+        }
+
+        .descriptive-showcase-image {
+            width: 100%;
+            height: 60rem;
+            margin: var(--margin-medium) 0;
+        }
+
+        .descriptive-content {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10rem;
+
+            @media screen and (max-width: $bp-medium) {
+                @include flex-setup($flex-flow: column, $align-items: center, $justify-content: flex-start);
+                gap: 5rem;
+            }
+
+            .link-wrapper {
+                grid-column: 1 / -1;
+                justify-self: center;
+            }
+        }
+    }
+}

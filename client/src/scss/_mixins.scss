@@ -1,0 +1,23 @@
+@mixin flex-setup($flex-flow: false, $flex: false, $justify-content: false, $align-items: false, $flex-wrap: false ) {
+    display: flex;
+
+    @if $flex-flow != false {
+        flex-flow: $flex-flow;
+    }
+
+    @if $flex != false {
+        flex: $flex;
+    }
+
+    @if $justify-content != false {
+        justify-content: $justify-content;
+    }
+
+    @if $align-items != false {
+        align-items: $align-items;
+    }
+
+    @if $flex-wrap != false {
+        flex-wrap: $flex-wrap;
+    }
+}

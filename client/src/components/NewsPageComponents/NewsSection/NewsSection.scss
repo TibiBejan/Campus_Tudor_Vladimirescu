@@ -1,0 +1,44 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.news-section {
+    position: relative;
+    width: 100%;
+
+    @media screen and (max-width: $bp-mobile) {
+        padding: 0 4rem;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 0.1rem;
+        width: 100%;
+        background-color: $primary-dark-blue-2; // $primary-dark-gray-2
+    }
+
+    &-inner {
+        @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+        margin: 0 12rem;
+        padding: var(--general-padding-medium) 0;
+
+        @media screen and (max-width: $bp-large) {
+            margin: 0 10rem;
+        }
+
+        @media screen and (max-width: $bp-medium) {
+            margin: 0 9rem;
+        }
+
+        @media screen and (max-width: $bp-small) {
+            margin: 0 7rem;
+        }
+
+        @media screen and (max-width: $bp-mobile) {
+            margin: 0;
+        }
+    }
+}
