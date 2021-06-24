@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 function useWindowSize() {
     const history = useHistory();
+    const location = useLocation();
 
     const getSize = () => {
         return {

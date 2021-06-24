@@ -1,7 +1,7 @@
 import React from 'react';
 import './ShowcaseBannerSmall.scss';
 
-function ShowcaseBannerSmall({ bannerData, bannerImage }) {
+function ShowcaseBannerSmall({ bannerData, bannerImage, hallName }) {
     return (
         <div className="showcase-banner-small">
             <div className="showcase-banner-small-media">
@@ -10,7 +10,16 @@ function ShowcaseBannerSmall({ bannerData, bannerImage }) {
             <div className="showcase-banner-small-content">
                 <div className="content-heading-wrapper">
                     <div className="heading-wrapper-line">
-                        <h1 className="heading-one">{bannerData.title}</h1>
+                        <h1 className="heading-one">
+                            {
+                                hallName ? (
+                                    <>
+                                        <span style={{marginRight: '2rem'}}>Cămin</span>
+                                        <span style={{textTransform: 'uppercase'}}>{hallName}</span>
+                                    </>
+                                ) : `${bannerData.title}`
+                            }                            
+                        </h1>
                     </div>
                 </div>
                 <div className="paragraph-wrapper">

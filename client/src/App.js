@@ -78,7 +78,7 @@ function App() {
               <Route exact path="/news">
                 <News />
               </Route>
-              <Route path="/news/post">
+              <Route path="/news/:post">
                 <Post />
               </Route>
               <Route exact path="/health-security">
@@ -114,7 +114,7 @@ function App() {
               <Route exact path="/residence-halls">
                 <ResidenceHalls />
               </Route>
-              <Route path="/residence-halls/residence-t">
+              <Route exact path="/residence-halls/:hallName">
                 <ResidenceHall />
               </Route>
               <Route path="/questions">

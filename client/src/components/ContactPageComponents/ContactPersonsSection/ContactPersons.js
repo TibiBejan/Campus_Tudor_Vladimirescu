@@ -19,7 +19,7 @@ const cardsData = [
     },
     {
         id: 2,
-        name: 'Camelia NIȚULESCU ',
+        name: 'Camelia NIȚULESCU',
         jobTitle: 'Director Serviciu Social',
         email: 'camelia.nitulescu@staff.tuiasi.ro',
         phone: '0232702420',
@@ -27,7 +27,7 @@ const cardsData = [
     },
     {
         id: 3,
-        name: 'Marius IMBREA ',
+        name: 'Marius IMBREA',
         jobTitle: 'Director Birou Tehnic',
         email: 'stelian-marius.imbrea@staff.tuiasi.ro',
         phone: '0232702426',
