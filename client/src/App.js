@@ -25,7 +25,10 @@ import FAQ from './pages/FAQ';
 import ResidenceHall from './pages/ResidenceHall';
 import Post from './pages/Post';
 
-
+import Login from './pages/Login';
+import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 // COMPONENTS
 import Gradient from './components/LayoutComponents/PageGradient/Gradient';
@@ -54,7 +57,18 @@ function App() {
               <Route exact path="/">
                 <Index />
               </Route>
-
+              <Route exact path="/login">
+                <Login />
+              </Route>
+              <Route exact path="/forgot-password">
+                <ForgotPassword />
+              </Route>
+              <Route exact path="/reset-password/:id">
+                <ResetPassword />
+              </Route>
+              <Route exact path="/register">
+              <Register />
+              </Route>
               <Route path="/about">
                 <About />
               </Route>
