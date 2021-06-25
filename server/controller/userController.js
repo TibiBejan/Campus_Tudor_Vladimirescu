@@ -1,5 +1,4 @@
-const { User, University, Enrollment, StudentMeta, NextOfKin, Hall } = require('../models');
-const jwt = require('jsonwebtoken');
+const { Sequelize, User, University, Enrollment, StudentMeta, NextOfKin, Hall } = require('../models');
 const bcrypt = require('bcrypt');
 const AppError = require('../utils/appError');
 const createToken = require('../utils/token');
@@ -222,7 +221,7 @@ exports.deleteEnrollment = async (req, res, next) => {
 exports.studentAllocation = async (req, res, next) => {
     try {
         // CHECK FOR STUDENT META INFORMATIONS
-        const studentMetaExists = await StudentMeta.findOne({where: {id: req.user.id}});
+        const studentMetaExists = await StudentMeta.findOne({where: {userId: req.user.id}});
 
         if(!studentMetaExists) {
             return next(new AppError("In order to be allocated, you must update your student informations.", 404));
@@ -255,24 +254,25 @@ exports.studentAllocation = async (req, res, next) => {
             where: {
                 hall_name: hallsArr
             },
-            attributes: ['id', 'hall_number', 'hall_name', 'rooms_number', 'students_number', 'student_per_room']
+            order: [['min_grade', 'desc']],
+            attributes: ['id', 'hall_number', 'hall_name', 'rooms_number', 'students_number', 'student_per_room', 'min_grade', 'max_grade']
         });
 
         // MAP HALLS AND SET CONSTRAINTS
         for (const [i, hall] of halls.entries()) {
             const studentsLimit = hall.students_number;
+            // GET USER BASED ON ENROLLMENT
+            const enrolledUser = await User.findOne({ where: { id: enrollment.userId } });
+
+            // CHECK IF STUDENT IS ALLREADY ALLOCATED
+            if(enrolledUser.hallId !== null) {
+                return next(new AppError(`You are already allocated in hall ${hall.hall_name}.`, 500));
+            }
 
             // GET ALL STUDENTS WHERE HALL ID = THIS HALL ID ( COUNT THEM )
             const countStudents = await User.count({
                 where: { hallId: hall.id }
             });
-
-            // GET USER BASED ON ENROLLMENT
-            const enrolledUser = await User.findOne({ where: { id: enrollment.userId } });
-            // CHECK IF STUDENT IS ALLREADY ALLOCATED
-            if(enrolledUser.hallId !== null) {
-                return next(new AppError(`You are already allocated in hall ${hall.hall_name}.`, 500));
-            }
 
             // CHECK IF THE NUMBER OF STUDENTS FROM CURRENT HALL IS GREATER THAN THE LIMIT AND CURRENT HALL IS THE LAST ONE
             if(countStudents >= studentsLimit && i === halls.length - 1) {
@@ -284,14 +284,64 @@ exports.studentAllocation = async (req, res, next) => {
                 continue;
             }
 
+            // CHECK IF STUDENT GRADE MATCH HALL CONSTRAINTS
+            if(enrollment.grade < hall.min_grade) {
+                continue;
+            }
+
             // IF THERE ARE AVAILABLE SPACES AND STUDENT IS NOT ALLOCATED YET, ALLOCATE STUDENT TO CURRENT HALL
             enrolledUser.hallId = hall.id;
             await enrolledUser.save();
             
+            // return res.status(200).json({
+            //     status: "Success",
+            //     message: `Student accomodated in hall ${hall.hall_name}!`,
+            //     data: hall
+            // });
+
+            // CUSTOM ORDER
+            const customOrder = (column, values, direction) => {
+                let orderByClause = 'CASE ';
+              
+                for (let index = 0; index < values.length; index++) {
+                  let value = values[index];
+              
+                  if (typeof value === 'string') value = `'${value}'`;
+              
+                  orderByClause += `WHEN ${column} = ${value} THEN '${index}' `;
+                }
+              
+                orderByClause += `ELSE ${column} END`
+              
+                return [Sequelize.literal(orderByClause), direction]
+            };
+
+            const allStudents = await User.findAll({
+                where: {hallId: hall.id},
+                include: [{
+                    model: Enrollment,
+                }],
+                order: [
+                    customOrder('type_of_study', ['licenta', 'master','doctorat'], 'ASC'),
+                    customOrder('student_gender', ['female', 'male'], 'ASC'),
+                    ['Enrollment', 'year_of_study', 'ASC'],
+                ]
+            });
+
+
+            const roomMates = [];
+            // LOOP OVER STUDENTS FROM CURRENT HALL, INCREMENT = STUDENTS_PER_ROOM
+            for(let i = 0; i <= allStudents.length - 1; i++) {
+                if(roomMates.length >= hall.student_per_room) {
+                    roomMates = [];
+                }
+
+                console.log(allStudents[i]);
+            }
+
             return res.status(200).json({
                 status: "Success",
-                message: `Student accomodated in hall ${hall.hall_name}!`,
-                data: hall
+                data: allStudents,
             });
         }
     }
