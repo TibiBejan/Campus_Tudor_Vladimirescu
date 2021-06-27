@@ -4,19 +4,15 @@ const bcrypt = require ('bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate({Token, NextOfKin, StudentMeta, Enrollment, Lease, Invoice, Hall}) {
-      // define association here
+
+    static associate({Token, NextOfKin, StudentMeta, Enrollment, Lease, Invoice, HallRoom, Hall}) {
       this.hasMany(Token, { foreignKey: 'userId', foreignKeyConstraint: true, allowNull: false, onDelete: "CASCADE" });
       this.hasMany(NextOfKin, { foreignKey: 'userId', foreignKeyConstraint: true, allowNull: false, onDelete: "CASCADE" });
       this.hasOne(StudentMeta, { foreignKey: 'userId', foreignKeyConstraint: true, allowNull: false, onDelete: "CASCADE" });
       this.hasOne(Enrollment, { foreignKey: 'userId', foreignKeyConstraint: true, allowNull: false, onDelete: "CASCADE" }); 
       this.hasOne(Lease, { foreignKey: 'userId', foreignKeyConstraint: true, allowNull: false, onDelete: "CASCADE" });
       this.hasMany(Invoice, { foreignKey: 'userId', foreignKeyConstraint: true, allowNull: false, onDelete: "CASCADE" });
+      this.hasOne(HallRoom, { foreignKey: 'userId', foreignKeyConstraint: true, allowNull: false, onDelete: "CASCADE" });
       this.belongsTo(Hall, { foreignKey: 'hallId', foreignKeyConstraint: true, allowNull: false, onDelete: "CASCADE" });
     }
 
@@ -83,7 +79,7 @@ module.exports = (sequelize, DataTypes) => {
   // CHECK IF PWD HAS BEEN UPDATED AFTER JWT TOKEN SETUP
   User.prototype.changedPwdAfterCheck = function(JWTExpirationDate) {
 
-    if(this.password_changed_at){
+    if(this.password_changed_at) {
       // IF NOT, COMPARE TOKEN TIMESTAMP TO USER PROFILE TIMESTAMP
       const changedTimestamp = this.password_changed_at.getTime() / 1000;
       return changedTimestamp > JWTExpirationDate; // CHANGED

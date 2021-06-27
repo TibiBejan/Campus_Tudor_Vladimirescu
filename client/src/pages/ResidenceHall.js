@@ -12,16 +12,16 @@ import FacilitiesPreview from '../components/SharedComponents/FacilitiesPreviewS
 import StatsSection from '../components/SharedComponents/StatsSection/StatsSection';
 import Footer from '../components/LayoutComponents/Footer/Footer';
 
-// DATA
-import { bannerData, descriptiveData, mapData } from '../data/ResidenceHallData';
+// IMAGES
+import bannerImage from '../assets/images/ResidenceHalls/campus-00013.jpg';
 
 function ResidenceHall() {
 
     const history = useHistory();
     // STATE
     const [ hallData, setHallData ] = useState();
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState('');
+    const [ isLoading, setIsLoading ] = useState(true);
+    const [ error, setError ] = useState('');
 
     const { hallName } = useParams();
 
@@ -31,8 +31,7 @@ function ResidenceHall() {
             setHallData(response.data.hall);
             setIsLoading(false);
         }).catch(err => {
-            const { message } = err.response.data;
-            setError(message);
+            setError(err.message);
             setIsLoading(false);
             history.push('/residence-halls');
         });
@@ -42,14 +41,24 @@ function ResidenceHall() {
         return <div className="App">Loading...</div>;
     }
 
+    if(error) {
+        return <p>{error}</p>
+    }
+
+    // DATA
+    const bannerData = {
+        title: `Cămin T${hallData.hall_number}`,
+        description: ['Campusul are o suprafață de 137.148 mp, aproximativ 14 ha. Primele cămine construite au fost T1-2 și T3-4, fiind date pentru cazare în anul 1969, iar ultimele au fost T18 și T19, finalizate în anul 1982. În interiorul campusului se găsesc 21 de cămine, o cantină studenţească, săli și terenuri moderne de sport și un dispensar medical.']
+    }
+
     return (
         <>
-            <HeaderBannerSmall bannerData={ bannerData } hallName={hallName} bannerImage={ bannerData.image.default } />  
+            <HeaderBannerSmall bannerData={ bannerData } bannerImage={ bannerImage } />  
             <main className="page-content">
                 <ResidenceHallDescription sectionData={hallData} />
                 <ResidenceHallPeople sectionData={hallData.HallStaffs} />
                 <ContactSectionSmall title="Pentru orice fel de sugestii sau nemulțumiri care ar ajuta la îmbunătăţirea serviciilor noastre vă rugăm să ne contactaţi"/>
-                <FullWidthMap Lat={mapData.lat} Lng={mapData.lng} PopupText={mapData.popupText} />
+                <FullWidthMap Lat={hallData.coords[0]} Lng={hallData.coords[1]} PopupText={`Cămin T${hallData.hall_number}`} />
                 <FacilitiesPreview />
                 <StatsSection />
             </main>

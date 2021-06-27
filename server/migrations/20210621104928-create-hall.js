@@ -28,6 +28,14 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      min_grade: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+      },
+      max_grade: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+      },
       facilities: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -46,6 +54,10 @@ module.exports = {
       },
       adress: {
         type: Sequelize.TEXT,
+        allowNull: false,
+      },
+      coords: {
+        type: Sequelize.JSON,
         allowNull: false,
       },
       phone_number: {

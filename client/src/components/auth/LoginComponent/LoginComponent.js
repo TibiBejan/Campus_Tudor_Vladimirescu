@@ -9,15 +9,15 @@ import { useFormik } from 'formik';
 import { loginSchema } from '../../../validation/AuthSchema';
 // import { useDispatch } from 'react-redux';
 // import { requestLogin, receiveLogin, loginError } from '../../../redux/userAuthSlice';
-// import { useHistory } from 'react-router-dom';
-// import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 import './LoginComponent.scss';
 
 function LoginComponent() {
 
     // const dispatch = useDispatch();
-    // const history = useHistory();
+    const history = useHistory();
 
     // STATE
     const [ formError, setFormError ] = useState('');
@@ -37,38 +37,40 @@ function LoginComponent() {
 
         console.log(values);
         
-        // const user = {
-        //     email: values.email,
-        //     password: values.password
-        // }
+        const user = {
+            email: values.email,
+            password: values.password
+        }
 
-        // const reqConfig = {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         "Access-Control-Allow-Origin": "*",
-        //     },
-        //     credentials: "same-origin",
-        // }
+        const reqConfig = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: true,
+        }
 
         // INIT REQ
         // dispatch(requestLogin());
 
-        // axios.post("http://127.0.0.1:8001/api/v1/users/login", user, reqConfig).then((response) => {
-        //     const { jwtToken, userData } = response.data;
+        axios.post("http://127.0.0.1:8001/api/v1/users/login", user, reqConfig).then((response) => {
+            // const { jwtToken, userData } = response.data;
             
-        //     if(response.status === 200 || response.status === 201) {
-        //         localStorage.setItem('JWTToken', jwtToken);
-        //         localStorage.setItem('userId', userData.uuid);
-        //         dispatch(receiveLogin(userData));
-        //         history.push('/');
-        //     } else {
-        //         dispatch(loginError('There is an error, please try again'));
-        //     }
-        // }).catch(err => {
-        //     const { message } = err.response.data;
-        //     setFormError(message);
-        //     dispatch(loginError(message));
-        // });
+            if(response.status === 200 || response.status === 201) {
+                // localStorage.setItem('JWTToken', jwtToken);
+                // localStorage.setItem('userId', userData.uuid);
+                // dispatch(receiveLogin(userData));
+                console.log(response.data);
+                history.push('/');
+            } else {
+                // dispatch(loginError('There is an error, please try again'));
+                console.log('There is an error on login')
+            }
+        }).catch(err => {
+            const { message } = err.response.data;
+            setFormError(message);
+            console.log(message);
+            // dispatch(loginError(message));
+        });
     }
 
     // FORM HANDLER

@@ -21,7 +21,7 @@ function ShowcaseBanner({ videoSrc }) {
             <div className="showcase-banner-content">
                 <div className="content-heading-wrapper">
                     <div className="heading-wrapper-line">
-                        <h1 className="heading-one">Campus Studentesc</h1>
+                        <h1 className="heading-one">Campusul Studențesc</h1>
                     </div>
                     <div className="heading-wrapper-line">
                         <h1 className="heading-one">Tudor Vladimirescu</h1>

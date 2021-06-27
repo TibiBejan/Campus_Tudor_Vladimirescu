@@ -29,6 +29,9 @@ exports.signUp = async (req, res, next) => {
             password: hashedPassword
         });
 
+        // STORE IN SESSION
+        req.session.user = newUser;
+
         // CREATE TOKEN FOR REGISTERED USER
         createToken(newUser, 201, "User created!", res);
     }
@@ -61,6 +64,9 @@ exports.login = async (req, res, next) => {
         if(!user || (!await user.checkPwdValidation(password, user.password))) {
             return next(new AppError("Incorect email or password, please try again...", 401));
         }
+
+        // STORE IN SESSION
+        req.session.user = user;
 
         // IF EVERYTHING IS OK, SEND JWT TOKEN TO CLIENT
         createToken(user, 201, "User logged in!", res);

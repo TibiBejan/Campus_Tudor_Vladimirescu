@@ -4,10 +4,11 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Hall extends Model {
 
-    static associate({User, HallStaff}) {
-      // define association here
-      this.hasMany(User, { foreignKey: 'hallId', foreignKeyConstraint: true, allowNull: false, onDelete: "CASCADE" });
+    static associate({HallStaff, HallRoom, User}) {
+      // define association here  
+      this.hasMany(User, { foreignKey: 'hallId', foreignKeyConstraint: true, allowNull: false, onDelete: "CASCADE" })
       this.hasMany(HallStaff, { foreignKey: 'hallId', foreignKeyConstraint: true, allowNull: false, onDelete: "CASCADE" });
+      this.hasMany(HallRoom, { foreignKey: 'hallId', foreignKeyConstraint: true, allowNull: false, onDelete: "CASCADE" });
     }
 
     toJSON() {
@@ -42,6 +43,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    min_grade: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    max_grade: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
     facilities: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -60,6 +69,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     adress: {
       type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    coords: {
+      type: DataTypes.JSON,
       allowNull: false,
     },
     phone_number: {

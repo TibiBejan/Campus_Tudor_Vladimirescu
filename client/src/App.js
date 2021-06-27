@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { gsap } from 'gsap';
+import axios from 'axios';
 
 // UTILS
 import ScrollToTop from './utils/ScrollToTop';

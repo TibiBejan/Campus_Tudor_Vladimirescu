@@ -6,15 +6,15 @@ import { useFormik } from 'formik';
 import { registerSchema } from '../../../validation/AuthSchema';
 // import { useDispatch } from 'react-redux';
 // import { requestRegister, receiveRegister, registerError } from '../../../redux/userAuthSlice';
-// import { useHistory } from 'react-router-dom';
-// import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 import './RegisterComponent.scss';
 
 function RegisterComponent() {
 
     // const dispatch = useDispatch();
-    // const history = useHistory();
+    const history = useHistory();
 
     // STATE
     const [ formError, setFormError ] = useState('');
@@ -30,34 +30,33 @@ function RegisterComponent() {
         // RESET SCROLL POSITION
         window.scrollTo(0, 0);
 
-        console.log(values);
+        const user = {
+            first_name: values.first_name,
+            last_name: values.last_name,
+            email: values.email,
+            password: values.password
+        }
 
-        // const user = {
-        //     first_name: values.first_name,
-        //     last_name: values.last_name,
-        //     email: values.email,
-        //     password: values.password
-        // }
-
-        // const reqConfig = {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         "Access-Control-Allow-Origin": "*",
-        //     },
-        //     credentials: "same-origin",
-        // }
+        const reqConfig = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+        }
 
         // INIT REQ
         // dispatch(requestRegister());
 
-        // axios.post("http://127.0.0.1:8001/api/v1/users/register", user, reqConfig).then(() => {
-        //     dispatch(receiveRegister());
-        //     history.push('/login');
-        // }).catch(err => {
-        //     const { message } = err.response.data;
-        //     setFormError(message);
-        //     dispatch(registerError(message));
-        // });
+        axios.post("http://127.0.0.1:8001/api/v1/users/register", user, reqConfig).then((response) => {
+            console.log(response.data);
+            console.log('registration success');
+            history.push('/login');
+        }).catch(err => {
+            const { message } = err.response.data;
+            setFormError(message);
+            console.log('registration failed');
+            // dispatch(registerError(message));
+        });
     }
 
     // FORM HANDLER

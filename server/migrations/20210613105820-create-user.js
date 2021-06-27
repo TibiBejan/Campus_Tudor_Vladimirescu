@@ -16,7 +16,7 @@ module.exports = {
       },
       hallId: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
       },
       first_name: {
         type: Sequelize.STRING,

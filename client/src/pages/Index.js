@@ -9,7 +9,7 @@ import StatsSection from '../components/SharedComponents/StatsSection/StatsSecti
 import Footer from '../components/LayoutComponents/Footer/Footer';
 
 // DATA AND MEDIA
-import bannerVideoSrc from '../assets/videos/banner-video.mp4';
+import bannerVideoSrc from '../assets/videos/students-enroll-video.mp4';
 import { aboutDss, aboutAccommodation } from '../data/HomepageData';
 
 function Index() {
