@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
 import ButtonPrimary from '../../SharedComponents/Button/ButtonPrimary';
 import { IconContext } from 'react-icons';
@@ -6,55 +6,55 @@ import { ImEye } from "react-icons/im";
 
 import { useFormik } from 'formik';
 import { resetPwdSchema } from '../../../validation/AuthSchema';
-// import { useDispatch } from 'react-redux';
-// import { requestResetPassword, receiveResetPassword, resetPasswordError } from '../../../redux/userAuthSlice';
-// import { useHistory } from 'react-router-dom';
-// import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { userSelector } from '../../../redux/userSlice.js';
+import { useHistory, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 import './ResetPasswordComponent.scss';
 
 function ResetPasswordComponent() {
 
-    // const dispatch = useDispatch();
-    // const history = useHistory();
+    const { userState } = useSelector(userSelector);
+    const history = useHistory();
+    const params = useParams();
 
     // STATE
     const [ formError, setFormError ] = useState('');
     const [ visiblePassword, setVisiblePassword ] = useState(false);
     const [ visibleConfirmPassword, setVisibleConfirmPassword ] = useState(false);
+    // EFFECT
+    useEffect(() => {
+        if(userState) {
+            history.push('/');
+        }
+    }, [userState, history]);
+
 
     const onSubmit = async (values) => {
 
-        console.log(values);
+        const reqConfig = {
+            headers: {
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*",
+            },
+            withCredentials: true,
+            xhrFields: {withCredentials: true},
+            mode: 'cors',
+            credentials: 'include'
+        }
 
-        // const resetToken = localStorage.getItem('resetToken');
-
-        // const reqConfig = {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         "Access-Control-Allow-Origin": "*",
-        //     },
-        //     credentials: "same-origin",
-        // }
-
-        // INIT REQ
-        // dispatch(requestResetPassword());
-
-        // axios.patch(`http://127.0.0.1:8001/api/v1/users/resetPassword/${resetToken}`,  values, reqConfig).then((response) => {
-        //     const { userData } = response.data;
-            
-        //     if(response.status === 200 || response.status === 201) {
-        //         localStorage.removeItem('resetToken');
-        //         dispatch(receiveResetPassword(userData));
-        //         history.push('/login');
-        //     } else {
-        //         dispatch(resetPasswordError('There is an error, please try again'));
-        //     }
-        // }).catch(err => {
-        //     const { message } = err.response.data;
-        //     setFormError(message);
-        //     dispatch(resetPasswordError(message));
-        // });
+        axios.patch(`http://127.0.0.1:8001/api/v1/users/resetPassword/${params.id}`,  values, reqConfig).then((response) => {
+            if(response.status === 200 || response.status === 201) {
+                console.log('Password successfully changed!');
+                history.push('/login');
+            } else {
+                setFormError('There is an error, please try again');
+            }
+        }).catch(err => {
+            const { message } = err.response.data;
+            setFormError(message);
+        });
     }
 
 

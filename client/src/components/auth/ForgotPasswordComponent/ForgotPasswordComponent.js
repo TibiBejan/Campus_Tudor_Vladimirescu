@@ -4,54 +4,50 @@ import ButtonPrimary from '../../SharedComponents/Button/ButtonPrimary';
 
 import { useFormik } from 'formik';
 import { forgotPwdSchema } from '../../../validation/AuthSchema';
-// import { useDispatch } from 'react-redux';
-// import { requestForgotPassword, receiveForgotPassword, forgotPasswordError } from '../../../redux/userAuthSlice';
-// import { useHistory } from 'react-router-dom';
-// import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { userSelector } from '../../../redux/userSlice.js';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 import './ForgotPasswordComponent.scss';
 
 function ForgotPasswordComponent() {
 
-    // const dispatch = useDispatch();
-    // const history = useHistory();
+    const {userState} = useSelector(userSelector);
+    const history = useHistory();
 
     // STATE
     const [ formError, setFormError ] = useState('');
     const [ currentEmail, setCurrentEmail ] = useState('');
     // EFFECT
-    // useEffect(() => {
-    //     if(localStorage.getItem('JWTToken')) {
-    //         history.push('/');
-    //     }
-    // }, [history]);
+    useEffect(() => {
+        if(userState) {
+            history.push('/');
+        }
+    }, [userState, history]);
 
     const onSubmit = async (values) => {
-        // const reqConfig = {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         "Access-Control-Allow-Origin": "*",
-        //     },
-        //     credentials: "same-origin",
-        // }
+        const reqConfig = {
+            headers: {
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*",
+            },
+            withCredentials: true,
+            xhrFields: {withCredentials: true},
+            mode: 'cors',
+            credentials: 'include'
+        }
 
-        console.log(values);
-        // INIT REQ
-        // dispatch(requestForgotPassword());
-
-        // axios.post("http://127.0.0.1:8001/api/v1/users/forgotPassword", values, reqConfig).then((response) => {
-        //     if(response.status === 200 || response.status === 201) {
-        //         localStorage.setItem('resetToken', response.data.resetToken);
-        //         dispatch(receiveForgotPassword());
-        //         setCurrentEmail(values);
-        //     } else {
-        //         dispatch(forgotPasswordError('There is an error, please try again'));
-        //     }
-        // }).catch(err => {
-        //     const { message } = err.response.data;
-        //     setFormError(message);
-        //     dispatch(forgotPasswordError(message));
-        // });
+        axios.post("http://127.0.0.1:8001/api/v1/users/forgotPassword", values, reqConfig).then((response) => {
+            if(response.status === 200 || response.status === 201) {
+                setCurrentEmail(values);
+            } else {
+                setFormError('There is an error, please try again');
+            }
+        }).catch(err => {
+            const { message } = err.response.data;
+            setFormError(message);
+        });
     }
 
     // FORM HANDLER

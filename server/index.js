@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
-// const helmet = require('helmet');
+const helmet = require('helmet');
 const dotenv = require('dotenv').config();
 const { sequelize } = require('./models');
 const AppError = require('./utils/appError');
@@ -28,8 +28,7 @@ const app = express();
 
 // GLOBAL MIDDLEWEAR
 // HELMET HEADERS SECURITY MIDDLEWEAR
-// app.use(helmet());
-app.disable('x-powered-by');
+app.use(helmet());
 app.use(cors({
     origin: "http://localhost:3000",
     methods: ["GET", "POST", "UPDATE", "PATCH", "DELETE"],
@@ -48,9 +47,10 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
     resave: false,
+    name: 'SESSION_NAME',
     cookie: {
         httpOnly: true,
-        sameSite: true,
+        sameSite: 'Lax',
         secure: false,
         maxAge: 1000 * 60 * 60 * 24 * 7,
     },

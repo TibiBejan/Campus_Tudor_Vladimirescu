@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// REDUX
+import { Provider } from 'react-redux';
+import store from './redux/store';
+//STYLES
 import './scss/_reset.scss';
 import './scss/_globalStyles.scss';
 import './scss/_typography.scss';
@@ -9,7 +13,9 @@ import './scss/_typography.scss';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={ store }>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

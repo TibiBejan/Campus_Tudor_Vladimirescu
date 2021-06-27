@@ -3,6 +3,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { gsap } from 'gsap';
 import axios from 'axios';
 
+// REDUX
+import { useDispatch } from 'react-redux';
+import { requestCheckLogin, receiveCheckLogin, checkLoginError } from './redux/userSlice';
+
 // UTILS
 import ScrollToTop from './utils/ScrollToTop';
 
@@ -41,6 +45,43 @@ function App() {
 
   // REF"S
   const app = useRef(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+
+    const fetchUser = () => {
+
+      const reqConfig = {
+        headers: {
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin": "*",
+        },
+        withCredentials: true,
+        xhrFields: {withCredentials: true},
+        mode: 'cors',
+        credentials: 'include'
+      }
+
+      // INIT REQ
+      dispatch(requestCheckLogin);
+
+      axios.get("http://127.0.0.1:8001/api/v1/users/checkLogin", reqConfig).then((response) => {
+            if(response.status === 200 || response.status === 201) {
+              const { userData } = response.data;
+              dispatch(receiveCheckLogin(userData));
+            } else {
+                dispatch(checkLoginError('There is an error, please try again'));
+            }
+        }).catch(err => {
+            const { message } = err.response.data;
+            dispatch(checkLoginError(message));
+        });
+    }
+
+    fetchUser();
+
+  }, [dispatch])
+
 
   //EFFECT
   useEffect(() => {

@@ -8,7 +8,6 @@ const AppError = require('../utils/appError');
 
 // SIGN UP MIDDLEWARE
 exports.signUp = async (req, res, next) => {
-
     try {
         let { first_name, last_name, email, password } = req.body;
 
@@ -30,10 +29,15 @@ exports.signUp = async (req, res, next) => {
         });
 
         // STORE IN SESSION
-        req.session.user = newUser;
+        req.session.user = newUser.dataValues;
 
+        return res.status(201).json({
+            status: "success",
+            message: "User created!",
+            userData: newUser.dataValues
+        });
         // CREATE TOKEN FOR REGISTERED USER
-        createToken(newUser, 201, "User created!", res);
+        // createToken(newUser, 201, "User created!", res);
     }
 
     catch(err) {
@@ -66,16 +70,57 @@ exports.login = async (req, res, next) => {
         }
 
         // STORE IN SESSION
-        req.session.user = user;
+        req.session.user = user.dataValues;
+
+        return res.status(201).json({
+            status: "success",
+            message: "User logged in!",
+            userData: user.dataValues
+        });
 
         // IF EVERYTHING IS OK, SEND JWT TOKEN TO CLIENT
-        createToken(user, 201, "User logged in!", res);
+        // createToken(user, 201, "User logged in!", res);
     }
 
     catch(err) {
         return res.status(500).json({
             status: "Internal Error",
             message: "Internal Server Error - Please try again...",
+            err: process.env.NODE_ENV === 'development' ? err : null
+        });
+    } 
+}
+
+exports.checkLogIn = async (req, res, next) => {
+    const user = req.session.user;
+
+    return res.status(200).json({
+        status: "success",
+        message: "Session confirmed",
+        userData: user
+    });
+}
+
+// LOG OUT MIDDLEWARE
+exports.logOut = async (req, res, next) => {
+    try {  
+        // CHECK IF USER EXISTS && PASSWORD / EMAIL IS CORRECT
+        const user = req.session.user;
+        if(!user) {
+            return next(new AppError("Something went wrong, please try again...", 500));
+        }
+        
+        req.session.destroy((err) => {
+            if(err) return next(new AppError(`${err.message}`, 500));
+            res.clearCookie(SESSION_NAME);
+            res.send(user);
+        })
+    }
+
+    catch(err) {
+        return res.status(422).json({
+            status: "Unprocessable Entity",
+            message: "Something went wrong - Please try again...",
             err: process.env.NODE_ENV === 'development' ? err : null
         });
     } 

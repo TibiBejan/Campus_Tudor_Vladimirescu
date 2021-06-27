@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import ButtonPrimary from '../../SharedComponents/Button/ButtonPrimary';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
 
+// REDUX
+import { useSelector } from 'react-redux';
+import { userSelector } from '../../../redux/userSlice';
+
 import { useFormik } from 'formik';
 import { registerSchema } from '../../../validation/AuthSchema';
-// import { useDispatch } from 'react-redux';
-// import { requestRegister, receiveRegister, registerError } from '../../../redux/userAuthSlice';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
@@ -13,17 +15,17 @@ import './RegisterComponent.scss';
 
 function RegisterComponent() {
 
-    // const dispatch = useDispatch();
     const history = useHistory();
+    const { userState } = useSelector(userSelector);
 
     // STATE
     const [ formError, setFormError ] = useState('');
     // EFFECT
-    // useEffect(() => {
-    //     if(localStorage.getItem('JWTToken')) {
-    //         history.push('/');
-    //     }
-    // }, [history]);
+    useEffect(() => {
+        if(userState) {
+            history.push('/');
+        }
+    }, [userState, history]);
 
     const onSubmit = (values) => {
 
@@ -41,21 +43,20 @@ function RegisterComponent() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            credentials: 'include',
+            withCredentials: true,
+            xhrFields: {withCredentials: true},
+            mode: 'cors',
+            credentials: 'include'
         }
 
-        // INIT REQ
-        // dispatch(requestRegister());
-
         axios.post("http://127.0.0.1:8001/api/v1/users/register", user, reqConfig).then((response) => {
-            console.log(response.data);
-            console.log('registration success');
-            history.push('/login');
+            if(response.status === 200 || response.status === 201) {
+                console.log('registration success');
+                history.push('/login');
+            }
         }).catch(err => {
             const { message } = err.response.data;
             setFormError(message);
-            console.log('registration failed');
-            // dispatch(registerError(message));
         });
     }
 

@@ -7,8 +7,8 @@ import { ImEye } from "react-icons/im";
 
 import { useFormik } from 'formik';
 import { loginSchema } from '../../../validation/AuthSchema';
-// import { useDispatch } from 'react-redux';
-// import { requestLogin, receiveLogin, loginError } from '../../../redux/userAuthSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { requestLogin, receiveLogin, loginError, userSelector } from '../../../redux/userSlice';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
@@ -16,7 +16,8 @@ import './LoginComponent.scss';
 
 function LoginComponent() {
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
+    const { userState } = useSelector(userSelector);
     const history = useHistory();
 
     // STATE
@@ -24,18 +25,16 @@ function LoginComponent() {
     const [ visiblePassword, setVisiblePassword ] = useState(false);
 
     // EFFECT
-    // useEffect(() => {
-    //     if(localStorage.getItem('JWTToken')) {
-    //         history.push('/');
-    //     }
-    // }, [history]);
+    useEffect(() => {
+        if(userState) {
+            history.push('/');
+        }
+    }, [userState, history]);
 
     const onSubmit = async (values) => {
 
         // RESET SCROLL POSITION
         window.scrollTo(0, 0);
-
-        console.log(values);
         
         const user = {
             email: values.email,
@@ -46,30 +45,30 @@ function LoginComponent() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            credentials: true,
+            withCredentials: true,
+            xhrFields: {withCredentials: true},
+            mode: 'cors',
+            credentials: 'include'
         }
 
         // INIT REQ
-        // dispatch(requestLogin());
+        dispatch(requestLogin());
 
         axios.post("http://127.0.0.1:8001/api/v1/users/login", user, reqConfig).then((response) => {
-            // const { jwtToken, userData } = response.data;
+            const { userData } = response.data;
+
+            console.log(userData);
             
             if(response.status === 200 || response.status === 201) {
-                // localStorage.setItem('JWTToken', jwtToken);
-                // localStorage.setItem('userId', userData.uuid);
-                // dispatch(receiveLogin(userData));
-                console.log(response.data);
+                dispatch(receiveLogin(userData));
                 history.push('/');
             } else {
-                // dispatch(loginError('There is an error, please try again'));
-                console.log('There is an error on login')
+                dispatch(loginError('There is an error, please try again'));
             }
         }).catch(err => {
             const { message } = err.response.data;
             setFormError(message);
-            console.log(message);
-            // dispatch(loginError(message));
+            dispatch(loginError(message));
         });
     }
 
