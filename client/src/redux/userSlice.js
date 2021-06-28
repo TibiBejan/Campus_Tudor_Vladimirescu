@@ -34,8 +34,10 @@ export const userSlice = createSlice({
         handleLogout: (state) => {
             state.isSuccess = true;
             state.isFetching = false;
+            state.isAuthenticated = false;
             state.isError = false;
             state.errorMessage = '';
+            state.user = {};
         },
         logoutError: (state, { payload }) => {
             state.isSuccess = false;

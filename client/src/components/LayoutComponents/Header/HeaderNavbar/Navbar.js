@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
 
 // REDUX
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,29 +17,19 @@ function Navbar({ disabled, toggled, handleMenu, scroll }) {
     const userState = useSelector(userSelector);
 
     const handleLogOut = () => {
-        const reqConfig = {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            withCredentials: true,
-            xhrFields: {withCredentials: true},
-            mode: 'cors',
-            credentials: 'include'
-        }
 
-         axios.delete("http://127.0.0.1:8001/api/v1/users/logOut", reqConfig).then((response) => {
-             const { userData } = response.data;
-            
-             if(response.status === 200 || response.status === 201) {
-                 dispatch(handleLogout(userData));
-                 history.push('/');
-             } else {
-                 dispatch(logoutError('There is an error, please try again'));
-             }
-         }).catch(err => {
-             const { message } = err.response.data;
-             dispatch(logoutError(message));
-         });
+        axios.get("/api/v1/users/logOut").then((response) => {
+        
+            if(response.status === 200 || response.status === 201) {
+                dispatch(handleLogout());
+                history.push('/');
+            } else {
+                dispatch(logoutError('There is an error, please try again'));
+            }
+        }).catch(err => {
+            const { message } = err.response.data;
+            dispatch(logoutError(message));
+        });
     }
 
     return (
@@ -57,14 +46,14 @@ function Navbar({ disabled, toggled, handleMenu, scroll }) {
                     </button>
                 </div>
                 <div className="action-account">
-                    {userState.user ? (
+                    {userState.isAuthenticated ? (
                         <>
                             <Link to="/dashboard" className="action-account-link">
                                 <span className="action-account-link-label label">Dashboard</span>
                             </Link>
-                            <Link to="/" className="action-account-link" onClick={ handleLogOut }>
+                            <button className="action-account-link" onClick={ handleLogOut }>
                                 <span className="action-account-link-label label">Logout</span>
-                            </Link>
+                            </button>
                         </>
                     ): (
                         <Link to="/login" className="action-account-link">

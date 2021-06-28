@@ -8,15 +8,14 @@ import { useFormik } from 'formik';
 import { resetPwdSchema } from '../../../validation/AuthSchema';
 import { useSelector } from 'react-redux';
 import { userSelector } from '../../../redux/userSlice.js';
-import { useHistory, useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import './ResetPasswordComponent.scss';
 
 function ResetPasswordComponent() {
 
-    const { userState } = useSelector(userSelector);
-    const history = useHistory();
+    const userState = useSelector(userSelector);
     const params = useParams();
 
     // STATE
@@ -25,10 +24,10 @@ function ResetPasswordComponent() {
     const [ visibleConfirmPassword, setVisibleConfirmPassword ] = useState(false);
     // EFFECT
     useEffect(() => {
-        if(userState) {
-            history.push('/');
+        if(userState.isAuthenticated) {
+            <Redirect push to='/dashboard' />
         }
-    }, [userState, history]);
+    }, [userState]);
 
 
     const onSubmit = async (values) => {
@@ -44,10 +43,10 @@ function ResetPasswordComponent() {
             credentials: 'include'
         }
 
-        axios.patch(`http://127.0.0.1:8001/api/v1/users/resetPassword/${params.id}`,  values, reqConfig).then((response) => {
+        axios.patch(`/api/v1/users/resetPassword/${params.id}`,  values, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 console.log('Password successfully changed!');
-                history.push('/login');
+                <Redirect push to='/login' />
             } else {
                 setFormError('There is an error, please try again');
             }

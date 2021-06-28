@@ -6,25 +6,24 @@ import { useFormik } from 'formik';
 import { forgotPwdSchema } from '../../../validation/AuthSchema';
 import { useSelector } from 'react-redux';
 import { userSelector } from '../../../redux/userSlice.js';
-import { useHistory } from 'react-router-dom';
+import { Redirect  } from 'react-router-dom';
 import axios from 'axios';
 
 import './ForgotPasswordComponent.scss';
 
 function ForgotPasswordComponent() {
 
-    const {userState} = useSelector(userSelector);
-    const history = useHistory();
+    const userState = useSelector(userSelector);
 
     // STATE
     const [ formError, setFormError ] = useState('');
     const [ currentEmail, setCurrentEmail ] = useState('');
     // EFFECT
     useEffect(() => {
-        if(userState) {
-            history.push('/');
+        if(userState.isAuthenticated) {
+            <Redirect push to='/dashboard' />
         }
-    }, [userState, history]);
+    }, [userState]);
 
     const onSubmit = async (values) => {
         const reqConfig = {
@@ -38,7 +37,7 @@ function ForgotPasswordComponent() {
             credentials: 'include'
         }
 
-        axios.post("http://127.0.0.1:8001/api/v1/users/forgotPassword", values, reqConfig).then((response) => {
+        axios.post("/api/v1/users/forgotPassword", values, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 setCurrentEmail(values);
             } else {

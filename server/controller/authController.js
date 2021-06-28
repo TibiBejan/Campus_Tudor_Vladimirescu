@@ -28,16 +28,8 @@ exports.signUp = async (req, res, next) => {
             password: hashedPassword
         });
 
-        // STORE IN SESSION
-        req.session.user = newUser.dataValues;
-
-        return res.status(201).json({
-            status: "success",
-            message: "User created!",
-            userData: newUser.dataValues
-        });
         // CREATE TOKEN FOR REGISTERED USER
-        // createToken(newUser, 201, "User created!", res);
+        createToken(newUser, 201, "User created!", res);
     }
 
     catch(err) {
@@ -69,17 +61,8 @@ exports.login = async (req, res, next) => {
             return next(new AppError("Incorect email or password, please try again...", 401));
         }
 
-        // STORE IN SESSION
-        req.session.user = user.dataValues;
-
-        return res.status(201).json({
-            status: "success",
-            message: "User logged in!",
-            userData: user.dataValues
-        });
-
         // IF EVERYTHING IS OK, SEND JWT TOKEN TO CLIENT
-        // createToken(user, 201, "User logged in!", res);
+        createToken(user, 201, "User logged in!", res);
     }
 
     catch(err) {
@@ -91,39 +74,54 @@ exports.login = async (req, res, next) => {
     } 
 }
 
+// CHECK LOGIN MIDDLEWARE
 exports.checkLogIn = async (req, res, next) => {
-    const user = req.session.user;
 
-    return res.status(200).json({
-        status: "success",
-        message: "Session confirmed",
-        userData: user
-    });
+    // GET THE JWT TOKEN AND CHECK IT
+    if( req.cookies.jwt ) {
+        
+        if(!req.cookies.jwt || req.cookies.jwt === null) {
+            return next(new AppError("You are not logged in, please login to get access...", 401));
+        }
+
+        const tokenMatch = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET_TOKEN, {
+            expiresIn: process.env.JWT_EXPIRES_DATE
+        });
+
+        // CHECK IF USER STILL EXISTS
+        const user = await User.findOne({ where: { uuid: tokenMatch.id } });
+
+        if(!user) {
+            return next(new AppError("Session expired, please log in again.", 401));
+        }
+
+        // CHECK IF USER CHANGED PASSWORD AFTER JWT TOKEN WAS GENERATED
+        const isChanged = user.changedPwdAfterCheck(tokenMatch.iat);
+
+        // ACCES FORBIDDEN
+        if(isChanged) {
+            return next(new AppError("User recently changed password, please log in again!", 401));
+        }
+
+        createToken(user, 200, "Token verified!", res);
+
+        // req.user = user;
+        // next();
+    }
 }
 
 // LOG OUT MIDDLEWARE
 exports.logOut = async (req, res, next) => {
-    try {  
-        // CHECK IF USER EXISTS && PASSWORD / EMAIL IS CORRECT
-        const user = req.session.user;
-        if(!user) {
-            return next(new AppError("Something went wrong, please try again...", 500));
-        }
-        
-        req.session.destroy((err) => {
-            if(err) return next(new AppError(`${err.message}`, 500));
-            res.clearCookie(SESSION_NAME);
-            res.send(user);
-        })
-    }
+    res.cookie('jwt', 'User Logged Out', {
+        expires: new Date(Date.now() + 1 * 1000),
+        httpOnly: true,
+        secure: false,
+    });
 
-    catch(err) {
-        return res.status(422).json({
-            status: "Unprocessable Entity",
-            message: "Something went wrong - Please try again...",
-            err: process.env.NODE_ENV === 'development' ? err : null
-        });
-    } 
+    res.status(200).json({
+        status: 'success',
+        message: 'User Logged Out'
+    });
 }
 
 // PROTECT ACCES MIDDLEWARE
@@ -134,7 +132,9 @@ exports.protect = async (req, res, next) => {
     // GET THE JWT TOKEN AND CHECK IT
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         token = req.headers.authorization.split(' ')[1];
-    } 
+    }  else if ( req.cookies.jwt ) {
+        token = req.cookies.jwt;
+    }
 
     if(!token || token === null) {
         return next(new AppError("You are not logged in, please login to get access...", 401));

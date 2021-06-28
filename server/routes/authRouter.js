@@ -14,6 +14,6 @@ authRouter.post('/login', loginSchema, validateRequestSchema, authController.log
 authRouter.get('/checkLogin', authController.checkLogIn);
 authRouter.post('/forgotPassword', forgotPasswordSchema, validateRequestSchema, authController.forgotPassword);
 authRouter.patch('/resetPassword/:token', resetPasswordSchema, validateRequestSchema, authController.resetPassword);
-authRouter.delete('/logOut', authController.logOut);
+authRouter.get('/logOut', authController.logOut);
 
 module.exports = authRouter;

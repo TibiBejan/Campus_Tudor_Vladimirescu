@@ -35,7 +35,7 @@ function ResidenceHall() {
             setIsLoading(false);
             history.push('/residence-halls');
         });
-    }, []);
+    }, [hallName, history]);
 
     if (isLoading) {
         return <div className="App">Loading...</div>;

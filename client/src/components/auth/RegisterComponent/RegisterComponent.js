@@ -8,24 +8,23 @@ import { userSelector } from '../../../redux/userSlice';
 
 import { useFormik } from 'formik';
 import { registerSchema } from '../../../validation/AuthSchema';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 import './RegisterComponent.scss';
 
 function RegisterComponent() {
 
-    const history = useHistory();
-    const { userState } = useSelector(userSelector);
+    const userState = useSelector(userSelector);
 
     // STATE
     const [ formError, setFormError ] = useState('');
     // EFFECT
     useEffect(() => {
-        if(userState) {
-            history.push('/');
+        if(userState.isAuthenticated) {
+            <Redirect push to='/dashboard' />
         }
-    }, [userState, history]);
+    }, [userState]);
 
     const onSubmit = (values) => {
 
@@ -42,17 +41,17 @@ function RegisterComponent() {
         const reqConfig = {
             headers: {
                 'Content-Type': 'application/json',
+                withCredentials: true,
+                credentials: 'include'
             },
-            withCredentials: true,
-            xhrFields: {withCredentials: true},
-            mode: 'cors',
-            credentials: 'include'
+            // withCredentials: true,
+            // credentials: 'include'
         }
 
-        axios.post("http://127.0.0.1:8001/api/v1/users/register", user, reqConfig).then((response) => {
+        axios.post("/api/v1/users/register", user, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 console.log('registration success');
-                history.push('/login');
+                <Redirect push to='/login' />
             }
         }).catch(err => {
             const { message } = err.response.data;

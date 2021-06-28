@@ -9,7 +9,7 @@ import { useFormik } from 'formik';
 import { loginSchema } from '../../../validation/AuthSchema';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestLogin, receiveLogin, loginError, userSelector } from '../../../redux/userSlice';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 import './LoginComponent.scss';
@@ -17,8 +17,7 @@ import './LoginComponent.scss';
 function LoginComponent() {
 
     const dispatch = useDispatch();
-    const { userState } = useSelector(userSelector);
-    const history = useHistory();
+    const userState = useSelector(userSelector);
 
     // STATE
     const [ formError, setFormError ] = useState('');
@@ -26,10 +25,10 @@ function LoginComponent() {
 
     // EFFECT
     useEffect(() => {
-        if(userState) {
-            history.push('/');
+        if(userState.isAuthenticated) {
+            <Redirect push to='/dashboard' />
         }
-    }, [userState, history]);
+    }, [userState]);
 
     const onSubmit = async (values) => {
 
@@ -44,24 +43,22 @@ function LoginComponent() {
         const reqConfig = {
             headers: {
                 'Content-Type': 'application/json',
+                withCredentials: true,
+                credentials: 'include'
             },
-            withCredentials: true,
-            xhrFields: {withCredentials: true},
-            mode: 'cors',
-            credentials: 'include'
+            // withCredentials: true,
+            // credentials: 'include'
         }
 
         // INIT REQ
         dispatch(requestLogin());
 
-        axios.post("http://127.0.0.1:8001/api/v1/users/login", user, reqConfig).then((response) => {
+        axios.post("/api/v1/users/login", user, reqConfig).then((response) => {
             const { userData } = response.data;
-
-            console.log(userData);
             
             if(response.status === 200 || response.status === 201) {
                 dispatch(receiveLogin(userData));
-                history.push('/');
+                <Redirect push to='/' />
             } else {
                 dispatch(loginError('There is an error, please try again'));
             }

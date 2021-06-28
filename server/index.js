@@ -1,6 +1,6 @@
 // IMPORT MODULES
 const express = require('express');
-const session = require('express-session');
+// const session = require('express-session');
 const morgan = require('morgan');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
@@ -10,10 +10,10 @@ const dotenv = require('dotenv').config();
 const { sequelize } = require('./models');
 const AppError = require('./utils/appError');
 const globalErrorController = require('./controller/errorController');
-// DB MODULE
-const db = require('./db/connection');
-// DB SESSION STORE MODULE
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
+// // DB MODULE
+// const db = require('./db/connection');
+// // DB SESSION STORE MODULE
+// const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 // IMPORT ROUTES
 const authRouter = require('./routes/authRouter');
@@ -29,36 +29,39 @@ const app = express();
 // GLOBAL MIDDLEWEAR
 // HELMET HEADERS SECURITY MIDDLEWEAR
 app.use(helmet());
-app.use(cors({
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST", "UPDATE", "PATCH", "DELETE"],
-    credentials: true,
-}));
+app.use(cors(
+    {
+        origin: 'http://localhost:3000',
+        credentials: true,
+    }
+));
 app.use(cookieParser());
 
-// SESSION
-const sessionStore = new SequelizeStore({
-    db: db,
-    checkExpirationInterval: 15 * 60 * 1000,
-    expiration: 7 * 24 * 60 * 60 * 1000
-});
+// // SESSION
+// const sessionStore = new SequelizeStore({
+//     db: db,
+//     checkExpirationInterval: 15 * 60 * 1000,
+//     expiration: 7 * 24 * 60 * 60 * 1000
+// });
 
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    saveUninitialized: false,
-    resave: false,
-    name: 'SESSION_NAME',
-    cookie: {
-        httpOnly: true,
-        sameSite: 'Lax',
-        secure: false,
-        maxAge: 1000 * 60 * 60 * 24 * 7,
-    },
-    store: sessionStore
-}));
+// app.use(session({
+//     secret: process.env.SESSION_SECRET,
+//     saveUninitialized: false,
+//     resave: false,
+//     name: 'SESSION_NAME',
+//     cookie: {
+//         domain: '.app.localhost',
+//         path: '/',
+//         httpOnly: true,
+//         sameSite: 'Lax',
+//         secure: false,
+//         maxAge: 1000 * 60 * 60 * 24 * 7,
+//     },
+//     store: sessionStore
+// }));
 
-// SYNC DB SESSION STORE TABLE
-sessionStore.sync();
+// // SYNC DB SESSION STORE TABLE
+// sessionStore.sync();
 
 // BODY PARSER FOR req.body
 app.use(express.json());
