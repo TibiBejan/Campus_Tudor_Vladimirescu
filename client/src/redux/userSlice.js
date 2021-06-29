@@ -65,7 +65,46 @@ export const userSlice = createSlice({
             state.isError = true;
             state.errorMessage = payload;
         },
-        
+
+        requestUpdatePwd: (state) => {
+            state.isFetching = true;
+            state.isAuthenticated = false;
+        },
+        receiveUpdatePwd: (state, { payload }) => {
+            state.user = payload;
+            state.isAuthenticated = true;
+            state.isSuccess = true;
+            state.isFetching = false;
+            state.isError = false;
+            state.errorMessage = '';
+        },
+        updatePwdError: (state, { payload }) => {
+            state.isSuccess = false;
+            state.isAuthenticated = true;
+            state.isFetching = false;
+            state.isError = true;
+            state.errorMessage = payload;
+        },
+
+        requestAccountUpdate: (state) => {
+            state.isFetching = true;
+            state.isAuthenticated = false;
+        },
+        receiveAccountUpdate: (state, { payload }) => {
+            state.user = payload;
+            state.isAuthenticated = true;
+            state.isSuccess = true;
+            state.isFetching = false;
+            state.isError = false;
+            state.errorMessage = '';
+        },
+        updateAccountError: (state, { payload }) => {
+            state.isSuccess = false;
+            state.isAuthenticated = true;
+            state.isFetching = false;
+            state.isError = true;
+            state.errorMessage = payload;
+        },
     },
 });
 
@@ -76,7 +115,14 @@ export const { requestLogin,
     logoutError, 
     requestCheckLogin,
     receiveCheckLogin,
-    checkLoginError
+    checkLoginError,
+    requestUpdatePwd,
+    receiveUpdatePwd,
+    updatePwdError,
+    requestAccountUpdate,
+    receiveAccountUpdate,
+    updateAccountError
+
 } = userSlice.actions;
 export const userSelector = (state) => state.user;
 export default userSlice.reducer;

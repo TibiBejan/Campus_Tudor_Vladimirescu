@@ -9,7 +9,7 @@ import { useFormik } from 'formik';
 import { loginSchema } from '../../../validation/AuthSchema';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestLogin, receiveLogin, loginError, userSelector } from '../../../redux/userSlice';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import './LoginComponent.scss';
@@ -18,6 +18,7 @@ function LoginComponent() {
 
     const dispatch = useDispatch();
     const userState = useSelector(userSelector);
+    const history = useHistory();
 
     // STATE
     const [ formError, setFormError ] = useState('');
@@ -26,9 +27,9 @@ function LoginComponent() {
     // EFFECT
     useEffect(() => {
         if(userState.isAuthenticated) {
-            <Redirect push to='/dashboard' />
+            history.push(`/${userState.user.first_name}.${userState.user.last_name}/dashboard`);
         }
-    }, [userState]);
+    }, [userState, history]);
 
     const onSubmit = async (values) => {
 
@@ -46,8 +47,6 @@ function LoginComponent() {
                 withCredentials: true,
                 credentials: 'include'
             },
-            // withCredentials: true,
-            // credentials: 'include'
         }
 
         // INIT REQ
@@ -58,7 +57,7 @@ function LoginComponent() {
             
             if(response.status === 200 || response.status === 201) {
                 dispatch(receiveLogin(userData));
-                <Redirect push to='/' />
+                history.push('/');
             } else {
                 dispatch(loginError('There is an error, please try again'));
             }

@@ -8,7 +8,7 @@ import { userSelector } from '../../../redux/userSlice';
 
 import { useFormik } from 'formik';
 import { registerSchema } from '../../../validation/AuthSchema';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import './RegisterComponent.scss';
@@ -16,15 +16,16 @@ import './RegisterComponent.scss';
 function RegisterComponent() {
 
     const userState = useSelector(userSelector);
+    const history = useHistory();
 
     // STATE
     const [ formError, setFormError ] = useState('');
     // EFFECT
     useEffect(() => {
         if(userState.isAuthenticated) {
-            <Redirect push to='/dashboard' />
+            history.push(`/${userState.user.first_name}.${userState.user.last_name}/dashboard`);
         }
-    }, [userState]);
+    }, [userState, history]);
 
     const onSubmit = (values) => {
 
@@ -44,14 +45,12 @@ function RegisterComponent() {
                 withCredentials: true,
                 credentials: 'include'
             },
-            // withCredentials: true,
-            // credentials: 'include'
         }
 
         axios.post("/api/v1/users/register", user, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 console.log('registration success');
-                <Redirect push to='/login' />
+                history.push('/login');
             }
         }).catch(err => {
             const { message } = err.response.data;

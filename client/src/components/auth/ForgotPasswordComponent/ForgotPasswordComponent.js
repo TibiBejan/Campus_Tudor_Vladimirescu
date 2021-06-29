@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import { forgotPwdSchema } from '../../../validation/AuthSchema';
 import { useSelector } from 'react-redux';
 import { userSelector } from '../../../redux/userSlice.js';
-import { Redirect  } from 'react-router-dom';
+import { useHistory  } from 'react-router-dom';
 import axios from 'axios';
 
 import './ForgotPasswordComponent.scss';
@@ -14,6 +14,7 @@ import './ForgotPasswordComponent.scss';
 function ForgotPasswordComponent() {
 
     const userState = useSelector(userSelector);
+    const history = useHistory();
 
     // STATE
     const [ formError, setFormError ] = useState('');
@@ -21,20 +22,18 @@ function ForgotPasswordComponent() {
     // EFFECT
     useEffect(() => {
         if(userState.isAuthenticated) {
-            <Redirect push to='/dashboard' />
+            history.push(`/${userState.user.first_name}.${userState.user.last_name}/dashboard`);
         }
-    }, [userState]);
+    }, [userState, history]);
 
     const onSubmit = async (values) => {
         const reqConfig = {
             headers: {
                 'Content-Type': 'application/json',
                 "Access-Control-Allow-Origin": "*",
+                withCredentials: true,
+                credentials: 'include'
             },
-            withCredentials: true,
-            xhrFields: {withCredentials: true},
-            mode: 'cors',
-            credentials: 'include'
         }
 
         axios.post("/api/v1/users/forgotPassword", values, reqConfig).then((response) => {

@@ -33,9 +33,7 @@ exports.updateMe = async (req, res, next) => {
         return res.status(200).json({
             status: "Success",
             message: "User has been updated!",
-            data: {
-                user: user
-            }
+            user: user
         });
     }
     catch(err) {
@@ -100,7 +98,7 @@ exports.updateMyPassword = async (req, res, next) => {
     catch(err) {
         return res.status(500).json({
             status: "Bad request",
-            message: "The request can not be resolved, please try again....",
+            message: "The request can not be resolved, please try again...",
         });
     }
 }

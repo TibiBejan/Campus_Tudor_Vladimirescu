@@ -35,3 +35,5 @@ export const resetPwdSchema = yup.object({
         then: yup.string().oneOf([yup.ref("password")], "Your confirm password does not match, please try again")
     })
 });
+
+

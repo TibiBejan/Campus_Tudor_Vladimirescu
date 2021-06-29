@@ -1,0 +1,132 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.dashboard-main {
+    position: relative;
+    width: 100%;
+    padding: 10rem 12rem;
+
+    @media screen and (max-width: $bp-large) {
+        padding: 10rem 10rem;
+    }
+
+    @media screen and (max-width: $bp-medium) {
+        padding: 10rem 9rem;
+    }
+
+    @media screen and (max-width: $bp-small) {
+        padding: 10rem 8rem;
+    }
+
+    @media screen and (max-width: $bp-mobile) {
+        padding: 5rem 4rem;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 0.1rem;
+        width: 100%;
+        background-color: $primary-dark-blue-2; // $primary-dark-gray-2
+    }
+
+    &-inner {
+        max-width: 85%;
+        margin: 0 auto;
+        @include flex-setup($flex-flow: column, $align-items: center, $justify-content: flex-start);
+
+        @media screen and (max-width: $bp-mobile) {
+            width: 100%;
+            max-width: 100%;
+        }
+        // height: auto;
+        // padding: var(--general-padding-medium) 0;
+        // margin: 0 12rem;
+
+        // @media screen and (max-width: $bp-large) {
+        //     margin: 0 10rem;
+        // }
+
+        // @media screen and (max-width: $bp-medium) {
+        //     margin: 0 9rem;
+        // }
+
+        // @media screen and (max-width: $bp-small) {
+        //     margin: 0 7rem;
+        // }
+
+        // @media screen and (max-width: $bp-mobile) {
+        //     margin: 0;
+        // }
+
+        .dashboard-information {
+            padding-top: var(--general-padding-medium);
+
+            .information-title {
+                margin-bottom: var(--margin-medium);
+            }
+
+            .information-description {
+                margin-bottom: var(--margin-medium);
+                line-height: 1.8;
+                text-align: justify;
+            }
+
+            .information-accommodation-steps {
+                // max-width: 60%;
+                @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+                padding-left: var(--general-padding-medium);
+                list-style: decimal-leading-zero;
+
+                ::marker {
+                    color: $primary-dark-blue-2;
+                    font-size: 3.5rem;
+                    font-weight: 500;
+                }
+                
+                .accommodation-step {
+                    padding-left: 1rem;
+
+                    &:not(:last-child) {
+                        margin-bottom: 1.5rem;
+                    }
+
+                    .accommodation-step-label {
+                        text-align: justify;
+                    
+                        .step-link-label {
+                            position: relative;
+                            margin-left: 1.5rem;
+                            padding-bottom: 0.75rem;
+                            color: $primary-light-gray-1; 
+                            transition: var(--hover-transition);
+
+                            &::after {
+                                content: '';
+                                position: absolute;
+                                bottom: 0;
+                                left: 0;
+                                right: 0;
+                                width: 100%;
+                                height: 0.2rem;
+                                background-color: $primary-light-gray-1;
+                                transition: var(--hover-transition);
+                            }
+
+                            &:hover {
+                                color: $primary-yellow;
+
+                                &::after {
+                                    background-color: $primary-yellow;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -48,7 +48,7 @@ function Navbar({ disabled, toggled, handleMenu, scroll }) {
                 <div className="action-account">
                     {userState.isAuthenticated ? (
                         <>
-                            <Link to="/dashboard" className="action-account-link">
+                            <Link to={`/${userState.user.first_name}.${userState.user.last_name}/dashboard`} className="action-account-link">
                                 <span className="action-account-link-label label">Dashboard</span>
                             </Link>
                             <button className="action-account-link" onClick={ handleLogOut }>

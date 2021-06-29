@@ -24,9 +24,7 @@ exports.getAllKins = async (req, res, next) => {
          return res.status(200).json({
             status: "success",
             results: nextOfKin.length,
-            data: {
-                users: nextOfKin
-            }
+            kins: nextOfKin
         });
     }
 
@@ -87,9 +85,7 @@ exports.createKin = async (req, res, next) => {
         return res.status(201).json({
             status: "success",
             message: "Kin created!",
-            data: {
-                userData: newKin
-            }
+            kin: newKin
         });
     }
     catch(err) {
@@ -113,9 +109,7 @@ exports.updateKin = async (req, res, next) => {
         return res.status(200).json({
             status: "Success",
             message: "Kin has been updated!",
-            data: {
-                kin: updatedKin
-            }
+            kin: updatedKin
         });
     }
 

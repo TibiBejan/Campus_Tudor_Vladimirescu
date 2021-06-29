@@ -1,0 +1,113 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.dashboard-password-update {
+    position: relative;
+    height: 100%;
+    padding: 10rem 12rem;
+
+    @media screen and (max-width: $bp-large) {
+        padding: 10rem 10rem;
+    }
+
+    @media screen and (max-width: $bp-medium) {
+        padding: 10rem 9rem;
+    }
+
+    @media screen and (max-width: $bp-small) {
+        padding: 10rem 8rem;
+    }
+
+    @media screen and (max-width: $bp-mobile) {
+        padding: 5rem 4rem;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 0.1rem;
+        background-color: $primary-dark-blue-2;
+    }
+
+    &-inner {
+        max-width: 85%;
+        margin: 0 auto;
+        @include flex-setup($flex-flow: column, $align-items: center, $justify-content: flex-start);
+
+        @media screen and (max-width: $bp-mobile) {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .dashboard-form-block {
+            width: 100%;
+            @include flex-setup($flex-flow: column, $align-items: center, $justify-content: flex-start);
+            padding-top: var(--general-padding-medium);
+
+            .dashboard-form-block-heading-wrapper {
+                width: 100%;
+                height: auto;
+                margin-bottom: var(--margin-large);
+                overflow: hidden;
+    
+                @media screen and (max-width: $bp-mobile) {
+                    margin-bottom: var(--margin-medium);
+                    text-align: center;
+                }
+            }
+
+            .dashboard-password-update-form {
+                width: 100%;
+                @include flex-setup($flex-flow: column, $align-items: center, $justify-content: flex-start);
+                margin-bottom: var(--margin-medium);
+    
+                .form-group {
+                    flex: 1;
+                    width: 100%;
+                    @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+                    margin-bottom: var(--margin-medium);
+    
+                    .form-group-label {
+                        margin-bottom: 1.5rem;
+                    }
+    
+                    .input-wrapper {
+                        position: relative;
+                        width: 100%;
+        
+                        .show-password-button {
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            height: 100%;
+                            width: auto;
+                            @include flex-setup($align-items: center, $justify-content: center);
+                            padding: 0 2.5rem;
+                            background-color: transparent;
+                        }
+                    }
+    
+                    .form-group-input {
+                        width: 100%;
+                        padding: 2.5rem;
+                        border: 0.1rem solid $primary-dark-blue-2; //$primary-dark-gray-2;
+                        transition: var(--hover-transition);
+    
+                        &::-webkit-calendar-picker-indicator {
+                            filter: invert(1);
+                        }
+    
+                        &:hover,
+                        &:focus {
+                            border-color: $primary-light-text-1; //$primary-light-gray-1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

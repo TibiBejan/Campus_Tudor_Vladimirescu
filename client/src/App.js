@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { gsap } from 'gsap';
 import axios from 'axios';
 
-// // REDUX
+// REDUX
 import { useDispatch } from 'react-redux';
 import { requestCheckLogin, receiveCheckLogin, checkLoginError } from './redux/userSlice';
 
@@ -35,10 +35,18 @@ import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 
+import StudentDashboard from './pages/StudentDashboard';
+import StudentDashboardPwdUpdate from './pages/StudentDashboardPwdUpdate';
+import StudentDashboardAccountInfo from './pages/StudentDashboardAccountInfo';
+import StudentDashboardEnrollment from './pages/StudentDashboardEnrollment';
+import StudentDashboardInformation from './pages/StudentDashboardInfromation';
+import StudentDashboardKin from './pages/StudentDashboardKin';
+
+
 // COMPONENTS
 import Gradient from './components/LayoutComponents/PageGradient/Gradient';
 import Header from './components/LayoutComponents/Header/Header';
-import SmoothScroll from './components/LayoutComponents/SmoothScrollContainer/SmoothScroll';
+// import SmoothScroll from './components/LayoutComponents/SmoothScrollContainer/SmoothScroll';
 
 
 function App() {
@@ -85,11 +93,12 @@ function App() {
         <div className="App" ref={app}>
           <Gradient />
           <Header />
-          <SmoothScroll>
+          {/* <SmoothScroll> */}
             <Switch>
               <Route exact path="/">
                 <Index />
               </Route>
+            
               <Route exact path="/login">
                 <Login />
               </Route>
@@ -100,8 +109,29 @@ function App() {
                 <ResetPassword />
               </Route>
               <Route exact path="/register">
-              <Register />
+                <Register />
               </Route>
+
+              <Route exact path="/:name/dashboard">
+                <StudentDashboard />
+              </Route>
+              <Route path="/:name/update-password">
+                <StudentDashboardPwdUpdate />
+              </Route>
+              <Route path="/:name/update-details">
+                <StudentDashboardAccountInfo />
+              </Route>
+              <Route path="/:name/enrollment">
+                <StudentDashboardEnrollment />
+              </Route>
+              <Route path="/:name/information">
+                <StudentDashboardInformation />
+              </Route>
+              <Route path="/:name/kins">
+                <StudentDashboardKin />
+              </Route>
+
+
               <Route path="/about">
                 <About />
               </Route>
@@ -154,7 +184,7 @@ function App() {
                 <FAQ />
               </Route>
             </Switch>
-          </SmoothScroll>
+          {/* </SmoothScroll> */}
         </div>
       </Router>
   );

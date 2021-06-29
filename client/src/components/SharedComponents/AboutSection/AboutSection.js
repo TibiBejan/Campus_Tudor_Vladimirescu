@@ -4,11 +4,16 @@ import Button from '../Button/ButtonPrimary';
 import './AboutSection.scss';
 
 function AboutSection({ sectionData }) {
+
     return (
         <section className="about-section">
             <div className="about-section-inner">
                 <div className="section-inner-image">
-                    <img src={sectionData.backgroundImage.default} alt="tuiasi-dss" className="background-image" />
+                <img 
+                    src={sectionData.backgroundImage.default} 
+                    alt="tuiasi-dss" 
+                    className="background-image"
+                />
                 </div>
                 <div className="section-inner-content">
                     <div className="content-heading">
