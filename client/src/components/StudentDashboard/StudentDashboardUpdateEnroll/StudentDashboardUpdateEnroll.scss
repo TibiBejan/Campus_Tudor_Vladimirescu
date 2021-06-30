@@ -1,7 +1,7 @@
 @import '../../../scss/variables';
 @import '../../../scss/mixins';
 
-.dashboard-kins {
+.dashboard-update-enroll {
     position: relative;
     height: 100%;
     padding: 10rem 12rem;
@@ -43,22 +43,6 @@
             max-width: 100%;
         }
 
-        .student-kins-slider {
-            width: 100%;
-            min-height: 30rem;
-            margin-top: var(--general-padding-medium);
-            
-            .swiper-container {
-                display: grid;
-                grid-auto-flow: column;
-                width: 100%;
-    
-                .swiper-slide {
-                    height: 100%;
-                }
-            }
-        }
-
         .dashboard-form-block {
             width: 100%;
             @include flex-setup($flex-flow: column, $align-items: center, $justify-content: flex-start);
@@ -76,7 +60,7 @@
                 }
             }
 
-            .dashboard-kins-form {
+            .dashboard-update-enroll-form {
                 width: 100%;
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
@@ -91,6 +75,10 @@
                 .form-block {
                     height: 100%;
                     @include flex-setup($flex-flow: column);
+
+                    &.full-width {
+                        grid-column: 1 / -1;
+                    }
                 }
     
                 .form-group {
@@ -106,17 +94,6 @@
                     .input-wrapper {
                         position: relative;
                         width: 100%;
-        
-                        .show-password-button {
-                            position: absolute;
-                            top: 0;
-                            right: 0;
-                            height: 100%;
-                            width: auto;
-                            @include flex-setup($align-items: center, $justify-content: center);
-                            padding: 0 2.5rem;
-                            background-color: transparent;
-                        }
                     }
     
                     .form-group-input {
@@ -134,11 +111,25 @@
                             border-color: $primary-light-text-1; //$primary-light-gray-1;
                         }
                     }
+
+                    .form-group-select {
+                        background-color: $primary-dark-gray-1;
+                        color: $primary-light-gray-1;
+
+                        @media screen and (max-width: $bp-small) {
+                            width: 100%;
+                            max-width: 100%;
+                        }
+                    }
                 }
 
                 .button-primary {
                     grid-column: 1 / -1;
                     justify-self: center;
+
+                    &:not(:last-child) {
+                        margin-bottom: var(--margin-small);
+                    }
                 }
             }
         }

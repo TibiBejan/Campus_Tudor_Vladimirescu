@@ -6,6 +6,16 @@
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     border: 0.1rem solid $primary-dark-gray-2;
+
+    @media screen and (max-width: $desktop-utility-bp-large) {
+        grid-template-columns: repeat(3, 1fr);
+        border-bottom: none;
+    }
+
+    @media screen and (max-width: $bp-small - 1) {
+        grid-template-columns: 1fr;
+        border-bottom: none;
+    }
     
     .dashboard-nav-list-item {
         height: 100%;
@@ -13,6 +23,10 @@
 
         &:not(:last-child) {
             border-right: 0.1rem solid $primary-dark-gray-2;
+        }
+
+        @media screen and (max-width: $desktop-utility-bp-large) {
+            border-bottom: 0.1rem solid $primary-dark-gray-2;
         }
         
         .dashboard-nav-link {

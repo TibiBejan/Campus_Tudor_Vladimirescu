@@ -138,9 +138,31 @@ exports.createEnrollment = async (req, res, next) => {
         return res.status(200).json({
             status: "Success",
             message: "Enrollment has been created!",
-            data: {
-                enrollment: newEnrollment
-            }
+            enrollment: newEnrollment
+        });
+    }
+    catch(err) {
+        return res.status(500).json({
+            status: "Bad request",
+            message: "The request can not be resolved, please try again....",
+        }); 
+    }
+}
+
+// GET ENROLLMENT
+exports.getEnrollment = async (req, res, next) => {
+    try {
+        const currentEnrollment = await Enrollment.findOne({ where: { userId: req.user.id } });
+
+        if(!currentEnrollment) {
+            return next(new AppError("Enrollment not found, please enroll", 404));
+        }
+
+        // JSON RESPONSE WITH UPDATED USER
+        return res.status(200).json({
+            status: "Success",
+            message: "Enrollment found!",
+            enrollment: currentEnrollment
         });
     }
     catch(err) {
@@ -176,9 +198,7 @@ exports.updateEnrollemnt = async (req, res, next) => {
         return res.status(200).json({
             status: "Success",
             message: "Enrollment has been updated!",
-            data: {
-                enrollment: currentEnrollment
-            }
+            enrollment: currentEnrollment
         });
     }
     catch(err) {
@@ -407,7 +427,6 @@ exports.studentAllocation = async (req, res, next) => {
 
             return res.status(200).json({
                 status: "Success",
-                data: allStudents,
             });  
         }
     }

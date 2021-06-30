@@ -39,8 +39,10 @@ import StudentDashboard from './pages/StudentDashboard';
 import StudentDashboardPwdUpdate from './pages/StudentDashboardPwdUpdate';
 import StudentDashboardAccountInfo from './pages/StudentDashboardAccountInfo';
 import StudentDashboardEnrollment from './pages/StudentDashboardEnrollment';
+import StudentDashboardEnrollmentConfirm from './pages/StudentDashboardEnrollmentConfirm';
 import StudentDashboardInformation from './pages/StudentDashboardInfromation';
 import StudentDashboardKin from './pages/StudentDashboardKin';
+import StudentDashboardKinUpdate from './pages/StudentDashboardKinUpdate';
 
 
 // COMPONENTS
@@ -121,16 +123,21 @@ function App() {
               <Route path="/:name/update-details">
                 <StudentDashboardAccountInfo />
               </Route>
-              <Route path="/:name/enrollment">
+              <Route exact path="/:name/enrollment">
                 <StudentDashboardEnrollment />
+              </Route>
+              <Route path="/:name/enrollment/success">
+                <StudentDashboardEnrollmentConfirm />
               </Route>
               <Route path="/:name/information">
                 <StudentDashboardInformation />
               </Route>
-              <Route path="/:name/kins">
+              <Route exact path="/:name/kins">
                 <StudentDashboardKin />
               </Route>
-
+              <Route exact path="/:name/kins/:id">
+                <StudentDashboardKinUpdate />
+              </Route>
 
               <Route path="/about">
                 <About />

@@ -1,7 +1,7 @@
 @import '../../../scss/variables';
 @import '../../../scss/mixins';
 
-.dashboard-kins {
+.dashboard-kin-update {
     position: relative;
     height: 100%;
     padding: 10rem 12rem;
@@ -43,22 +43,6 @@
             max-width: 100%;
         }
 
-        .student-kins-slider {
-            width: 100%;
-            min-height: 30rem;
-            margin-top: var(--general-padding-medium);
-            
-            .swiper-container {
-                display: grid;
-                grid-auto-flow: column;
-                width: 100%;
-    
-                .swiper-slide {
-                    height: 100%;
-                }
-            }
-        }
-
         .dashboard-form-block {
             width: 100%;
             @include flex-setup($flex-flow: column, $align-items: center, $justify-content: flex-start);
@@ -76,7 +60,7 @@
                 }
             }
 
-            .dashboard-kins-form {
+            .dashboard-kin-update-form {
                 width: 100%;
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
@@ -139,6 +123,10 @@
                 .button-primary {
                     grid-column: 1 / -1;
                     justify-self: center;
+                    
+                    &:not(:last-child) {
+                        margin-bottom: var(--margin-small);
+                    }
                 }
             }
         }

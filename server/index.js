@@ -22,6 +22,7 @@ const userRouter = require('./routes/userRouter');
 const kinRouter = require('./routes/kinRouter');
 const studentMetaRouter = require('./routes/studentMetaRouter');
 const hallRouter = require('./routes/hallRouter');
+const accommodationRouter = require('./routes/accommodationRouter');
 
 // INIT APP
 const app = express();
@@ -86,6 +87,7 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/users', kinRouter);
 app.use('/api/v1/users', studentMetaRouter);
 app.use('/api/v1/halls', hallRouter);
+app.use('/api/v1/', accommodationRouter);
 app.use(adminRouter);
 
 

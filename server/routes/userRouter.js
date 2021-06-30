@@ -17,6 +17,8 @@ userRouter.patch('/updateMyPassword', updatePwdSchema, validateRequestSchema, us
 userRouter.patch('/updateMe', updateMe, validateRequestSchema, userController.updateMe);
 userRouter.delete('/deleteMe', userController.deleteMe);
 
+
+userRouter.get('/enrollment', userController.getEnrollment);
 userRouter.post('/enrollment', createEnrollmentSchema, validateRequestSchema, userController.createEnrollment);
 userRouter.patch('/enrollment/:id', updateEnrollmentSchema, validateRequestSchema, userController.updateEnrollemnt);
 userRouter.delete('/enrollment/:id', userController.deleteEnrollment);

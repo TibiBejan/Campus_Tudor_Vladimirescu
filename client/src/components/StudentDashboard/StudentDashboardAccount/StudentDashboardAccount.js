@@ -15,8 +15,8 @@ import './StudentDashboardAccount.scss';
 function StudentDashboardAccount() {
 
     // GLOBAL STATE SLICE
-     const dispatch = useDispatch();
-     const userState = useSelector(userSelector);
+    const dispatch = useDispatch();
+    const userState = useSelector(userSelector);
     // STATE
     const [ formError, setFormError ] = useState('');
 

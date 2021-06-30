@@ -47,9 +47,7 @@ exports.getKinById = async (req, res, next) => {
 
         return res.status(200).json({
             status: "success",
-            data: {
-                user: kin
-            }
+            kin
         });
     }
     catch(err) {
@@ -102,8 +100,8 @@ exports.updateKin = async (req, res, next) => {
          // FILTER BODY AND UPDATE SPECIFIC FIELDS
         const filteredBody = filterObj(req.body, 'first_name', 'last_name', 'email', 'relation', 'adress', 'phone_number');
         // FIND THE USER AND UPDATE INFO
-        const currentKin = await NextOfKin.update(filteredBody, { where: { uuid: req.params.id } });
-        const updatedKin = await NextOfKin.findOne({ where: { uuid: req.params.id } })
+        const currentKin = await NextOfKin.update(filteredBody, { where: { uuid: req.params.id, userId: req.user.id } });
+        const updatedKin = await NextOfKin.findOne({ where: { uuid: req.params.id, userId: req.user.id } })
 
         // JSON RESPONSE WITH UPDATED KIN
         return res.status(200).json({

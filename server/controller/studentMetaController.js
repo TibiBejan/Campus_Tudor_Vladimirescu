@@ -23,9 +23,7 @@ exports.getStudentMeta = async (req, res, next) => {
 
         return res.status(200).json({
             status: "success",
-            data: {
-                studentMeta: studentMeta
-            }
+            studentMeta: studentMeta
         });
     }
 
@@ -65,9 +63,7 @@ exports.createStudentMeta = async (req, res, next) => {
         return res.status(201).json({
             status: "success",
             message: "Student meta information created!",
-            data: {
-                studentMeta: studentMeta
-            }
+            studentMeta: studentMeta
         });
     }
     catch(err) {
@@ -99,9 +95,7 @@ exports.updateStudentMeta = async (req, res, next) => {
        return res.status(200).json({
            status: "Success",
            message: "Student meta information has been updated!",
-           data: {
-               studentMeta: updatedStudentMeta
-           }
+           studentMeta: updatedStudentMeta
        });
    }
 

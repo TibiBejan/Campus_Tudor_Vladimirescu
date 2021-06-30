@@ -1,38 +1,59 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, useHistory } from 'react-router';
 import StudentDashboardNav from '../StudentDashboardNav/StudentDashboardNav';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
 import ButtonPrimary from '../../SharedComponents/Button/ButtonPrimary';
-import KinCard from '../../SharedComponents/KinCard/KinCard';
-import AddCard from '../../SharedComponents/AddCard/AddCard';
 import axios from 'axios';
 
 import { useFormik } from 'formik';
 import { createKinSchema } from '../../../validation/UserSchema';
-// REDUX
-import { useDispatch, useSelector } from 'react-redux';
-import { requestKins, receiveKins, kinsError, userMetaSelector } from '../../../redux/userMetaSlice';
-// SWIPER SLIDER
-import { Swiper, SwiperSlide } from 'swiper/react';
-// Import Swiper styles
-import "swiper/swiper.min.css";
-import "swiper/components/pagination/pagination.min.css";
 
-import './StudentDashboardKins.scss';
+import { useSelector } from 'react-redux';
+import { userSelector } from '../../../redux/userSlice';
 
-function StudentDashboardKins() {
+import './StudentDashboardUpdateKin.scss'
 
-    // REDUX
-    const dispatch = useDispatch();
-    const userMetaState = useSelector(userMetaSelector);
+function StudentDashboardUpdateKin() {
+
     // STATE
+    const [ currentKin, setCurrentKin ] = useState({});
+    const [ isLoading, setIsLoading ] = useState(true);
     const [ formError, setFormError ] = useState('');
-    // REF
-    const inputFocus = useRef(null);
+    const userState = useSelector(userSelector);
+    const { id } = useParams();
+    const history = useHistory();
 
+    // GET CURRENT KIN ON FIRST RENDER
+    useEffect(() => {
+        const fetchCurrentkin = () => {
+            const reqConfig = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Access-Control-Allow-Origin": "*",
+                    withCredentials: true,
+                    credentials: 'include'
+                }, 
+            }
+    
+            axios.get(`/api/v1/users/kins/${id}`, reqConfig).then((response) => {
+                const { kin } = response.data;
+                setCurrentKin(kin);
+                setIsLoading(false);
+                setFormError('');
+            }).catch(err => {
+                setFormError('This kin relation can not be found, please try again');
+                setIsLoading(false);
+                history.push(`/${userState.user.first_name}.${userState.user.last_name}/kins`);
+            });
+        }
+
+        fetchCurrentkin();
+    }, []);
+
+    // SUBMIT UPDATED KIN
     const onSubmit = (values, { resetForm }) => {
         // RESET SCROLL POSITION
         window.scrollTo(0,0);
-
         const reqConfig = {
             headers: {
                 'Content-Type': 'application/json',
@@ -42,105 +63,71 @@ function StudentDashboardKins() {
             }, 
         }
 
-        axios.post(`/api/v1/users/kins`,  values, reqConfig).then((response) => {
+        axios.patch(`/api/v1/users/kins/${id}`,  values, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
-                console.log('Kin created!')
                 resetForm();
                 setFormError('');
-                window.location.reload();
+                history.push(`/${userState.user.first_name}.${userState.user.last_name}/kins`);
             } else {
                 setFormError('There is an error, please try again');
             }
         }).catch(err => {
-            setFormError('There is an error, please try again');
+            setFormError('This kin relation can not be found, please try again');
         });
     };
 
-    useEffect(() => {
-        const fetchKins = () => {
-            const reqConfig = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    "Access-Control-Allow-Origin": "*",
-                    withCredentials: true,
-                    credentials: 'include'
-                }, 
-            }
-            // INIT REQ
-            dispatch(requestKins());
-    
-            axios.get(`/api/v1/users/kins`, reqConfig).then((response) => {
-                if(response.status === 200 || response.status === 201) {
-                    const { kins } = response.data;
-                    dispatch(receiveKins(kins));
-                } else {
-                    setFormError('Pentru a continua procesul de inrolarea, va rugam sa introduceti cel putin o persoana de contact');
-                }
-            }).catch(err => {
-                dispatch(kinsError('Pentru a continua procesul de inrolarea, va rugam sa introduceti cel putin o persoana de contact'));
-                setFormError('Pentru a continua procesul de inrolarea, va rugam sa introduceti cel putin o persoana de contact');
-            });
+    // HANDLE DELETE KIN
+    const handleDeleteKin = () => {
+        const reqConfig = {
+            headers: {
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                withCredentials: true,
+                credentials: 'include'
+            }, 
         }
 
-        fetchKins();
-    }, [dispatch]);
-
-    const handleCreateKin = () => {
-        inputFocus.current.focus();
+        axios.delete(`/api/v1/users/kins/${id}`, reqConfig).then((response) => {
+            if(response.status === 204) {
+                history.push(`/${userState.user.first_name}.${userState.user.last_name}/kins`);
+            } else {
+                setFormError('There is an error, your kin relation can not be deleted. Please try again');
+            }
+        }).catch(err => {
+            setFormError('There is an error, please try again');
+        });
     }
-
+     
     // FORM HANDLER
     const formik = useFormik({
         initialValues: {
-            first_name: '',
-            last_name: '',
-            email: '',
-            relation: '',
-            adress: '',
-            phone_number: ''
+            first_name: currentKin ? currentKin.first_name : '',
+            last_name: currentKin ? currentKin.last_name : '',
+            email: currentKin ? currentKin.email : '',
+            relation: currentKin ? currentKin.relation : '',
+            adress: currentKin ? currentKin.adress : '',
+            phone_number: currentKin ? currentKin.phone_number : '',
         },
         validateOnBlur: true,
+        enableReinitialize: true,
         onSubmit,
         validationSchema: createKinSchema
     });
 
+    if(isLoading) {
+        return <p>Loading...</p>
+    }
+
     return (
-        <section className="dashboard-kins">
-            <div className="dashboard-kins-inner">
+        <section className="dashboard-kin-update">
+            <div className="dashboard-kin-update-inner">
                 <StudentDashboardNav />
-
-                <Swiper 
-                    slidesPerView={1}
-                    breakpoints={{
-                        1500: {slidesPerView: 3},
-                        1366: {slidesPerView: 2.5},
-                        1150: {slidesPerView: 2},
-                        767: {slidesPerView: 1.5},
-                        650: {slidesPerView: 1}
-                    }}
-                    spaceBetween={40}
-                    grabCursor={true}
-                    resistance={true}
-                    resistanceRatio={0.5}
-                    speed={1000}
-                    className="student-kins-slider"
-                >
-                    <SwiperSlide>
-                        <AddCard handleClick={handleCreateKin}/>
-                    </SwiperSlide>
-                    {userMetaState.userKins.map((kin, index) => (
-                        <SwiperSlide key={`kin-${index}`}>
-                            <KinCard cardData={kin} />
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-
                 <div className="dashboard-form-block">
                     <div className="dashboard-form-block-heading-wrapper">
-                        <h3 className="dashboard-form-title heading-three">Adauga o persoana de contact</h3>    
+                        <h3 className="dashboard-form-title heading-three">Actualizeaza persoana de contact: {currentKin && `${currentKin.first_name} ${currentKin.last_name}`}</h3>
                         {formError ? <ErrorMessageEl>{formError}</ErrorMessageEl> : null }    
                     </div>
-                    <form className="dashboard-kins-form" method="POST" onSubmit={ formik.handleSubmit }>
+                    <form className="dashboard-kin-update-form" method="POST" onSubmit={ formik.handleSubmit }>
                         <div className="form-block">
                             <div className="form-group">
                                 <label htmlFor="firstName" className="form-group-label label">Prenumele persoanei de contact.*</label>
@@ -151,7 +138,6 @@ function StudentDashboardKins() {
                                     name="first_name"
                                     value={formik.values.first_name}
                                     onChange={formik.handleChange}
-                                    ref={inputFocus}
                                 />
                             {formik.errors.first_name && <ErrorMessageEl>{formik.errors.first_name}</ErrorMessageEl>}
                             </div>
@@ -218,7 +204,8 @@ function StudentDashboardKins() {
                                 {formik.errors.phone_number && <ErrorMessageEl>{formik.errors.phone_number}</ErrorMessageEl>}
                             </div>
                         </div>
-                        <ButtonPrimary type="submit" textLabel="Adauga pesoana de contact" />
+                        <ButtonPrimary type="submit" textLabel="Actualizeaza pesoana de contact" />
+                        <ButtonPrimary type="button" onClick={handleDeleteKin} textLabel="Sterge pesoana de contact" />
                     </form>
                 </div>
             </div>
@@ -226,4 +213,4 @@ function StudentDashboardKins() {
     )
 }
 
-export default StudentDashboardKins;
+export default StudentDashboardUpdateKin;
