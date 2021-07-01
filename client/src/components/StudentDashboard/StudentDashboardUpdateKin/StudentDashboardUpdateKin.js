@@ -41,12 +41,12 @@ function StudentDashboardUpdateKin() {
                 setIsLoading(false);
                 setFormError('');
             }).catch(err => {
-                setFormError('This kin relation can not be found, please try again');
                 setIsLoading(false);
+                const message = err.response.data.errors ? err.response.data.errors[0].msg : err.response.data.message;
+                setFormError(message);
                 history.push(`/${userState.user.first_name}.${userState.user.last_name}/kins`);
             });
         }
-
         fetchCurrentkin();
     }, []);
 
@@ -72,7 +72,8 @@ function StudentDashboardUpdateKin() {
                 setFormError('There is an error, please try again');
             }
         }).catch(err => {
-            setFormError('This kin relation can not be found, please try again');
+            const message = err.response.data.errors ? err.response.data.errors[0].msg : err.response.data.message;
+            setFormError(message);
         });
     };
 
@@ -90,11 +91,14 @@ function StudentDashboardUpdateKin() {
         axios.delete(`/api/v1/users/kins/${id}`, reqConfig).then((response) => {
             if(response.status === 204) {
                 history.push(`/${userState.user.first_name}.${userState.user.last_name}/kins`);
+                window.location.reload();
             } else {
                 setFormError('There is an error, your kin relation can not be deleted. Please try again');
             }
         }).catch(err => {
-            setFormError('There is an error, please try again');
+            const message = err.response.data.errors[0].msg;
+            const reqMessage = err.response.message;
+            setFormError(reqMessage ? reqMessage : message);
         });
     }
      

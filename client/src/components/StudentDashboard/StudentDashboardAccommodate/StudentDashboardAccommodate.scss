@@ -36,7 +36,7 @@
     &-inner {
         max-width: 85%;
         margin: 0 auto;
-        @include flex-setup($flex-flow: column, $align-items: center, $justify-content: flex-start);
+        @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
 
         @media screen and (max-width: $bp-mobile) {
             width: 100%;
@@ -148,9 +148,15 @@
             }
         }
 
+        .showcase-card-title  {
+            justify-content: flex-start;
+            margin-bottom: var(--margin-medium);
+        }
+
         .dashboard-accommodate-slider {
             width: 100%;
             height: 60rem;
+            @include flex-setup($flex-flow: column, $align-items: center, $justify-content: flex-start);
             
             .swiper-container {
                 height: 60rem;

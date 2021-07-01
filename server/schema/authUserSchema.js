@@ -25,22 +25,22 @@ exports.updateMe = [
     body('first_name')
         .optional()
         .isAlpha()
-        .withMessage('Must be only alphabetical chars')
+        .withMessage('First name must contain only alphabetical chars')
         .isLength({ min: 3 })
-        .withMessage('Must be at least 3 chars long')
+        .withMessage('First name must contain at least 3 chars long')
         .trim().escape()
         .withMessage('First Name is not valid'),
     body('last_name')
         .optional() 
         .isAlpha()
-        .withMessage('Must be only alphabetical chars')
+        .withMessage('Last name must contain only alphabetical chars')
         .isLength({ min: 3 })
-        .withMessage('Must be at least 3 chars long')
+        .withMessage('Last name must contain at least 3 chars long')
         .trim().escape()
         .withMessage('Last Name is not valid'),
     body('email')
         .optional()
         .isEmail()
-        .withMessage('Must be a valid email')
+        .withMessage('Email is not valid')
         .normalizeEmail(),
 ]

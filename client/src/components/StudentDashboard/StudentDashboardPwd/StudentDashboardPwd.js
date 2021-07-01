@@ -44,13 +44,13 @@ function StudentDashboardPwd() {
                 const { userData } = response.data;
                 dispatch(receiveUpdatePwd(userData));
                 resetForm();
+                setFormError('');
             } else {
                 setFormError('There is an error, please try again');
             }
         }).catch(err => {
-            const { message } = err.response.data;
-            dispatch(updatePwdError(message ? message : 'There is an error, please try again'));
-            setFormError(message ? message : 'There is an error, please try again');
+            const message = err.response.data.errors ? err.response.data.errors[0].msg : err.response.data.message;
+            setFormError(message);
         });
     }
 

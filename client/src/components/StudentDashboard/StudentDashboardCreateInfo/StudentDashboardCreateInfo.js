@@ -50,8 +50,9 @@ function StudentDashboardCreateInfo() {
                 setFormError('There is an error with creating your information, please try again');
             }
         }).catch(err => {
-            dispatch(createMetaError('There is an error with creating your information, please try again'));
-            setFormError('There is an error with creating your information, please try again');
+            const message = err.response.data.errors ? err.response.data.errors[0].msg : err.response.data.message;
+            dispatch(createMetaError(message));
+            setFormError(message);
         });
     };
 

@@ -52,8 +52,9 @@ function StudentDashboardUpdateInfo({ sectionData }) {
             dispatch(receiveUpdateMeta(studentMeta));
             history.push(`/${userState.user.first_name}.${userState.user.last_name}/dashboard`);
         }).catch(err => {
-            dispatch(updateMetaError('There is an error with updating your information, please try again'));
-            setFormError('There is an error with updating your information, please try again');
+            const message = err.response.data.errors ? err.response.data.errors[0].msg : err.response.data.message;
+            dispatch(updateMetaError(message));
+            setFormError(message);
         });
     };
 

@@ -26,8 +26,6 @@ function StudentDashboardAccount() {
         // RESET SCROLL POSITION
         window.scrollTo(0, 0);
 
-        const user = {...values}
-
         const reqConfig = {
             headers: {
                 'Content-Type': 'application/json',
@@ -39,15 +37,16 @@ function StudentDashboardAccount() {
         // INIT REQ
         dispatch(requestAccountUpdate());
 
-        axios.patch("/api/v1/users/updateMe", user, reqConfig).then((response) => {
+        axios.patch("/api/v1/users/updateMe", values, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 const { user } = response.data;
-                dispatch(receiveAccountUpdate(user))
+                dispatch(receiveAccountUpdate(user));
+                setFormError('');
             }
         }).catch(err => {
-            const { message } = err.response.data;
-            dispatch(receiveAccountUpdate(updateAccountError));
-            setFormError(message ? message : 'There is an error, please try again');
+            const message = err.response.data.errors ? err.response.data.errors[0].msg : err.response.data.message;
+            dispatch(updateAccountError(message));
+            setFormError(message);
         });
     }
 
@@ -60,6 +59,7 @@ function StudentDashboardAccount() {
             email: userState.user.email
         },
         validateOnBlur: true,
+        enableReinitialize: true,
         onSubmit,
         validationSchema: updateAccountDetailsSchema
     });

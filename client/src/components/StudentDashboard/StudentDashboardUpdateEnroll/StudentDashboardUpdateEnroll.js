@@ -63,8 +63,9 @@ function StudentDashboardUpdateEnroll({ sectionData }) {
                 setFormError('There is an error with creating your information, please try again');
             }
         }).catch(err => {
-            dispatch(updateEnrollError('There is an error with creating your information, please try again'));
-            setFormError('There is an error with creating your information, please try again');
+            const message = err.response.data.errors ? err.response.data.errors[0].msg : err.response.data.message;
+            setFormError(message);
+            dispatch(updateEnrollError(message));
         });
     };
 

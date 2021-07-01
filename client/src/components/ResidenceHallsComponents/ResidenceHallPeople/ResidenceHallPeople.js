@@ -8,7 +8,7 @@ function ResidenceHallPeople({ sectionData }) {
             <div className="people-section-inner">
 
                 {sectionData.map((person, index) => (
-                    <div className="people-block">
+                    <div className="people-block" key={`person-${index}`}>
                         <PersonCard cardData={person} key={`residence-hall-person-${index}`} />
                     </div>
                 ))}

@@ -46,17 +46,18 @@ function StudentDashboardCreateEnroll() {
         axios.post(`/api/v1/users/enrollment`,  values, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 const { enrollment } = response.data;
+                dispatch(receiveEnroll(enrollment));
                 resetForm();
                 setFormError('');
-                dispatch(receiveEnroll(enrollment));
-                history.push(`/${userState.user.first_name}.${userState.user.last_name}/dashboard/success`);
+                history.push(`/${userState.user.first_name}.${userState.user.last_name}/enrollment/success`);;
             } else {
                 dispatch(enrollError('There is an error with creating your information, please try again'));
                 setFormError('There is an error with creating your information, please try again');
             }
         }).catch(err => {
-            dispatch(enrollError('There is an error with creating your information, please try again'));
-            setFormError('There is an error with creating your information, please try again');
+            const message = err.response.data.errors ? err.response.data.errors[0].msg : err.response.data.message;
+            dispatch(enrollError(message));
+            setFormError(message);
         });
     };
 

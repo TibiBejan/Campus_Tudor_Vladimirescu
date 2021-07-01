@@ -38,7 +38,8 @@ function StudentDasboardEnrollSuccess() {
                 setFormError('You are already enrolled');
             }
         }).catch(err => {
-            setFormError('You are already enrolled');
+            const message = err.response.data.errors ? err.response.data.errors[0].msg : err.response.data.message;
+            setFormError(message);
         });
     }
 

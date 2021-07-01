@@ -52,7 +52,8 @@ function StudentDashboardKins() {
                 setFormError('There is an error, please try again');
             }
         }).catch(err => {
-            setFormError('There is an error, please try again');
+            const message = err.response.data.errors ? err.response.data.errors[0].msg : err.response.data.message;
+            setFormError(message);
         });
     };
 
