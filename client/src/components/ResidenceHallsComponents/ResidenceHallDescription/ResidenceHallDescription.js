@@ -34,6 +34,9 @@ function ResidenceHallDescription({ sectionData }) {
                             <p className="list-item-label paragraph">Studenţi cazaţi/cameră: {sectionData.student_per_room}</p>
                         </li>
                         <li className="descriptive-list-item">
+                            <p className="list-item-label paragraph">Media necesară: {sectionData.min_grade}</p>
+                        </li>
+                        <li className="descriptive-list-item">
                             <p className="list-item-label paragraph">{sectionData.facilities}</p>
                         </li>
                         <li className="descriptive-list-item">

@@ -1,0 +1,168 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.dashboard-accommodate {
+    position: relative;
+    width: 100%;
+    padding: 10rem 12rem;
+
+    @media screen and (max-width: $bp-large) {
+        padding: 10rem 10rem;
+    }
+
+    @media screen and (max-width: $bp-medium) {
+        padding: 10rem 9rem;
+    }
+
+    @media screen and (max-width: $bp-small) {
+        padding: 10rem 8rem;
+    }
+
+    @media screen and (max-width: $bp-mobile) {
+        padding: 5rem 4rem;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 0.1rem;
+        width: 100%;
+        background-color: $primary-dark-gray-2;
+    }
+
+    &-inner {
+        max-width: 85%;
+        margin: 0 auto;
+        @include flex-setup($flex-flow: column, $align-items: center, $justify-content: flex-start);
+
+        @media screen and (max-width: $bp-mobile) {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .dashboard-accommodate-cards {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 7.5rem;
+            row-gap: 7.5rem;
+            padding: var(--general-padding-medium) 0;
+
+            .hall-card-wrapper, 
+            .showcase-card,
+            .invoice-card {
+                min-height: 50rem;
+                border: 0.1rem solid $primary-dark-gray-2;
+                @include flex-setup($flex-flow: column, $align-items: center, $justify-content: center);
+
+                @media screen and (max-width: $bp-large) {
+                    grid-column: 1 / -1;
+                    min-height: 40rem;
+                }
+            }
+
+            .showcase-card {
+                @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: center);
+                border: none;
+
+                .showcase-card-title {
+                    margin-bottom: var(--margin-medium);
+                }
+
+                .showcase-card-description:not(:last-child) {
+                    margin-bottom: var(--margin-medium);
+                    line-height: 2;
+                }
+            }
+
+            .hall-card {
+                height: 100%;
+                width: 100%;
+                position: relative;
+                overflow: hidden;
+
+                @media screen and (min-width: $bp-medium) {
+                    &:hover {
+                        .hall-card-background .background-image {
+                            transform: scale(1.05);
+                            filter: brightness(60%);
+                        }
+    
+                        .hall-card-content .hall-card-content-hovered {
+                            max-height: 200px;
+                            height: auto;
+                        }
+                    }
+                }
+
+                &-background {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    user-select: none;
+                    pointer-events: none;
+                    z-index: -1;
+                    transition: 0.5s ease-in-out;
+
+                    .background-image {
+                        transition: var(--hover-transition);
+                        filter: brightness(75%);
+                    }
+                }
+
+                &-content {
+                    position: relative;
+                    height: 100%;
+                    @include flex-setup($flex-flow: column, $align-items: center, $justify-content: flex-end);
+                    padding-bottom: var(--general-padding-small);
+
+                    .hall-card-title {
+                        margin-bottom: var(--margin-small);
+                        text-transform: uppercase;
+                        text-shadow: 0.1rem 0.1rem 0.1rem rgba(0,0,0,0.6);
+                    }
+
+                    .hall-card-content-hovered {
+                        width: 100%;
+                        @include flex-setup($flex-flow: column, $align-items: center, $justify-content: center);
+                        max-height: 0;
+                        height: auto;
+                        overflow: hidden;
+                        transition: max-height 0.6s ease-in-out;
+
+                        & > * {
+                            text-shadow: 0.1rem 0.1rem 0.1rem rgba(0,0,0,0.6);
+                        }
+                    }
+                }
+            }
+
+            .invoice-card {
+                grid-column: 1 / -1;
+                min-height: 40rem;
+            }
+        }
+
+        .dashboard-accommodate-slider {
+            width: 100%;
+            height: 60rem;
+            
+            .swiper-container {
+                height: 60rem;
+                display: grid;
+                grid-auto-flow: column;
+                width: 100%;
+
+                .swiper-slide {
+                    height: 100%;
+                    height: 60rem;
+                }
+            }
+        }
+    }
+}

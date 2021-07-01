@@ -165,7 +165,7 @@ function StudentDashboardUpdateEnroll({ sectionData }) {
                                 {formik.errors.type_of_study && <ErrorMessageEl>{formik.errors.type_of_study}</ErrorMessageEl>}
                             </div>
                             <div className="form-group">
-                                <label htmlFor="year_of_study" className="form-group-label label">Anuk de studiu.*</label>
+                                <label htmlFor="year_of_study" className="form-group-label label">Anul de studiu.*</label>
                                 <select 
                                     id="year_of_study" 
                                     className="form-group-input form-group-select"

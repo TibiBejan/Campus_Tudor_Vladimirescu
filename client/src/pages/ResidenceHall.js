@@ -12,9 +12,6 @@ import FacilitiesPreview from '../components/SharedComponents/FacilitiesPreviewS
 import StatsSection from '../components/SharedComponents/StatsSection/StatsSection';
 import Footer from '../components/LayoutComponents/Footer/Footer';
 
-// IMAGES
-import bannerImage from '../assets/images/ResidenceHalls/campus-00013.jpg';
-
 function ResidenceHall() {
 
     const history = useHistory();
@@ -41,6 +38,8 @@ function ResidenceHall() {
         return <div className="App">Loading...</div>;
     }
 
+    const hallImage = require(`../assets/images/ResidenceHalls/campus-${hallData.hall_number}.jpg`).default;
+
     if(error) {
         return <p>{error}</p>
     }
@@ -53,7 +52,7 @@ function ResidenceHall() {
 
     return (
         <>
-            <HeaderBannerSmall bannerData={ bannerData } bannerImage={ bannerImage } />  
+            <HeaderBannerSmall bannerData={ bannerData } bannerImage={ hallImage } />  
             <main className="page-content">
                 <ResidenceHallDescription sectionData={hallData} />
                 <ResidenceHallPeople sectionData={hallData.HallStaffs} />

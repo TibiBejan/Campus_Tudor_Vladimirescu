@@ -8,12 +8,18 @@ exports.getAccommodatedUser = async (req, res, next) => {
             where: { uuid: req.user.uuid },
             include: [
                 {
+                    model: Enrollment,
+                    attributes: ['university']
+                },
+                {
                     model: HallRoom,
                     where: { userId: req.user.id },
+                    attributes: ['room_number', 'room_floor', 'room_rent', 'room_beds']
                 },
                 {
                     model: Hall,
-                    where: { id: req.user.hallId }
+                    where: { id: req.user.hallId },
+                    attributes: ['hall_name', 'rooms_number', 'students_number', 'student_per_room', 'min_grade', 'max_grade']
                 }
             ]
         });
@@ -34,20 +40,20 @@ exports.getAccommodatedUser = async (req, res, next) => {
 
         const fetchedNeighbors = await User.findAll({ 
             where: { id: neighborsArr },
+            attributes: ['first_name', 'last_name', 'email'],
             include: [{
                 model: Enrollment,
+                attributes: ['university', 'year_of_study', 'type_of_study', 'grade', 'financial_type', 'nationality', 'student_gender'],
             }]
         });
-
-        const accommodatedUser = {
-            student: currentStudent,
-            neighbors: fetchedNeighbors
-        }
 
         return res.status(200).json({
             status: "Success",
             message: "Accommodated student fetched!",
-            accommodatedUser
+            accommodatedUser: {
+                student: currentStudent,
+                neighbors: fetchedNeighbors
+            }
         });
     }
     catch(err) {

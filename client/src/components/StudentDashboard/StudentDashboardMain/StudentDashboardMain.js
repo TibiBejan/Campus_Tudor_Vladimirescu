@@ -1,25 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import StudentDashboardNav from '../StudentDashboardNav/StudentDashboardNav';
 import { Link } from 'react-router-dom';
 // REUDX
 import { useSelector } from 'react-redux';
 import { userSelector } from '../../../redux/userSlice';
-import { accommodationSelector } from '../../../redux/accommodationSlice';
 import './StudentDashboardMain.scss';
 
 function StudentDashboardMain() {
 
     // GLOBAL STATE SLICE
     const userState = useSelector(userSelector);
-    const accommodationState = useSelector(accommodationSelector);
-
 
     return (
         <section className="dashboard-main">
             <div className="dashboard-main-inner">
                 <StudentDashboardNav />
-
-
                 <div className="dashboard-information">
                     <h3 className="information-title heading-three">Bine ai venit, {`${userState.user.last_name} ${userState.user.first_name}`}</h3>
                     <p className="information-description paragraph">Pe această pagină se vor regăsi informațiile dumneavoastră privind căminul și camera în care ați fost repartizat din campusul nostru, precum și viitorii colegi de cameră. De asemenea, utilizând link-urile de mai sus puteți să vă actualizați informațiile generale , puteți să adaugați persoane de contact sau puteți să vă actualizați parola. În cazul în care nu sunteți înrolat, dar doriți să fiți repartizat în campusul Tudor Vladimirescu, vă rugam să urmați pașii de mai jos.</p>
