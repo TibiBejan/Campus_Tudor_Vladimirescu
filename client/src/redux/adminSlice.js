@@ -4,7 +4,7 @@ export const adminSlice = createSlice({
     name: 'admin',
     initialState: {
         selectedUser: {},
-        searchedUsers: {},
+        students: {},
         isFetching: false,
         isSuccess: false,
         isError: false,
@@ -29,18 +29,18 @@ export const adminSlice = createSlice({
             state.errorMessage = payload;
         },
 
-        requestSearchedUsers: (state) => {
+        requestStudents: (state) => {
             state.isFetching = true;
         },
-        receiveSearchedUsers: (state, { payload }) => {
-            state.searchedUsers = payload;
+        receiveStudents: (state, { payload }) => {
+            state.students = payload;
             state.isSuccess = true;
             state.isFetching = false;
             state.isError = false;
             state.errorMessage = '';
         },
-        searchedUsersError: (state, { payload }) => {
-            state.searchedUsers = {};
+        studentsError: (state, { payload }) => {
+            state.students = {};
             state.isSuccess = false;
             state.isFetching = false;
             state.isError = true;
@@ -53,9 +53,9 @@ export const {
     requestSelectedUser,
     receiveSelectedUser,
     selectedUserError,
-    requestSearchedUsers,
-    receiveSearchedUsers,
-    searchedUsersError,
+    requestStudents,
+    receiveStudents,
+    studentsError,
 
 } = adminSlice.actions;
 export const adminSelector = (state) => state.admin;

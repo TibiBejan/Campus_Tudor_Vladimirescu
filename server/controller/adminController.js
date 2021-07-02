@@ -14,6 +14,36 @@ const filterObj = (obj, ...allowedFields) => {
     return filteredObj;
 }
 
+exports.getAllUsers = async (req, res, next) => {
+
+    try {
+        const users = await User.findAndCountAll({
+            include: [{
+                model: Enrollment
+            }],
+            order: [
+                [{model: 'Enrollment'}, 'grade', 'ASC'],
+                [{model: 'Enrollment'}, 'year_of_study', 'ASC'],
+            ]
+        });
+
+        if(!users) {
+            return next(new AppError("There are no users in the database, please try again...", 500));
+        }
+
+        return res.status(200).json({
+            status: "success",
+            students: users
+        });
+    }
+    catch(err) {
+        return res.status(500).json({
+            status: "Error",
+            message: "Internal Server Error - Please try again..."
+        });
+    }
+}
+
 exports.getUsersByQuerry = async (req, res, next) => {
 
     const queryObj = {...req.query};

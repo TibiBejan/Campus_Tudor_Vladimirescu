@@ -1,0 +1,80 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.modal-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    @include flex-setup($align-items: center, $justify-content: center);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    background-color: rgba(0,0,0,0.95);
+    z-index: 9999;
+    transition: 0.75s ease-in-out;
+
+    &.open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: all;
+
+        .modal-box {
+            transform: translateY(0);
+        }
+    }
+
+    .modal-box {
+        width: 50%;
+        height: 50%;
+        transform: translateY(-100%);
+        @include flex-setup($flex-flow: column, $align-items: center, $justify-content: center);
+        
+        background-color: $primary-dark-gray-3;
+        transition: 0.75s ease-in-out;
+
+        .modal-box-inner {
+            @include flex-setup($flex-flow: column, $align-items: center, $justify-content: center);
+            padding: var(--general-padding-small);
+
+            .heading-three {
+                margin-bottom: var(--margin-small);
+                text-align: center;
+            }
+
+            .paragraph {
+                margin-bottom: var(--margin-medium);
+            }
+
+            .delete-illustration {
+                max-width: 40%;
+                height: auto;
+                margin-bottom: var(--margin-medium);
+            }
+
+            .modal-actions {
+                @include flex-setup($flex-flow: row, $align-items: center, $justify-content: center);
+
+                .modal-action-button {
+                    @include flex-setup($flex-flow: row, $align-items: center, $justify-content: center);
+                    padding: 0.5rem 3.5rem;
+                    border-radius: 1rem;
+                    border: 0.1rem solid $primary-dark-gray-2;
+                    background-color: transparent;
+                    transition: var(--hover-transition);
+
+                    &:hover {
+                        background-color: $primary-dark-gray-2;
+                        color: $primary-light-gray-1;
+                    }
+
+                    &:first-child {
+                        margin-right: 1.5rem;
+
+                    }
+                }
+            }
+        }
+    }
+}

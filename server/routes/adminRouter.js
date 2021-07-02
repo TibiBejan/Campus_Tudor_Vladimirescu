@@ -11,8 +11,10 @@ const authController = require('../controller/authController');
 adminRouter.use(authController.protect, authController.restrictTo('admin'));
 
 // ROUTES
+adminRouter.route('/api/v1/search-users/')
+    .get(adminController.getUsersByQuerry);
 adminRouter.route('/api/v1/users/')
-    .get(adminController.getUsersByQuerry)
+    .get(adminController.getAllUsers)
     .post(createUserSchema, validateRequestSchema, adminController.createUser);
 
 adminRouter.route('/api/v1/users/:id')

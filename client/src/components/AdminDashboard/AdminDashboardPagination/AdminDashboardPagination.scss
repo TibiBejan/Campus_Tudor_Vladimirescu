@@ -1,0 +1,21 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.table {
+    width: 100%;
+    @include flex-setup($flex-flow: column, $align-items: center, $justify-content: center);     
+    background-color: $primary-dark-gray-3;     
+    border: 0.1remsolid $primary-dark-gray-2;    
+    
+    .table-head,
+    .table-row {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        align-items: center;
+        justify-content: center;
+    }
+
+    .table-col {
+        display: table-column;        
+    }
+}
