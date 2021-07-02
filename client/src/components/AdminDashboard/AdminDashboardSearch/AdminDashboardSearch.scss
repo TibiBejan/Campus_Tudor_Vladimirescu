@@ -1,0 +1,92 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.dashboard-form-block {
+    width: 100%;
+    @include flex-setup($flex-flow: column, $align-items: center, $justify-content: flex-start);
+
+    .dashboard-form-block-heading-wrapper {
+        width: 100%;
+        height: auto;
+        margin-bottom: var(--margin-large);
+        overflow: hidden;
+
+        @media screen and (max-width: $bp-mobile) {
+            margin-bottom: var(--margin-medium);
+            text-align: center;
+        }
+    }
+
+    .dashboard-admin-search-form {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-flow: row;
+        column-gap: 10rem;
+        margin-bottom: var(--margin-medium);
+
+        @media screen and (max-width: $desktop-utility-bp-medium) {
+            grid-template-columns: 1fr;
+        }
+        
+        .form-block {
+            height: 100%;
+            @include flex-setup($flex-flow: column);
+
+            &.full-width {
+                grid-column: 1 / -1;
+            }
+        }
+
+        .form-group {
+            flex: 1;
+            width: 100%;
+            @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+            margin-bottom: var(--margin-medium);
+
+            .form-group-label {
+                margin-bottom: 1.5rem;
+            }
+
+            .input-wrapper {
+                position: relative;
+                width: 100%;
+            }
+
+            .form-group-input {
+                width: 100%;
+                padding: 2.5rem;
+                border: 0.1rem solid $primary-dark-blue-2; //$primary-dark-gray-2;
+                transition: var(--hover-transition);
+
+                &::-webkit-calendar-picker-indicator {
+                    filter: invert(1);
+                }
+
+                &:hover,
+                &:focus {
+                    border-color: $primary-light-text-1; //$primary-light-gray-1;
+                }
+            }
+
+            .form-group-select {
+                background-color: $primary-dark-gray-1;
+                color: $primary-light-gray-1;
+
+                @media screen and (max-width: $bp-small) {
+                    width: 100%;
+                    max-width: 100%;
+                }
+            }
+        }
+
+        .button-primary {
+            grid-column: 1 / -1;
+            justify-self: center;
+
+            &:not(:last-child) {
+                margin-bottom: var(--margin-small);
+            }
+        }
+    }
+}

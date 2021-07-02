@@ -288,9 +288,9 @@ exports.studentAllocation = async (req, res, next) => {
             const enrolledUser = await User.findOne({ where: { id: enrollment.userId } });
 
             // CHECK IF STUDENT IS ALLREADY ALLOCATED
-            if(enrolledUser.hallId !== null) {
-                return next(new AppError(`You are already allocated in hall ${hall.hall_name}.`, 500));
-            }
+            // if(enrolledUser.hallId !== null) {
+            //     return next(new AppError(`You are already allocated in hall ${hall.hall_name}.`, 500));
+            // }
 
             // CHECK IF THE NUMBER OF STUDENTS FROM CURRENT HALL IS GREATER THAN THE LIMIT AND CURRENT HALL IS THE LAST ONE
             if(countStudents >= studentsLimit && i === halls.length - 1) {
@@ -344,10 +344,10 @@ exports.studentAllocation = async (req, res, next) => {
             for(let i = 0; i <= allStudents.length - 1; i++) {
 
                 // CHECK IF CURRENT USER IS ALREADY ALLOCATED
-                const currentAllocation = await HallRoom.findOne({where: {hallId: hall.id, userId: allStudents[i].id}});
-                if(currentAllocation) {
-                    continue;
-                }
+                // const currentAllocation = await HallRoom.findOne({where: {hallId: hall.id, userId: allStudents[i].id}});
+                // if(currentAllocation) {
+                //     continue;
+                // }
 
                 for(let j = 1; j <= totalRoomsNumber; j++) {
 
@@ -407,6 +407,12 @@ exports.studentAllocation = async (req, res, next) => {
                     } else if (j > 210 && j < 280) {
                         floor = 3
                     }
+
+                    const allreadyAllocatedToRoom = await HallRoom.findOne({where: { userId: currentStudent.id }});
+
+                    if(allreadyAllocatedToRoom) {
+                        await allreadyAllocatedToRoom.destroy();
+                    } 
 
                     let allocateStudentToRoom = await HallRoom.create({
                         room_number: j,

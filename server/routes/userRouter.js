@@ -10,13 +10,15 @@ const userController = require('../controller/userController');
 const authController = require('../controller/authController');
 
 // APPLY MIDDLEWARE'S
-userRouter.use(authController.protect);
+userRouter.use(authController.protect, authController.restrictTo('admin', 'student'));
 
 // ROUTES FOR AUTHENTICATED USERS
 userRouter.patch('/updateMyPassword', updatePwdSchema, validateRequestSchema, userController.updateMyPassword);
 userRouter.patch('/updateMe', updateMe, validateRequestSchema, userController.updateMe);
 userRouter.delete('/deleteMe', userController.deleteMe);
 
+// APPLY MIDDLEWARE'S
+userRouter.use(authController.protect);
 
 userRouter.get('/enrollment', userController.getEnrollment);
 userRouter.post('/enrollment', createEnrollmentSchema, validateRequestSchema, userController.createEnrollment);

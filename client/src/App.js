@@ -44,12 +44,19 @@ import StudentDashboardInformation from './pages/StudentDashboardInfromation';
 import StudentDashboardKin from './pages/StudentDashboardKin';
 import StudentDashboardKinUpdate from './pages/StudentDashboardKinUpdate';
 
+import AdminDashboard from './pages/AdminDashboard';
+import AdminDashboardAccountInfo from './pages/AdminDashboardAccountInfo';
+import AdminDashboardPassword from './pages/AdminDashboardPassword';
+
+import Page404 from './pages/Page404';
+
 
 // COMPONENTS
 import Gradient from './components/LayoutComponents/PageGradient/Gradient';
 import Header from './components/LayoutComponents/Header/Header';
-// import SmoothScroll from './components/LayoutComponents/SmoothScrollContainer/SmoothScroll';
 
+import PrivateRoute from './utils/PrivateRoute';
+import PublicRoute from './utils/PublicRoute';
 
 function App() {
 
@@ -60,9 +67,7 @@ function App() {
   const app = useRef(null);
 
   useEffect(() => {
-
     const fetchUser = () => {
-  
       // INIT REQ
       dispatch(requestCheckLogin);
 
@@ -80,7 +85,6 @@ function App() {
     }
 
     fetchUser();
-
   }, [dispatch]);
 
 
@@ -90,53 +94,34 @@ function App() {
   }, []);
 
   return (
-    <Router>
+      <Router>
         <ScrollToTop />
         <div className="App" ref={app}>
           <Gradient />
           <Header />
-          {/* <SmoothScroll> */}
             <Switch>
+
+              <PrivateRoute role="admin" component={AdminDashboard} exact path="/admin" />
+              <PrivateRoute role="admin" component={AdminDashboardAccountInfo} exact path="/admin-details" />
+              <PrivateRoute role="admin" component={AdminDashboardPassword} exact path="/admin-password" />
+
+            
+              <PublicRoute component={Login} exact path="/login" />
+              <PublicRoute component={ForgotPassword} exact path="/forgot-password" />
+              <PublicRoute component={ResetPassword} exact path="/reset-password/:id" />
+              <PublicRoute component={Register} exact path="/register" />
+
+              <PrivateRoute  role="student" component={StudentDashboard} exact path="/:name/dashboard" />
+              <PrivateRoute  role="student" component={StudentDashboardPwdUpdate} exact path="/:name/update-password" />
+              <PrivateRoute  role="student" component={StudentDashboardAccountInfo} exact path="/:name/update-details" />
+              <PrivateRoute  role="student" component={StudentDashboardEnrollment} exact path="/:name/enrollment" />
+              <PrivateRoute  role="student" component={StudentDashboardEnrollmentConfirm} exact path="/:name/enrollment/success" />
+              <PrivateRoute  role="student" component={StudentDashboardInformation} exact path="/:name/information" />
+              <PrivateRoute  role="student" component={StudentDashboardKin} exact path="/:name/kins" />
+              <PrivateRoute  role="student" component={StudentDashboardKinUpdate} exact path="/:name/kins/:id" />
+
               <Route exact path="/">
                 <Index />
-              </Route>
-            
-              <Route exact path="/login">
-                <Login />
-              </Route>
-              <Route exact path="/forgot-password">
-                <ForgotPassword />
-              </Route>
-              <Route exact path="/reset-password/:id">
-                <ResetPassword />
-              </Route>
-              <Route exact path="/register">
-                <Register />
-              </Route>
-
-              <Route exact path="/:name/dashboard">
-                <StudentDashboard />
-              </Route>
-              <Route path="/:name/update-password">
-                <StudentDashboardPwdUpdate />
-              </Route>
-              <Route path="/:name/update-details">
-                <StudentDashboardAccountInfo />
-              </Route>
-              <Route exact path="/:name/enrollment">
-                <StudentDashboardEnrollment />
-              </Route>
-              <Route path="/:name/enrollment/success">
-                <StudentDashboardEnrollmentConfirm />
-              </Route>
-              <Route path="/:name/information">
-                <StudentDashboardInformation />
-              </Route>
-              <Route exact path="/:name/kins">
-                <StudentDashboardKin />
-              </Route>
-              <Route exact path="/:name/kins/:id">
-                <StudentDashboardKinUpdate />
               </Route>
 
               <Route path="/about">
@@ -190,8 +175,9 @@ function App() {
               <Route path="/questions">
                 <FAQ />
               </Route>
+
+              <Route component={Page404} />
             </Switch>
-          {/* </SmoothScroll> */}
         </div>
       </Router>
   );

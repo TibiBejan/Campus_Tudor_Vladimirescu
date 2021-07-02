@@ -1,30 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
 import ButtonPrimary from '../../SharedComponents/Button/ButtonPrimary';
 
 import { useFormik } from 'formik';
 import { forgotPwdSchema } from '../../../validation/AuthSchema';
-import { useSelector } from 'react-redux';
-import { userSelector } from '../../../redux/userSlice.js';
-import { useHistory  } from 'react-router-dom';
 import axios from 'axios';
 
 import './ForgotPasswordComponent.scss';
 
 function ForgotPasswordComponent() {
 
-    const userState = useSelector(userSelector);
-    const history = useHistory();
-
     // STATE
     const [ formError, setFormError ] = useState('');
     const [ currentEmail, setCurrentEmail ] = useState('');
-    // EFFECT
-    useEffect(() => {
-        if(userState.isAuthenticated) {
-            history.push(`/${userState.user.first_name}.${userState.user.last_name}/dashboard`);
-        }
-    }, [userState, history]);
 
     const onSubmit = async (values) => {
         const reqConfig = {

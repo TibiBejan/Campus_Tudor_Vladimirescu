@@ -30,7 +30,7 @@
         right: 0;
         height: 0.1rem;
         width: 100%;
-        background-color: $primary-dark-blue-2; // $primary-dark-gray-2
+        background-color: $primary-dark-gray-2;
     }
 
     &-inner {
@@ -42,25 +42,6 @@
             width: 100%;
             max-width: 100%;
         }
-        // height: auto;
-        // padding: var(--general-padding-medium) 0;
-        // margin: 0 12rem;
-
-        // @media screen and (max-width: $bp-large) {
-        //     margin: 0 10rem;
-        // }
-
-        // @media screen and (max-width: $bp-medium) {
-        //     margin: 0 9rem;
-        // }
-
-        // @media screen and (max-width: $bp-small) {
-        //     margin: 0 7rem;
-        // }
-
-        // @media screen and (max-width: $bp-mobile) {
-        //     margin: 0;
-        // }
 
         .dashboard-information {
             padding-top: var(--general-padding-medium);

@@ -11,6 +11,7 @@ import "swiper/components/pagination/pagination.min.css"
 
 import StudentDashboardNav from '../StudentDashboardNav/StudentDashboardNav';
 import NeighborCard from '../../SharedComponents/NeighborCard/NeighborCard';
+import EmptyNeighbordCard from '../../SharedComponents/EmptyNeighborCard/EmptyNeighbordCard';
 import './StudentDashboardAccommodate.scss';
 
 function StudentDashboardAccommodate() {
@@ -18,6 +19,7 @@ function StudentDashboardAccommodate() {
     // SLICE OF STATE
     const accommodationState = useSelector(accommodationSelector);
     const { student, neighbors } = accommodationState.accommodation;
+    const roomNeighbors = neighbors.filter(neighbor => neighbor.email !== student.email);
 
     const hallImage = require(`../../../assets/images/ResidenceHalls/campus-${student.hallId}.jpg`).default;
 
@@ -68,7 +70,12 @@ function StudentDashboardAccommodate() {
                     speed={1000}
                     className="dashboard-accommodate-slider"
                 >
-                    {neighbors.map(neighbor => (
+                    {roomNeighbors.length === 0 && (
+                        <SwiperSlide>
+                            <EmptyNeighbordCard />
+                        </SwiperSlide>
+                    )}
+                    {roomNeighbors.map(neighbor => (
                         <SwiperSlide key={`person-card-${neighbor.email}`}>
                             <NeighborCard cardData={neighbor} />
                         </SwiperSlide>

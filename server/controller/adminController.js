@@ -1,4 +1,5 @@
-const { User } = require('../models');
+const { User, Enrollment } = require('../models');
+const { Op } = require("sequelize");
 const bcrypt = require('bcrypt');
 const AppError = require('../utils/appError');
 
@@ -13,22 +14,117 @@ const filterObj = (obj, ...allowedFields) => {
     return filteredObj;
 }
 
-exports.getAllUsers = async (req, res, next) => {
+exports.getUsersByQuerry = async (req, res, next) => {
+
+    const queryObj = {...req.query};
+    const excludedFields = ['page', 'limit', 'sort', 'fields'].forEach(field => delete queryObj[field]);
+
+    if(Object.keys(queryObj).length === 0) {
+        return next(new AppError("Please type a querry or select something from the inputs below.", 500));
+    }
+
+    if(queryObj.searchQuerry) {
+        const validatedQuerrySearch = queryObj.searchQuerry.match(/^[ A-Za-z0-9_@./-]*$/g);
+
+        if(validatedQuerrySearch === null) {
+            return next(new AppError("Your querry must contain only alphanumeric chars and the following: _@./-", 500));
+        }
+    }
 
     try {
-        const users = await User.findAll(); 
+        if(queryObj.searchQuerry && (queryObj.university === null || !queryObj.university)) {
+            const users = await User.findAndCountAll({
+                where: {
+                    role: 'student',
+                    [Op.or]: [
+                        {
+                            email: queryObj.searchQuerry,
+                        },
+                        {
+                           first_name: { [Op.like]: `%${queryObj.searchQuerry}%` }
+                        },
+                        {
+                            last_name: { [Op.like]: `%${queryObj.searchQuerry}%` }
+                        }
+                    ],
+                }
+            });
 
-        if(!users) {
-            return next(new AppError("There are no users in the database, please try again...", 400));
-        }
-
-         return res.status(200).json({
-            status: "success",
-            results: users.length,
-            data: {
-                users: users
+            if(users.length === 0) {
+                return next(new AppError("There are no users that match your search querry", 400));
             }
-        });
+            
+            if(!users) {
+                return next(new AppError("There are no users in the database, please try again...", 400));
+            }
+    
+             return res.status(200).json({
+                status: "success",
+                results: users.length,
+                students: users
+            });
+        } else if (queryObj.university && (queryObj.searchQuerry === null || !queryObj.searchQuerry)) {
+            const users = await User.findAndCountAll({
+                where: { role: 'student' },
+                include: [{
+                    model: Enrollment,
+                    where: { 
+                        university: queryObj.university 
+                    },
+                    attributes: ['uuid']
+                }],
+                
+            });
+
+            if(users.length === 0) {
+                return next(new AppError("There are no users that match your search querry", 400));
+            }
+            
+            if(!users) {
+                return next(new AppError("There are no users in the database, please try again...", 400));
+            }
+    
+             return res.status(200).json({
+                status: "success",
+                results: users.length,
+                students: users
+            });
+        } else if (queryObj.searchQuerry && queryObj.university) {
+            const users = await User.findAndCountAll({
+                where: {
+                    [Op.or]: [
+                        {
+                            email: queryObj.searchQuerry,
+                        },
+                        {
+                           first_name: { [Op.like]: `%${queryObj.searchQuerry}%` }
+                        },
+                        {
+                            last_name: { [Op.like]: `%${queryObj.searchQuerry}%` }
+                        }
+                    ],
+                },
+                include: [{
+                    model: Enrollment,
+                    where: { university: queryObj.university },
+                    attributes: ['uuid']
+                }]
+            });
+
+            if(users.length === 0) {
+                return next(new AppError("There are no users that match your search querry", 400));
+            }
+            
+            if(!users) {
+                return next(new AppError("There are no users in the database, please try again...", 400));
+            }
+    
+             return res.status(200).json({
+                status: "success",
+                results: users.length,
+                students: users
+            });
+        }
     }
     catch(err) {
         return res.status(500).json({

@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ButtonPrimary from '../../SharedComponents/Button/ButtonPrimary';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
-
-// REDUX
-import { useSelector } from 'react-redux';
-import { userSelector } from '../../../redux/userSlice';
 
 import { useFormik } from 'formik';
 import { registerSchema } from '../../../validation/AuthSchema';
@@ -15,17 +11,10 @@ import './RegisterComponent.scss';
 
 function RegisterComponent() {
 
-    const userState = useSelector(userSelector);
     const history = useHistory();
 
     // STATE
     const [ formError, setFormError ] = useState('');
-    // EFFECT
-    useEffect(() => {
-        if(userState.isAuthenticated) {
-            history.push(`/${userState.user.first_name}.${userState.user.last_name}/dashboard`);
-        }
-    }, [userState, history]);
 
     const onSubmit = (values) => {
 

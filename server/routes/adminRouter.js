@@ -12,7 +12,7 @@ adminRouter.use(authController.protect, authController.restrictTo('admin'));
 
 // ROUTES
 adminRouter.route('/api/v1/users/')
-    .get(adminController.getAllUsers)
+    .get(adminController.getUsersByQuerry)
     .post(createUserSchema, validateRequestSchema, adminController.createUser);
 
 adminRouter.route('/api/v1/users/:id')

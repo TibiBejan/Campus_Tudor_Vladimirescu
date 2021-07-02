@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import StudentDashboardNav from '../StudentDashboardNav/StudentDashboardNav';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
+import GeneralErrorMessage from '../../SharedComponents/GeneralErrorMessage/GeneralErrorMessage';
 import ButtonPrimary from '../../SharedComponents/Button/ButtonPrimary';
 import { IconContext } from 'react-icons';
 import { ImEye } from "react-icons/im";
@@ -25,6 +26,9 @@ function StudentDashboardPwd() {
     const [ visibleConfirmPassword, setVisibleConfirmPassword ] = useState(false);
 
     const onSubmit = async (values, { resetForm }) => {
+         // RESET SCROLL POSITION
+         window.scrollTo(0, 0);
+
         const reqConfig = {
             headers: {
                 'Content-Type': 'application/json',
@@ -51,6 +55,7 @@ function StudentDashboardPwd() {
         }).catch(err => {
             const message = err.response.data.errors ? err.response.data.errors[0].msg : err.response.data.message;
             setFormError(message);
+            dispatch(updatePwdError(message));
         });
     }
 
@@ -73,7 +78,7 @@ function StudentDashboardPwd() {
                 <div className="dashboard-form-block">
                     <div className="dashboard-form-block-heading-wrapper">
                         <h3 className="dashboard-form-title heading-three">Update password</h3>    
-                        {formError ? <ErrorMessageEl>{formError}</ErrorMessageEl> : null }    
+                        {formError ? <GeneralErrorMessage>{formError}</GeneralErrorMessage> : null }    
                     </div>
                     <form className="dashboard-password-update-form" method="POST" onSubmit={ formik.handleSubmit }>
                         <div className="form-group">

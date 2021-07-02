@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestAccommodation, receiveAccommodation, accommodationError, accommodationSelector } from '../redux/accommodationSlice';
 import { userSelector } from '../redux/userSlice';
+import { userEnrollSelector } from '../redux/userEnrollSlice';
 import axios from 'axios';
 
 // COMPONENTS
@@ -18,14 +19,16 @@ const bannerData = {
     subtitle: "Informatii general si repartizare"
 }
 
-function Dashboard() {
+function StudentDashboard() {
 
     // SLICE OF STATE
     const accommodationState = useSelector(accommodationSelector);
     const userState = useSelector(userSelector);
+    const userEnrollState = useSelector(userEnrollSelector);
     const dispatch = useDispatch();
     // STATE
     const [ isLoading, setIsLoading ] = useState(true);
+    const [ isAccommodated, setIsAccommodated ] = useState({});
 
     // GET CURRENT ENROLLMENT ON FIRST RENDER
     useEffect(() => {
@@ -39,24 +42,26 @@ function Dashboard() {
                 }, 
             }
 
-            if(!userState.user.uuid) {
-                return;
-            }
-
             dispatch(requestAccommodation());
 
             axios.get(`/api/v1/accommodation/${userState.user.uuid}`, reqConfig).then((response) => {
                 const { accommodatedUser } = response.data;
                 dispatch(receiveAccommodation(accommodatedUser));
+                setIsAccommodated(accommodatedUser);
                 setIsLoading(false);
             }).catch(err => {
                 dispatch(accommodationError('There is an error with your informations, please try again later'));
                 setIsLoading(false);
+                setIsAccommodated({});
             });
         }
 
         fetchAccommodation();
-    }, [dispatch, userState.user.uuid]);
+
+        return () => {
+            setIsAccommodated({});
+        }
+    }, [dispatch, userState.user.uuid, userEnrollState]);
 
     if(isLoading) {
         return <p>Loading...</p>
@@ -78,4 +83,4 @@ function Dashboard() {
     )
 }
 
-export default Dashboard
+export default StudentDashboard

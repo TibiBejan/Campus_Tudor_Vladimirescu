@@ -16,7 +16,7 @@ function StudentDashboardAccountInfo() {
     return (
         <>
         <main className="page-content">
-            <AuthBanner sectionData={ bannerData }/>    
+            <AuthBanner sectionData={ bannerData } />    
             <StudentDashboardAccount />
             <StatsSection />
         </main>

@@ -1,0 +1,39 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.person-card-empty {
+    position: relative;
+    height: 100%;
+    @include flex-setup($flex-flow: column);
+    background-color: $primary-dark-gray-3;
+    transition: var(--hover-transition);
+
+    &:hover {
+        box-shadow: 0.5rem 0.5rem 1rem rgba(0,0,0,0.4);
+    }
+
+    &-main{
+        height: 100%;
+        @include flex-setup($flex-flow: column, $align-items: center, $justify-content: center);
+        padding: var(--general-padding-small);
+        text-align: center;
+        z-index: 5;
+
+        .profile-image {
+            width: 20rem;
+            height: 20rem;
+            border-radius: 50%;
+            margin-bottom: var(--margin-medium);
+            background-color:  $primary-dark-gray-2;
+            overflow: hidden;
+
+            .background-image {
+                margin-top: 2.5rem;
+            }
+        }
+
+        .heading-three {
+            text-align: center;
+        }
+    }
+}

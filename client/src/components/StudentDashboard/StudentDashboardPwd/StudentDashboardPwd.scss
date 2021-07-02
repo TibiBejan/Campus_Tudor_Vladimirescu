@@ -30,7 +30,7 @@
         right: 0;
         width: 100%;
         height: 0.1rem;
-        background-color: $primary-dark-blue-2;
+        background-color: $primary-dark-gray-2;
     }
 
     &-inner {
@@ -94,7 +94,7 @@
                     .form-group-input {
                         width: 100%;
                         padding: 2.5rem;
-                        border: 0.1rem solid $primary-dark-blue-2; //$primary-dark-gray-2;
+                        border: 0.1rem solid $primary-dark-gray-2; 
                         transition: var(--hover-transition);
     
                         &::-webkit-calendar-picker-indicator {
@@ -103,7 +103,7 @@
     
                         &:hover,
                         &:focus {
-                            border-color: $primary-light-text-1; //$primary-light-gray-1;
+                            border-color: $primary-light-gray-1;
                         }
                     }
                 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
 import ButtonPrimary from '../../SharedComponents/Button/ButtonPrimary';
 import { IconContext } from 'react-icons';
@@ -6,8 +6,6 @@ import { ImEye } from "react-icons/im";
 
 import { useFormik } from 'formik';
 import { resetPwdSchema } from '../../../validation/AuthSchema';
-import { useSelector } from 'react-redux';
-import { userSelector } from '../../../redux/userSlice.js';
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 
@@ -15,7 +13,6 @@ import './ResetPasswordComponent.scss';
 
 function ResetPasswordComponent() {
 
-    const userState = useSelector(userSelector);
     const history = useHistory();
     const params = useParams();
 
@@ -23,12 +20,6 @@ function ResetPasswordComponent() {
     const [ formError, setFormError ] = useState('');
     const [ visiblePassword, setVisiblePassword ] = useState(false);
     const [ visibleConfirmPassword, setVisibleConfirmPassword ] = useState(false);
-    // EFFECT
-    useEffect(() => {
-        if(userState.isAuthenticated) {
-            history.push(`/${userState.user.first_name}.${userState.user.last_name}/dashboard`);
-        }
-    }, [userState, history]);
 
 
     const onSubmit = async (values) => {
@@ -39,9 +30,7 @@ function ResetPasswordComponent() {
                 "Access-Control-Allow-Origin": "*",
                 withCredentials: true,
                 credentials: 'include'
-            },
-            // xhrFields: {withCredentials: true},
-            // mode: 'cors',            
+            },         
         }
 
         axios.patch(`/api/v1/users/resetPassword/${params.id}`,  values, reqConfig).then((response) => {

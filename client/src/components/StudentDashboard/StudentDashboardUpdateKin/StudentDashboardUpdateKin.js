@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router';
 import StudentDashboardNav from '../StudentDashboardNav/StudentDashboardNav';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
+import GeneralErrorMessage from '../../SharedComponents/GeneralErrorMessage/GeneralErrorMessage';
 import ButtonPrimary from '../../SharedComponents/Button/ButtonPrimary';
 import axios from 'axios';
 
@@ -129,7 +130,7 @@ function StudentDashboardUpdateKin() {
                 <div className="dashboard-form-block">
                     <div className="dashboard-form-block-heading-wrapper">
                         <h3 className="dashboard-form-title heading-three">Actualizeaza persoana de contact: {currentKin && `${currentKin.first_name} ${currentKin.last_name}`}</h3>
-                        {formError ? <ErrorMessageEl>{formError}</ErrorMessageEl> : null }    
+                        {formError ? <GeneralErrorMessage>{formError}</GeneralErrorMessage> : null }    
                     </div>
                     <form className="dashboard-kin-update-form" method="POST" onSubmit={ formik.handleSubmit }>
                         <div className="form-block">

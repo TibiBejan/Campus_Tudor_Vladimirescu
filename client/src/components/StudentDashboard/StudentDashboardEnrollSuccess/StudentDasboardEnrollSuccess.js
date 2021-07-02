@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import StudentDashboardNav from '../StudentDashboardNav/StudentDashboardNav';
-import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
+import GeneralErrorMessage from '../../SharedComponents/GeneralErrorMessage/GeneralErrorMessage';
 import ButtonPrimary from '../../SharedComponents/Button/ButtonPrimary';
 import axios from 'axios';
 
@@ -32,11 +32,7 @@ function StudentDasboardEnrollSuccess() {
         }
 
         axios.get('/api/v1/users/studentAllocation', reqConfig).then((response) => {
-            if(response.status === 200 || response.status === 201) {
-                history.push(`/${userState.user.first_name}.${userState.user.last_name}/dashboard`);
-            } else {
-                setFormError('You are already enrolled');
-            }
+            history.push(`/${userState.user.first_name}.${userState.user.last_name}/dashboard`);
         }).catch(err => {
             const message = err.response.data.errors ? err.response.data.errors[0].msg : err.response.data.message;
             setFormError(message);
@@ -47,7 +43,7 @@ function StudentDasboardEnrollSuccess() {
         <section className="dashboard-enroll-success">
             <div className="dashboard-enroll-success-inner">
                 <StudentDashboardNav />
-                <ErrorMessageEl>{formError}</ErrorMessageEl>
+                {formError ? <GeneralErrorMessage>{formError}</GeneralErrorMessage> : null}
                 <div className="enroll-success-illustration">
                     <img src={enrollIllustration} alt="Enrollment complete illustration" className="background-image" />
                 </div>

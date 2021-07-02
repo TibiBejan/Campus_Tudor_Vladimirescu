@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
 import ButtonPrimary from '../../SharedComponents/Button/ButtonPrimary';
@@ -7,8 +7,8 @@ import { ImEye } from "react-icons/im";
 
 import { useFormik } from 'formik';
 import { loginSchema } from '../../../validation/AuthSchema';
-import { useDispatch, useSelector } from 'react-redux';
-import { requestLogin, receiveLogin, loginError, userSelector } from '../../../redux/userSlice';
+import { useDispatch } from 'react-redux';
+import { requestLogin, receiveLogin, loginError } from '../../../redux/userSlice';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
@@ -17,19 +17,11 @@ import './LoginComponent.scss';
 function LoginComponent() {
 
     const dispatch = useDispatch();
-    const userState = useSelector(userSelector);
     const history = useHistory();
 
     // STATE
     const [ formError, setFormError ] = useState('');
     const [ visiblePassword, setVisiblePassword ] = useState(false);
-
-    // EFFECT
-    useEffect(() => {
-        if(userState.isAuthenticated) {
-            history.push(`/${userState.user.first_name}.${userState.user.last_name}/dashboard`);
-        }
-    }, [userState, history]);
 
     const onSubmit = async (values) => {
 

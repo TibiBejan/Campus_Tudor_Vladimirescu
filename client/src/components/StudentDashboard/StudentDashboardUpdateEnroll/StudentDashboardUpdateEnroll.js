@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import StudentDashboardNav from '../StudentDashboardNav/StudentDashboardNav';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
+import GeneralErrorMessage from '../../SharedComponents/GeneralErrorMessage/GeneralErrorMessage';
 import ButtonPrimary from '../../SharedComponents/Button/ButtonPrimary';
 import axios from 'axios';
 
@@ -54,9 +55,9 @@ function StudentDashboardUpdateEnroll({ sectionData }) {
         axios.patch(`/api/v1/users/enrollment/${sectionData.uuid}`,  values, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 const { enrollment } = response.data;
+                dispatch(receiveUpdateEnroll(enrollment));
                 resetForm();
                 setFormError('');
-                dispatch(receiveUpdateEnroll(enrollment));
                 history.push(`/${userState.user.first_name}.${userState.user.last_name}/enrollment/success`);
             } else {
                 dispatch(updateEnrollError('There is an error with creating your information, please try again'));
@@ -118,7 +119,7 @@ function StudentDashboardUpdateEnroll({ sectionData }) {
                 <div className="dashboard-form-block">
                     <div className="dashboard-form-block-heading-wrapper">
                         <h3 className="dashboard-form-title heading-three">Adauga informatiile personale</h3>    
-                        {formError ? <ErrorMessageEl>{formError}</ErrorMessageEl> : null }    
+                        {formError ? <GeneralErrorMessage>{formError}</GeneralErrorMessage> : null }    
                     </div>
                     <form className="dashboard-update-enroll-form" method="POST" onSubmit={ formik.handleSubmit }>
                         <div className="form-block full-width">

@@ -68,7 +68,7 @@ export const userSlice = createSlice({
 
         requestUpdatePwd: (state) => {
             state.isFetching = true;
-            state.isAuthenticated = false;
+            state.isAuthenticated = true;
         },
         receiveUpdatePwd: (state, { payload }) => {
             state.user = payload;
@@ -88,7 +88,7 @@ export const userSlice = createSlice({
 
         requestAccountUpdate: (state) => {
             state.isFetching = true;
-            state.isAuthenticated = false;
+            state.isAuthenticated = true;
         },
         receiveAccountUpdate: (state, { payload }) => {
             state.user = payload;
