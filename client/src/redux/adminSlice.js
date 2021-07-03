@@ -4,7 +4,7 @@ export const adminSlice = createSlice({
     name: 'admin',
     initialState: {
         selectedUser: {},
-        students: {},
+        students: [],
         isFetching: false,
         isSuccess: false,
         isError: false,
@@ -40,7 +40,24 @@ export const adminSlice = createSlice({
             state.errorMessage = '';
         },
         studentsError: (state, { payload }) => {
-            state.students = {};
+            state.students = [];
+            state.isSuccess = false;
+            state.isFetching = false;
+            state.isError = true;
+            state.errorMessage = payload;
+        },
+
+        requestDeleteStudents: (state) => {
+            state.isFetching = true;
+        },
+        receiveDeleteStudents: (state, { payload }) => {
+            state.students = state.students.filter((student) => student.uuid !== payload);
+            state.isSuccess = true;
+            state.isFetching = false;
+            state.isError = false;
+            state.errorMessage = '';
+        },
+        studentsDeleteError: (state, { payload }) => {
             state.isSuccess = false;
             state.isFetching = false;
             state.isError = true;
@@ -56,6 +73,9 @@ export const {
     requestStudents,
     receiveStudents,
     studentsError,
+    requestDeleteStudents,
+    receiveDeleteStudents,
+    studentsDeleteError
 
 } = adminSlice.actions;
 export const adminSelector = (state) => state.admin;

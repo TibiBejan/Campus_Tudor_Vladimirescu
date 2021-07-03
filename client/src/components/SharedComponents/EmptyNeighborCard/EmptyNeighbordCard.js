@@ -1,7 +1,7 @@
 import React from 'react';
 import './EmptyNeighborCard.scss';
 
-function EmptyNeighbordCard() {
+function EmptyNeighbordCard({ message }) {
 
     const profileImage = require(`../../../assets/images/kin-illustration.svg`);
 
@@ -11,7 +11,7 @@ function EmptyNeighbordCard() {
                 <div className="profile-image">
                     <img src={profileImage.default} alt="Empty student card illustration" className="background-image" />
                 </div>
-                <p className="paragraph-showcase">In acest moment, sunteti singurul student cazat in aceasta camera.</p>
+                <p className="paragraph-showcase">{message}</p>
             </div>
         </div>
     )

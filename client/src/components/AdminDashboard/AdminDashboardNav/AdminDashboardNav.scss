@@ -1,15 +1,16 @@
 @import '../../../scss/variables';
 @import '../../../scss/mixins';
 
-.dashboard-admin-nav {
+.dashboard-admin-nav, 
+.dashboard-admin-nav-secondary {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     margin-bottom: var(--margin-medium);
-    border: 0.1rem solid $primary-dark-gray-2;
+    // border: 0.1rem solid $primary-dark-gray-2;
 
-    @media screen and (max-width: $bp-medium) {
-        grid-template-columns: repeat(2, 1fr);
+    @media screen and (max-width: $bp-large) {
+        grid-template-columns: repeat(3, 1fr);
         border-bottom: none;
     }
 
@@ -21,14 +22,7 @@
     .dashboard-admin-nav-list-item {
         height: 100%;
         width: 100%;
-
-        &:not(:last-child) {
-            border-right: 0.1rem solid $primary-dark-gray-2;
-        }
-
-        @media screen and (max-width: $desktop-utility-bp-large) {
-            border-bottom: 0.1rem solid $primary-dark-gray-2;
-        }
+        border: 0.1rem solid $primary-dark-gray-2;
         
         .dashboard-nav-link {
             width: 100%;

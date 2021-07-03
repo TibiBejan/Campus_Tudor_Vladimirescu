@@ -138,7 +138,7 @@ function StudentDashboardPwd() {
                             </div>
                             {formik.errors.password_new_confirm && <ErrorMessageEl>{formik.errors.password_new_confirm}</ErrorMessageEl>}  
                         </div>
-                        <ButtonPrimary type="submit" textLabel="Conectare" />
+                        <ButtonPrimary type="submit" textLabel="Actualizeaza parola" />
                     </form>
                 </div>
             </div>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import AdminDashboardPagination from '../AdminDashboardPagination/AdminDashboardPagination';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
 import GeneralErrorMessage from '../../SharedComponents/GeneralErrorMessage/GeneralErrorMessage';
 import Button from '../../SharedComponents/Button/ButtonPrimary';
@@ -68,7 +67,7 @@ function AdminDashboardSearch() {
         } else if (values.searchQuerry && (!values.university || values.university === '')) {
             reqUrl = `/api/v1/search-users?searchQuerry=${values.searchQuerry}`;
         } else if((!values.university || values.university === '') && (!values.searchQuerry || values.searchQuerry === '')) {
-            reqUrl = '/api/v1/users'
+            reqUrl = '/api/v1/users/'
         }
 
         // INIT REQ
@@ -78,8 +77,16 @@ function AdminDashboardSearch() {
             const { students } = response.data;
             dispatch(receiveStudents(students));
             setFormError('');
+            if( students.rows && students.rows.length === 0 ) {
+                dispatch(studentsError('Nu au fost gasiti studenti pe baza acestor criterii.'));
+                setFormError('Nu au fost gasiti studenti pe baza acestor criterii.');
+            } else if (!students.length === 0 || !students) {
+                dispatch(studentsError('Nu au fost gasiti studenti pe baza acestor criterii.'));
+                setFormError('Nu au fost gasiti studenti pe baza acestor criterii.');
+            }
         }).catch(err => {
-            const message = err.response.data.message ? err.response.data.message : "Please type a querry or select something from the inputs below.";
+            let message;
+            err.response.data.message ? message = err.response.data.message : message = "Please type a querry or select something from the inputs below."
             setFormError(message);
             dispatch(studentsError(message));
         });

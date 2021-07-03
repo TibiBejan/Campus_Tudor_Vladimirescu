@@ -35,7 +35,7 @@ function ResidenceHall() {
     }, [hallName, history]);
 
     if (isLoading) {
-        return <div className="App">Loading...</div>;
+        return <div>Loading...</div>;
     }
 
     const hallImage = require(`../assets/images/ResidenceHalls/campus-${hallData.hall_number}.jpg`).default;
@@ -52,7 +52,7 @@ function ResidenceHall() {
 
     return (
         <>
-            <HeaderBannerSmall bannerData={ bannerData } bannerImage={ hallImage } />  
+            <HeaderBannerSmall bannerData={ bannerData } bannerImage={hallImage} />  
             <main className="page-content">
                 <ResidenceHallDescription sectionData={hallData} />
                 <ResidenceHallPeople sectionData={hallData.HallStaffs} />

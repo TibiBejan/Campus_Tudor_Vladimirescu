@@ -1,21 +1,152 @@
 @import '../../../scss/variables';
 @import '../../../scss/mixins';
 
-.table {
+.pagination-content-blocks {
     width: 100%;
-    @include flex-setup($flex-flow: column, $align-items: center, $justify-content: center);     
-    background-color: $primary-dark-gray-3;     
-    border: 0.1remsolid $primary-dark-gray-2;    
-    
-    .table-head,
-    .table-row {
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        align-items: center;
-        justify-content: center;
-    }
+    @include flex-setup($flex-flow: column, $align-items: center, $justify-content: center);
 
-    .table-col {
-        display: table-column;        
+    .student-block {
+        position: relative;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 12.5rem repeat(4, 1fr);
+        align-items: center;
+        justify-items: center;
+        min-height: 10rem;
+        margin-bottom: var(--margin-small);
+        padding: var(--general-padding-small);
+        border-radius: 1rem;
+        box-shadow: 1.5rem 1.5rem 1rem rgba(0,0,0,0.6);
+        background-color: $primary-dark-gray-3;
+        transition: var(--hover-transition);
+        overflow: hidden;
+
+        @media screen and (max-width: $bp-large) {
+            grid-template-columns: 7.5rem repeat(4, 1fr);
+            padding: var(--general-padding-small) 1.5rem var(--general-padding-small) 3rem;
+        }
+
+        @media screen and (max-width: $bp-medium) {
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, minmax(min-content, max-content));
+            row-gap: 2.5rem;
+        }
+
+        &:hover {
+            box-shadow: 1.5rem 1.5rem 2.5rem rgba(0,0,0,0.6);
+        }
+
+        .student-block-primary-color {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            height: 100%;
+            width: 1rem;
+            background-color: $primary-light-gray-2;
+        }
+
+        .student-block-uni-logo {
+            width: 10rem;
+            height: 10rem;
+            border-radius: 50%;
+            background-color: $primary-dark-gray-2;
+            overflow: hidden;
+
+            @media screen and (max-width: $bp-large) {
+                width: 7.5rem;
+                height: 7.5rem;
+            }
+
+            @media screen and (max-width: $bp-medium) {
+                row-gap: 2.5rem;
+            }
+        }
+
+        .student-block-label-wrapper {
+            @include flex-setup($flex-flow: column, $align-items: center, $justify-content: center);
+            padding: 0 2.5rem;
+
+            @media screen and (max-width: $bp-large) {
+                padding: 0 1rem;
+            }
+
+
+            @media screen and (max-width: $bp-medium) {
+                grid-row: 2 / 3;
+                padding: 0 0.5rem;
+            }
+        }
+
+        .student-block-actions {
+            @include flex-setup($flex-flow: row, $align-items: center, $justify-content: center);
+            padding: 0 2.5rem;
+
+            @media screen and (max-width: $bp-medium) {
+                grid-column: 3 / 4;
+            }
+
+            .button-action {
+                @include flex-setup($align-items: center, $justify-content: center);
+                width: 6rem;
+                height: 6rem;
+                background-color: $primary-dark-gray-2;
+                border-radius: 50%;
+                overflow: hidden;
+                cursor: pointer;
+
+                @media screen and (max-width: $bp-large) {
+                    width: 4.5rem;
+                    height: 4.5rem;
+                }
+
+                &:first-child {
+                    margin-right: 2rem;
+                }
+            }
+        }
     }
 }
+
+.pagination-buttons-wrapper {
+    width: 100%;
+    margin-top: var(--margin-medium);
+    list-style: none;
+    @include flex-setup($flex-flow: row, $align-items: center, $justify-content: center);
+}
+  
+.pagination-buttons-wrapper a {
+    padding: 1.5rem 3rem;
+    margin: 1rem;
+    border: 1px solid $primary-dark-gray-2;
+    color: transparent;
+    cursor: pointer;
+    transition: var(--hover-transition);
+    color: $primary-light-gray-1;
+    font-family: $primary-font;
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    line-height: 2;
+    color:  $primary-light-gray-1;
+
+    @media screen and (max-width: $bp-medium) {
+        font-size: 1.4rem;
+    }
+}
+
+.pagination-buttons-wrapper a:hover {
+    color:  $primary-light-gray-1;
+    background-color: $primary-dark-gray-2;
+}
+
+.pagination-active a {
+    color:  $primary-light-gray-1;
+    background-color: $primary-dark-gray-2;
+}
+
+.pagination-disabled a {
+    color:  $primary-light-gray-1;
+    background-color: $primary-dark-gray-3;
+}
+

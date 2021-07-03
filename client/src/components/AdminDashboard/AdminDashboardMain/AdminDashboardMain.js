@@ -18,7 +18,7 @@ function AdminDashboardMain() {
             <div className="admin-dashboard-main-inner">
                 <AdminDashboardNav />
                 <AdminDashboardSearch />
-                { adminState.students.rows && <AdminDashboardPagination studentsData={adminState.students.rows} /> }
+                { Object.keys(adminState.students).length !== 0 && <AdminDashboardPagination studentsData={adminState.students} /> }
             </div>
         </section>
     )

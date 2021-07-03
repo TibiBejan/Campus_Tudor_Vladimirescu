@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '../Button/ButtonPrimary';
 import './NeighborCard.scss';
 
-function NeighborCard({ cardData }) {
+function NeighborCard({ cardData, disabledDetails }) {
 
     // STATE
     const [ activeDescription, setActiveDescription ] = useState(false);
@@ -23,7 +23,7 @@ function NeighborCard({ cardData }) {
                 <div className="contact-group">
                     <a href={`mailto:${cardData.email}`}  className="contact-group-link label-medium">{cardData.email}</a>
                 </div>
-                <Button type="button" onClick={handleDescription} textLabel="Citeste mai mult" />
+                <Button type="button" onClick={!disabledDetails ? handleDescription : null} textLabel="Citeste mai mult" />
             </div>
             <div className={activeDescription ? "person-card-description active" : "person-card-description"}>
                 <div className="person-card-description-inner">

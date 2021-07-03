@@ -1,0 +1,34 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.student-neighbors-section {
+    width: 100%;
+
+    .student-neighbors-heading-wrapper {
+        margin-bottom: var(--margin-medium);
+    }
+
+    .student-accommodation-neighbors {
+        min-width: 100%;
+        @include flex-setup($flex-flow: column, $align-items: center, $justify-content: flex-start);
+    
+        .dashboard-accommodate-slider {
+            width: 100%;
+            height: 60rem;
+            @include flex-setup($flex-flow: column, $align-items: center, $justify-content: flex-start);
+            
+            .swiper-container {
+                height: 60rem;
+                display: grid;
+                grid-auto-flow: column;
+                width: 100%;
+        
+                .swiper-slide {
+                    height: 100%;
+                    height: 60rem;
+                }
+            }
+        }
+    }
+}
+

@@ -72,7 +72,7 @@ function StudentDashboardAccommodate() {
                 >
                     {roomNeighbors.length === 0 && (
                         <SwiperSlide>
-                            <EmptyNeighbordCard />
+                            <EmptyNeighbordCard message="In acest moment, sunteti singurul student cazat in aceasta camera" />
                         </SwiperSlide>
                     )}
                     {roomNeighbors.map(neighbor => (

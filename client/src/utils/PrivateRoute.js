@@ -13,8 +13,7 @@ export const PrivateRoute = ({ component: Component, role, ...rest }) => {
     }
 
     return <Route {...rest} render={props => {
-        if (!userState.user) {
-            // not logged in so redirect to login page with the return url
+        if (Object.keys(userState.user).length === 0 || !userState.user) {
             return <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
         }
 

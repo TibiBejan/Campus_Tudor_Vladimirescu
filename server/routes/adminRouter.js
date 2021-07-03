@@ -22,5 +22,10 @@ adminRouter.route('/api/v1/users/:id')
     .patch(updateUserSchema, validateRequestSchema, adminController.updateUser)
     .delete(adminController.deleteUser);  
 
+adminRouter.route('/api/v1/accommodated-user/:id')
+    .get(adminController.getAccommodatedUser);
+
+adminRouter.route('/api/v1/student-neighbors/:id')
+    .get(adminController.getStudentNeighbors);
 
 module.exports = adminRouter;

@@ -22,17 +22,43 @@
 
         .modal-box {
             transform: translateY(0);
+            opacity: 1;
         }
     }
 
     .modal-box {
-        width: 50%;
-        height: 50%;
-        transform: translateY(-100%);
+        width: 40vw;
+        height: 65vh;
+        transform: translateY(-15%);
+        opacity: 0;
         @include flex-setup($flex-flow: column, $align-items: center, $justify-content: center);
-        
         background-color: $primary-dark-gray-3;
-        transition: 0.75s ease-in-out;
+        transition: 0.5s ease-in-out;
+
+        @media screen and (min-height: 1100px) {
+            width: 70vw;
+            height: 50vh;
+        }
+
+        @media screen and (max-width: $bp-medium) {
+            width: 50vw;
+            height: 60vh;
+        }
+
+        @media screen and (max-width: $bp-medium) {
+            width: 80vw;
+            height: 50vh;
+        }
+
+        @media screen and (max-width: $bp-small) {
+            width: 85vw;
+            height: 50vh;
+        }
+
+        @media screen and (max-width: $bp-mobile) {
+            width: 95vw;
+            height: 60vh;
+        }
 
         .modal-box-inner {
             @include flex-setup($flex-flow: column, $align-items: center, $justify-content: center);
@@ -59,7 +85,6 @@
                 .modal-action-button {
                     @include flex-setup($flex-flow: row, $align-items: center, $justify-content: center);
                     padding: 0.5rem 3.5rem;
-                    border-radius: 1rem;
                     border: 0.1rem solid $primary-dark-gray-2;
                     background-color: transparent;
                     transition: var(--hover-transition);

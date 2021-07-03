@@ -75,7 +75,7 @@ if(process.env.NODE_ENV === 'development') {
 
 // REQUEST LIMITER MIDDLEWEAR
 const limiter = rateLimit({
-    max: 100, // 100 REQUEST PER 15Min
+    max: 250, // 100 REQUEST PER 15Min
     windowMs: 15 * 60 * 1000,
     message: 'Too many request from this IP, please try again in 15 minutes!'
 });

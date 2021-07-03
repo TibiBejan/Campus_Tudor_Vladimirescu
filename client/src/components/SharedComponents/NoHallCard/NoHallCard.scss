@@ -1,0 +1,47 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.no-hall-card-wrapper{
+    height: 100%;
+    @include flex-setup($flex-flow: column, $align-items: center, $justify-content: center);
+
+    .no-hall-card {
+        height: 100%;
+        width: 100%;
+        @include flex-setup($flex-flow: column, $align-items: center, $justify-content: center);
+        padding: var(--general-padding-medium);
+        background-color: $primary-dark-gray-3;
+        overflow: hidden;
+
+        @media screen and (min-width: $bp-medium) {
+            box-shadow: 1rem 1rem 1rem rgba(0,0,0,0.6);
+
+            &:hover {
+                .hall-card-background .background-image {
+                    transform: scale(1.05);
+                }
+            }
+        }
+
+        .no-hall-card-background {
+            width: 25rem;
+            height: auto;
+            margin-bottom: var(--margin-medium);   
+            pointer-events: none;
+            transition: 0.5s ease-in-out;
+
+            .background-image {
+                transition: var(--hover-transition);
+                object-fit: cover;
+            }
+        }
+
+        .no-hall-card-content {
+            @include flex-setup($flex-flow: column, $align-items: center, $justify-content: center);
+
+            .no-hall-card-paragraph {
+                text-align: center;
+            }
+        }
+    }
+}
