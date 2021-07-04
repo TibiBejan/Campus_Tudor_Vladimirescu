@@ -213,8 +213,8 @@ exports.forgotPassword = async (req, res, next) => {
         // SEND BACK AS EMAIL
         // const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/resetPassword/${resetPwdToken.reset_token}`;
         const resetURL = `${req.protocol}://127.0.0.1:3000/reset-password/${resetPwdToken.reset_token}`;
-        const message = `Forgot your password? Submit a request with your new password and password confirm to: ${resetURL}\nIf you did not perform this request, please ignore this e-mail!`
-       
+        const message = `Forgot your password? Submit a request with your new password and password confirm to: ${resetURL}\nIf you did not perform this request, please ignore this e-mail!`;
+
         try{
             await sendEmail({
                 email: user.email,

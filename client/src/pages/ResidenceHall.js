@@ -26,7 +26,17 @@ function ResidenceHall() {
 
     // EFFECT
     useEffect(() => {
-        axios.get(`http://127.0.0.1:8001/api/v1/halls/${hallName}`).then((response) => {
+
+        const reqConfig = {
+            headers: {
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                // withCredentials: true,
+                credentials: 'include'
+            },
+        }
+
+        axios.get(`/api/v1/halls/${hallName}`, reqConfig).then((response) => {
             setHallData(response.data.hall);
             setIsLoading(false);
         }).catch(err => {
@@ -35,12 +45,12 @@ function ResidenceHall() {
             history.push('/residence-halls');
         });
     }, [hallName, history]);
-
+    
     if (isLoading) {
         return <div>Loading...</div>;
     }
 
-    const hallImage = require(`../assets/images/ResidenceHalls/campus-${hallData.hall_number}.jpg`).default;
+    const hallImage = require(`../assets/images/ResidenceHalls/campus-${hallData.hall_number}.jpg`);
 
     if(error) {
         return <p>{error}</p>
@@ -56,7 +66,7 @@ function ResidenceHall() {
         <>
             <InitialTransition />
             <Header />
-            <HeaderBannerSmall bannerData={ bannerData } bannerImage={hallImage} />  
+            <HeaderBannerSmall bannerData={ bannerData } bannerImage={hallImage.default} />  
             <main className="page-content">
                 <ResidenceHallDescription sectionData={hallData} />
                 <ResidenceHallPeople sectionData={hallData.HallStaffs} />

@@ -1,15 +1,15 @@
 const nodemailer = require('nodemailer');
 
-const email_pwd = process.env.EMAIL_PASSWORD;
-const email_user = process.env.EMAIL_USERNAME;
-
 const sendEmail = async (options) => {
+
     // CREATE A TRANSPORTER
     const transporter = nodemailer.createTransport({
-        service: 'hotmail',
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true, // use SSL
         auth: {
-          user: email_pwd,
-          pass: email_user
+            user: 'licenta.web.app.2021@gmail.com'  ,
+            pass: 'Licenta2021telecomro!'
         }
     });
     // DEFINE THE EMAIL OPTIONS
@@ -20,7 +20,15 @@ const sendEmail = async (options) => {
         text: options.message,
     }
     // SEND EMAIL WITH NODEMAILER
-    await transporter.sendMail(mailOptions);
+    // await transporter.sendMail(mailOptions);
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+            return console.log(error);
+        }
+
+        console.log('Message sent: ' + info.response);
+    });
 }
 
 module.exports = sendEmail;
