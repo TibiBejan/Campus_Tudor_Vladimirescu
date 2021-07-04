@@ -7,7 +7,7 @@ const signToken = (id) => {
     });
 }
 
-// CREATE TOKEN AND HTTP ONLY COOKIE
+// CREATE TOKEN AND HTTP ONLY COOKIE.
 const createToken = (user, statusCode, message, res) => {
     const token = signToken(user.uuid);
 
