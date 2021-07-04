@@ -29,8 +29,11 @@ const app = express();
 app.use(helmet());
 app.use(cors(
     {
-        origin: 'http://localhost:3000',
+        origin: true,
+        origin: ['http://localhost:3000', 'https://compassionate-almeida-31a739.netlify.app'],
         credentials: true,
+        secure: true,
+
     }
 ));
 app.use(cookieParser());
