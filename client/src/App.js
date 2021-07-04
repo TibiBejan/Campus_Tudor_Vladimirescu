@@ -76,7 +76,31 @@ function App() {
 
       //"/api/v1/users/checkLogin"
 
-      axios.get("https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/checkLogin").then((response) => {
+      // fetch("https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/checkLogin")
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     if(data.status === 200 || data.status === 201) {
+      //       const { userData } = data.data;
+      //       dispatch(receiveCheckLogin(userData));
+      //       } else {
+      //           dispatch(checkLoginError('There is an error, please try again'));
+      //       }
+      // }).catch(err => {
+          
+      //       const { message } = err.response.data;
+      //       dispatch(checkLoginError(message ? message : ''));
+      // });
+
+      const reqConfig = {
+        headers: {
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin": "*",
+            withCredentials: true,
+            credentials: 'include'
+        },
+    }
+
+      axios.get("https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/checkLogin", reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
               const { userData } = response.data;
               dispatch(receiveCheckLogin(userData));

@@ -33,6 +33,26 @@ function ForgotPasswordComponent() {
 
         ///api/v1/users/forgotPassword
 
+        // fetch("https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/forgotPassword", {
+        //     method: 'post',
+        //     body: values,
+        //     headers: reqConfig
+        // })
+        // .then((res) => res.json())
+        // .then((data) => {
+        //   if(data.status === 200 || data.status === 201) {
+        //     const { userData } = data.data;
+        //     dispatch(receiveCheckLogin(userData));
+        //     } else {
+        //         dispatch(checkLoginError('There is an error, please try again'));
+        //     }
+        // }).catch(err => {
+            
+        //         const { message } = err.response.data;
+        //         dispatch(checkLoginError(message ? message : ''));
+        // });
+
+
         axios.post("https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/forgotPassword", values, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 setCurrentEmail(values);
