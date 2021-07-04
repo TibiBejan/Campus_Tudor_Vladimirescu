@@ -46,7 +46,9 @@ function StudentDashboard() {
 
             dispatch(requestAccommodation());
 
-            axios.get(`/api/v1/accommodation/${userState.user.uuid}`, reqConfig).then((response) => {
+            ///api/v1/accommodation/${userState.user.uuid}
+
+            axios.get(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/accommodation/${userState.user.uuid}`, reqConfig).then((response) => {
                 const { accommodatedUser } = response.data;
                 dispatch(receiveAccommodation(accommodatedUser));
                 setIsAccommodated(accommodatedUser);

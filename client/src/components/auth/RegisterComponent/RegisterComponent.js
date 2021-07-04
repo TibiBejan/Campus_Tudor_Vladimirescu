@@ -41,7 +41,9 @@ function RegisterComponent() {
             },
         }
 
-        axios.post("/api/v1/users/register", user, reqConfig).then((response) => {
+        ///api/v1/users/register
+
+        axios.post("https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/register", user, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 console.log('registration success');
                 history.push('/login');

@@ -43,7 +43,9 @@ function StudentDashboardInfromation() {
             
             dispatch(requestGetMeta());
 
-            axios.get(`/api/v1/users/student-meta`, reqConfig).then((response) => {
+            ///api/v1/users/student-meta
+
+            axios.get(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/student-meta`, reqConfig).then((response) => {
                 const { studentMeta } = response.data;
                 dispatch(receiveGetMeta(studentMeta));
                 setCurrentInfo(studentMeta);

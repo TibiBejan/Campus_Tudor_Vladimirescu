@@ -42,7 +42,9 @@ function DashboardUpdatePwd() {
            },   
        }
 
-       axios.patch(`/api/v1/users-pwd/${adminState.selectedUser.uuid}`,  values, reqConfig).then((response) => {
+       ///api/v1/users-pwd/${adminState.selectedUser.uuid}
+
+       axios.patch(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users-pwd/${adminState.selectedUser.uuid}`,  values, reqConfig).then((response) => {
            if(response.status === 200 || response.status === 201) {
                resetForm();
                setFormError('');

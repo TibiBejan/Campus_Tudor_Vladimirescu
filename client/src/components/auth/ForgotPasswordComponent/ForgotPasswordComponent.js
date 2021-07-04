@@ -31,7 +31,9 @@ function ForgotPasswordComponent() {
             },
         }
 
-        axios.post("/api/v1/users/forgotPassword", values, reqConfig).then((response) => {
+        ///api/v1/users/forgotPassword
+
+        axios.post("https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/forgotPassword", values, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 setCurrentEmail(values);
             } else {

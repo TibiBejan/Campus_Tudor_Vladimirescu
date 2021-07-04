@@ -42,7 +42,9 @@ function StudentDashboardEnrollment() {
             
             dispatch(requestEnroll());
 
-            axios.get('/api/v1/users/enrollment', reqConfig).then((response) => {
+            ///api/v1/users/enrollment
+
+            axios.get('https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/enrollment', reqConfig).then((response) => {
                 const { enrollment } = response.data;
                 dispatch(receiveEnroll(enrollment));
                 setCurrentEnroll(enrollment);

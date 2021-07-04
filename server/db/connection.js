@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
 
-const db = new Sequelize('campus_tudor_v1', 'xkfdgh6g9jp477et', 'r4jxdzothoeujrbu', {
-    host: 'pei17y9c5bpuh987.chr7pe7iynqr.eu-west-1.rds.amazonaws.com',
+const db = new Sequelize('campus_tudor_v1', 'w613sq6ylci3tykg', 'c20xixy1f6k3nxsx', {
+    host: 'c8u4r7fp8i8qaniw.chr7pe7iynqr.eu-west-1.rds.amazonaws.com',
     dialect: 'mysql',
-    database: 'yz354jgaee4p0gv0'
+    port: 3306,
+    database: '	rxjm134d4vjtkwdy'
 });
-
 module.exports = db;

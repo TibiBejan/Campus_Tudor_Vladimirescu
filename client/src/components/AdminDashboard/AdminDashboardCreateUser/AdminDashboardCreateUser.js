@@ -39,7 +39,9 @@ function AdminDashboardCreateUser() {
             },
         }
 
-        axios.post(`/api/v1/users/`, values, reqConfig).then((response) => {
+        ///api/v1/users/
+
+        axios.post(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/`, values, reqConfig).then((response) => {
             setFormError('Student creat!');
             resetForm();
         }).catch(err => {

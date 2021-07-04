@@ -48,9 +48,11 @@ function AdminDashboardPagination({ studentsData }) {
             },   
         }
 
+        ///api/v1/users/${studentId}
+
         dispatch(requestDeleteStudents());
 
-        axios.delete(`/api/v1/users/${studentId}`, reqConfig).then((response) => {
+        axios.delete(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/${studentId}`, reqConfig).then((response) => {
             setModalOpen(false);
             setStudentId(null);
             dispatch(receiveDeleteStudents(studentId));

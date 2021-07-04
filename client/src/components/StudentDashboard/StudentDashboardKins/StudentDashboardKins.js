@@ -61,7 +61,9 @@ function StudentDashboardKins() {
             }, 
         }
 
-        axios.post(`/api/v1/users/kins`,  values, reqConfig).then((response) => {
+        ///api/v1/users/kins
+
+        axios.post(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/kins`,  values, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 console.log('Kin created!')
                 resetForm();
@@ -88,8 +90,10 @@ function StudentDashboardKins() {
             }
             // INIT REQ
             dispatch(requestKins());
+
+            ///api/v1/users/kins
     
-            axios.get(`/api/v1/users/kins`, reqConfig).then((response) => {
+            axios.get(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/kins`, reqConfig).then((response) => {
                 if(response.status === 200 || response.status === 201) {
                     const { kins } = response.data;
                     dispatch(receiveKins(kins));

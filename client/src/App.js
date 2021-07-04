@@ -74,7 +74,9 @@ function App() {
       // INIT REQ
       dispatch(requestCheckLogin);
 
-      axios.get("/api/v1/users/checkLogin").then((response) => {
+      //"/api/v1/users/checkLogin"
+
+      axios.get("https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/checkLogin").then((response) => {
             if(response.status === 200 || response.status === 201) {
               const { userData } = response.data;
               dispatch(receiveCheckLogin(userData));

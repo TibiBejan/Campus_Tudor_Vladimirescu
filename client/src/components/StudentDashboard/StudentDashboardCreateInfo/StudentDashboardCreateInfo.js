@@ -44,7 +44,9 @@ function StudentDashboardCreateInfo() {
 
         dispatch(requestCreateMeta());
 
-        axios.post(`/api/v1/users/student-meta`,  values, reqConfig).then((response) => {
+        ///api/v1/users/student-meta
+
+        axios.post(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/student-meta`,  values, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 const { studentMeta } = response.data;
                 resetForm();

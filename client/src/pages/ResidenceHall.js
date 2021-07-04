@@ -36,7 +36,9 @@ function ResidenceHall() {
             },
         }
 
-        axios.get(`/api/v1/halls/${hallName}`, reqConfig).then((response) => {
+        //`/api/v1/halls/${hallName}`
+
+        axios.get(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/halls/${hallName}`, reqConfig).then((response) => {
             setHallData(response.data.hall);
             setIsLoading(false);
         }).catch(err => {

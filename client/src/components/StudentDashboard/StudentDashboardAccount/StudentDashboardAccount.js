@@ -42,7 +42,9 @@ function StudentDashboardAccount() {
         // INIT REQ
         dispatch(requestAccountUpdate());
 
-        axios.patch("/api/v1/users/updateMe", values, reqConfig).then((response) => {
+        ///api/v1/users/updateMe
+
+        axios.patch("https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/updateMe", values, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 const { user } = response.data;
                 dispatch(receiveAccountUpdate(user));

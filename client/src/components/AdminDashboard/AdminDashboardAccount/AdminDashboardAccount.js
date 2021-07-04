@@ -42,8 +42,10 @@ function AdminDashboardAccount() {
 
         // INIT REQ
         dispatch(requestAccountUpdate());
+
+        // /api/v1/users/updateMe
             
-        axios.patch("/api/v1/users/updateMe", values, reqConfig).then((response) => {
+        axios.patch("https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/updateMe", values, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 const { user } = response.data;
                 dispatch(receiveAccountUpdate(user));

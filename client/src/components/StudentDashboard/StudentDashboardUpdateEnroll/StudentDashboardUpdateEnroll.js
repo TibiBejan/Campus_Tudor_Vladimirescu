@@ -57,7 +57,9 @@ function StudentDashboardUpdateEnroll({ sectionData }) {
 
         dispatch(requestUpdateEnroll());
 
-        axios.patch(`/api/v1/users/enrollment/${sectionData.uuid}`,  values, reqConfig).then((response) => {
+        //`/api/v1/users/enrollment/${sectionData.uuid}`
+
+        axios.patch(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/enrollment/${sectionData.uuid}`,  values, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 const { enrollment } = response.data;
                 dispatch(receiveUpdateEnroll(enrollment));
@@ -88,7 +90,9 @@ function StudentDashboardUpdateEnroll({ sectionData }) {
 
         dispatch(requestDeleteEnroll());
 
-        axios.delete(`/api/v1/users/enrollment/${sectionData.uuid}`, reqConfig).then((response) => {
+        ///api/v1/users/enrollment/${sectionData.uuid}
+
+        axios.delete(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/enrollment/${sectionData.uuid}`, reqConfig).then((response) => {
             if(response.status === 204) {
                 dispatch(receiveDeleteEnroll());
                 history.push(`/${userState.user.first_name}.${userState.user.last_name}/kins`);
