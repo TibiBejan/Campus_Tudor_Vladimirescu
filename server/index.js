@@ -62,7 +62,6 @@ app.use('/api/v1/halls', hallRouter);
 app.use('/api/v1/', accommodationRouter);
 app.use(adminRouter);
 
-
 // ERROR MIDDLEWEAR
 app.all('*', (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

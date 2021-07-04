@@ -22,7 +22,7 @@ module.exports = {
         allowNull: false,
       },
       halls: {
-        type: DataTypes.JSON,
+        type: Sequelize.JSON,
         allowNull: false,
       },
       createdAt: {

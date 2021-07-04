@@ -23,7 +23,7 @@ module.exports = {
         allowNull: false,
       },
       dob: {
-        type: DataTypes.DATEONLY,
+        type: Sequelize.DATEONLY,
         allowNull: false,
       },
       sex: {
