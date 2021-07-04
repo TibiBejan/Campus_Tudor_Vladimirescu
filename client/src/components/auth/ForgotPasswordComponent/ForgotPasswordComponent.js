@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
 import ButtonPrimary from '../../SharedComponents/Button/ButtonPrimary';
 
@@ -13,8 +13,15 @@ function ForgotPasswordComponent() {
     // STATE
     const [ formError, setFormError ] = useState('');
     const [ currentEmail, setCurrentEmail ] = useState('');
+    // REF
+    const blockRef = useRef(null)
+    // RESET SCROLL POS
+    const executeScroll = () => window.scrollTo(0, blockRef.current.offsetTop);  
 
     const onSubmit = async (values) => {
+
+        executeScroll();
+        
         const reqConfig = {
             headers: {
                 'Content-Type': 'application/json',
@@ -47,7 +54,7 @@ function ForgotPasswordComponent() {
     });
 
     return (
-        <section className="forgot-password-section">
+        <section className="forgot-password-section" ref={blockRef}>
             <div className="forgot-password-section-inner">
                 <div className="forgot-password-content">
                     { currentEmail ? (

@@ -1,5 +1,6 @@
 const express = require('express');
 const { createUserSchema, updateUserSchema } = require('../schema/adminSchema');
+const { updatePwdSchema } = require('../schema/authUserSchema');
 const { validateRequestSchema } = require('../middleware/validateRequestSchema');
 
 // DEFINE ROUTER
@@ -15,12 +16,15 @@ adminRouter.route('/api/v1/search-users/')
     .get(adminController.getUsersByQuerry);
 adminRouter.route('/api/v1/users/')
     .get(adminController.getAllUsers)
-    .post(createUserSchema, validateRequestSchema, adminController.createUser);
+    .post(createUserSchema, validateRequestSchema,  adminController.createUser);
 
 adminRouter.route('/api/v1/users/:id')
     .get(adminController.getUser)
-    .patch(updateUserSchema, validateRequestSchema, adminController.updateUser)
+    .patch(updateUserSchema, validateRequestSchema,  adminController.updateUser)
     .delete(adminController.deleteUser);  
+
+adminRouter.route('/api/v1/users-pwd/:id')
+    .patch(updatePwdSchema, validateRequestSchema, adminController.updatePwd);
 
 adminRouter.route('/api/v1/accommodated-user/:id')
     .get(adminController.getAccommodatedUser);

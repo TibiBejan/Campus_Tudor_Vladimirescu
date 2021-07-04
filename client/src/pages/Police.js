@@ -1,6 +1,8 @@
 import React from 'react';
+import InitialTransition from '../utils/InitialTransition/InitialTransition';
 
 // COMPONENTS
+import Header from '../components/LayoutComponents/Header/Header';
 import HeaderBannerSmall from '../components/SharedComponents/ShowcaseBannerSmall/ShowcaseBannerSmall';
 import ShowcaseSection from '../components/SharedComponents/ShowcaseSection/ShowcaseSection';
 import ContactSectionSmall from '../components/SharedComponents/ContactSectionSmall/ContactSectionSmall';
@@ -14,6 +16,8 @@ import { bannerData, policeData, mapData } from '../data/PolicePageData';
 function Police() {
     return (
         <>
+            <InitialTransition />
+            <Header />
             <HeaderBannerSmall bannerData={bannerData} bannerImage={bannerData.image.default} />
             <main className="page-content">
                 <ShowcaseSection sectionData={policeData} />

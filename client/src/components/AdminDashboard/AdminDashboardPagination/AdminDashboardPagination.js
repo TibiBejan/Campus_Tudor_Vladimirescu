@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactPaginate from 'react-paginate';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import { FaRegEdit } from "react-icons/fa";
 import { BsTrash } from "react-icons/bs";
@@ -27,11 +27,18 @@ function AdminDashboardPagination({ studentsData }) {
     const [ modalOpen, setModalOpen ] = useState(false);
     const [ studentId, setStudentId ] = useState(null);
     const [ error, setError ] = useState('');
+    // REF
+    const blockRef = useRef(null);
 
     const tuiasiLogo = require(`../../../assets/images/Universities/embleme-tuiasi-rr-1-300x189.png`).default
 
+    // RESET SCROLL POS
+    const executeScroll = () => window.scrollTo(0, blockRef.current.offsetTop);  
+
     // HANDLE DELETE STUDENT
     const handleDelete = () => {
+        executeScroll()
+
         const reqConfig = {
             headers: {
                 'Content-Type': 'application/json',
@@ -92,7 +99,7 @@ function AdminDashboardPagination({ studentsData }) {
 
     // RESET SCROLL POS ON PAGINATION
     useEffect(() => {
-        window.scrollTo(0,0);
+        executeScroll();
     }, [pageNumber])
 
     const students = studentsData;
@@ -113,9 +120,6 @@ function AdminDashboardPagination({ studentsData }) {
         } else if (student.Enrollment && student.hallId) {
             status = 'Cazat';
         }
-
-       
-        
 
         return (
             <div className="student-block" key={`student-${student.uuid}`}>
@@ -159,7 +163,7 @@ function AdminDashboardPagination({ studentsData }) {
         <>
             <DeleteModal toggled={modalOpen} toggleModal={toggleModal} handleDelete={handleDelete}/>
             { error ? <GeneralErrorMessage>{error}</GeneralErrorMessage> : null}
-            <div className="pagination-content-blocks">
+            <div className="pagination-content-blocks" ref={blockRef}>
                 {displayUsers}
             </div>
             <ReactPaginate

@@ -1,8 +1,9 @@
 import React from 'react';
-import Map from '../Map/Map';
+import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import './ShowcaseSection.scss';
 
-function ShowcaseSection({ sectionData }) {
+function ShowcaseSection({ sectionData, scrollPosition }) {
     return (
         <section className="showcase-section">
             <div className="showcase-section-inner">
@@ -28,7 +29,17 @@ function ShowcaseSection({ sectionData }) {
                             <div className="image-block" key={`top-image-block-${index}`}>
                                 <div className="image-block-overlay"></div>
                                 <div className="image-block-showcase">
-                                    <img src={image.topImage.default} alt={image.topImageAlt} className="background-image" />
+                                    <LazyLoadImage
+                                        alt={image.topImageAlt}
+                                        src={image.topImage.default}
+                                        effect="blur"
+                                        scrollPosition={scrollPosition}
+                                        className="background-image"
+                                        visibleByDefault={"true"}
+                                        height={"100%"}
+                                        width={"100%"}
+                                    />
+                                    {/* <img src={image.topImage.default} alt={image.topImageAlt} className="background-image" /> */}
                                 </div>
                             </div>
                         ))}
@@ -44,7 +55,17 @@ function ShowcaseSection({ sectionData }) {
                             <div className="image-block" key={`top-image-block-${index}`}>
                                 <div className="image-block-overlay"></div>
                                 <div className="image-block-showcase">
-                                    <img src={image.bottomImage.default} alt={image.bottomImageAlt} className="background-image" />
+                                    <LazyLoadImage
+                                        alt={image.bottomImageAlt}
+                                        src={image.bottomImage.default}
+                                        effect="blur"
+                                        scrollPosition={scrollPosition}
+                                        className="background-image"
+                                        visibleByDefault={"true"}
+                                        height={"100%"}
+                                        width={"100%"}
+                                    />
+                                    {/* <img src={image.bottomImage.default} alt={image.bottomImageAlt} className="background-image" /> */}
                                 </div>
                             </div>
                         ))}
@@ -70,4 +91,4 @@ function ShowcaseSection({ sectionData }) {
     )
 }
 
-export default ShowcaseSection;
+export default trackWindowScroll(ShowcaseSection);

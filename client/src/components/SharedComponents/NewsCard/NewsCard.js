@@ -1,13 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ButtonPrimary from '../Button/ButtonPrimary';
+import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import './NewsCard.scss';
 
-function NewsCard({ cardData }) {
+function NewsCard({ cardData, scrollPosition }) {
     return (
         <Link to={cardData.path} className="news-card-wrapper">
             <div className="news-card">
                 <div className="news-card-showcase">
+                    <LazyLoadImage
+                        alt={cardData.title}
+                        src={cardData.image.default}
+                        effect="blur"
+                        scrollPosition={scrollPosition}
+                        className="background-image"
+                        height={"100%"}
+                    />
                     <img src={cardData.image.default} alt={cardData.title} className="background-image" />
                 </div>
                 <div className="news-card-content">
@@ -25,4 +35,4 @@ function NewsCard({ cardData }) {
     )
 }
 
-export default NewsCard;
+export default trackWindowScroll(NewsCard);

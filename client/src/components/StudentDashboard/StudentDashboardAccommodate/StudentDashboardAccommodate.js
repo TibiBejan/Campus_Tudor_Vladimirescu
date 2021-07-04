@@ -1,25 +1,45 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { accommodationSelector } from '../../../redux/accommodationSlice';
-
-// SWIPER SLIDER
-import { Swiper, SwiperSlide } from 'swiper/react';
-// Import Swiper styles
-import "swiper/swiper.min.css";
-import "swiper/components/pagination/pagination.min.css"
+import { IconContext } from 'react-icons';
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 import StudentDashboardNav from '../StudentDashboardNav/StudentDashboardNav';
 import NeighborCard from '../../SharedComponents/NeighborCard/NeighborCard';
 import EmptyNeighbordCard from '../../SharedComponents/EmptyNeighborCard/EmptyNeighbordCard';
+import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import './StudentDashboardAccommodate.scss';
 
-function StudentDashboardAccommodate() {
+// SWIPER SLIDER
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Navigation, EffectFade  } from 'swiper';
+// Import Swiper styles
+import "swiper/swiper.min.css";
+import "swiper/components/navigation/navigation.scss";
+import 'swiper/components/effect-fade/effect-fade.scss';
+// INSTAL MODULES
+SwiperCore.use([Navigation, EffectFade]);
+
+function StudentDashboardAccommodate({scrollPosition}) {
 
     // SLICE OF STATE
     const accommodationState = useSelector(accommodationSelector);
     const { student, neighbors } = accommodationState.accommodation;
     const roomNeighbors = neighbors.filter(neighbor => neighbor.email !== student.email);
+
+     // STATE
+     const [ slidesLength, setSlidesLength ] = useState(null);
+     const [ activeIndex, setActiveIndex ] = useState(1);
+     const [ disabled, setDisabled ] = useState({
+         prevButton: false,
+         nextButton: false
+     });
+ 
+     // REF
+     const sliderPrevButton = useRef(null);
+     const sliderNextButton = useRef(null);
 
     const hallImage = require(`../../../assets/images/ResidenceHalls/campus-${student.hallId}.jpg`).default;
 
@@ -40,7 +60,17 @@ function StudentDashboardAccommodate() {
                     <Link to={`/residence-halls/${student.Hall.hall_name}`} className="hall-card-wrapper">
                         <div className="hall-card">
                             <div className="hall-card-background">
-                                <img src={ hallImage } alt={`Camin T${student.hallId}`} className="background-image" />
+                                {/* <img src={ hallImage } alt={`Camin T${student.hallId}`} className="background-image" /> */}
+                                <LazyLoadImage
+                                    alt={`Camin T${student.hallId}`}
+                                    src={ hallImage }
+                                    effect="blur"
+                                    scrollPosition={scrollPosition}
+                                    className="background-image"
+                                    // visibleByDefault={"true"}
+                                    height={"100%"}
+                                    width={"100%"}
+                                />
                             </div>
                             <div className="hall-card-content">
                                 <h4 className="hall-card-title heading-four">Camin T{student.hallId}</h4>
@@ -57,6 +87,10 @@ function StudentDashboardAccommodate() {
                 <h3 className="showcase-card-title heading-three">Viitori colegi</h3>
                 <Swiper 
                     slidesPerView={1}
+                    navigation={{
+                        prevEl: sliderPrevButton.current,
+                        nextEl: sliderNextButton.current,
+                    }}
                     breakpoints={{
                         1366: {slidesPerView: 2.5},
                         1250: {slidesPerView: 2},
@@ -68,6 +102,29 @@ function StudentDashboardAccommodate() {
                     resistanceRatio={0.5}
                     spaceBetween={50}
                     speed={1000}
+                    onInit={() => {
+                        setSlidesLength(roomNeighbors.length);
+                        setActiveIndex(1);
+                    }}
+                    onSlideChange={(Swiper) => {
+                        setActiveIndex(Swiper.activeIndex + 1);
+                        if(Swiper.activeIndex === 0) {
+                            setDisabled({
+                                prevButton: true,
+                                nextButton: false
+                            });
+                        } else if(Swiper.activeIndex >= roomNeighbors.length -1) {
+                            setDisabled({
+                                prevButton: false,
+                                nextButton: true
+                            });
+                        } else {
+                            setDisabled({
+                                prevButton: false,
+                                nextButton: false
+                            });
+                        }
+                    }}
                     className="dashboard-accommodate-slider"
                 >
                     {roomNeighbors.length === 0 && (
@@ -80,10 +137,23 @@ function StudentDashboardAccommodate() {
                             <NeighborCard cardData={neighbor} />
                         </SwiperSlide>
                     ))}
+
+
+                    <button disabled={disabled.prevButton} className="showcase-prev-button" ref={sliderPrevButton}>
+                        <IconContext.Provider value={{color: '#fafafa', size: '34px'}}>
+                            <BsArrowLeft />
+                        </IconContext.Provider>
+                    </button>
+                    <button disabled={disabled.nextButton} className="showcase-next-button" ref={sliderNextButton}>
+                        <IconContext.Provider value={{color: '#fafafa', size: '34px'}}>
+                            <BsArrowRight />
+                        </IconContext.Provider>
+                    </button>
                 </Swiper>
+
             </div>
         </section>
     )
 }
 
-export default StudentDashboardAccommodate;
+export default trackWindowScroll(StudentDashboardAccommodate);

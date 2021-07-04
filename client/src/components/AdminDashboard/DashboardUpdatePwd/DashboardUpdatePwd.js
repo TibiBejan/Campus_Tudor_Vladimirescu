@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
 import GeneralErrorMessage from '../../SharedComponents/GeneralErrorMessage/GeneralErrorMessage';
 import ButtonPrimary from '../../SharedComponents/Button/ButtonPrimary';
 import { IconContext } from 'react-icons';
 import { ImEye } from "react-icons/im";
+import { useSelector } from 'react-redux';
+import { adminSelector } from '../../../redux/adminSlice';
+
 import axios from 'axios';
 
 import { useFormik } from 'formik';
@@ -13,14 +16,22 @@ import './DashboardUpdatePwd.scss';
 
 function DashboardUpdatePwd() {
 
+    // SLICE OF STATE
+    const adminState = useSelector(adminSelector);
+    // STATE
     const [ formError, setFormError ] = useState('');
     const [ visibleCurrentPassword, setVisibleCurrentPassword ] = useState(false);
     const [ visiblePassword, setVisiblePassword ] = useState(false);
     const [ visibleConfirmPassword, setVisibleConfirmPassword ] = useState(false);
+    // REF
+    const blockRef = useRef(null)
+
+    // RESET SCROLL POS
+    const executeScroll = () => window.scrollTo(0, blockRef.current.offsetTop);  
 
     const onSubmit = async (values, { resetForm }) => {
         // RESET SCROLL POSITION
-        window.scrollTo(0, 0);
+        executeScroll();
 
        const reqConfig = {
            headers: {
@@ -31,27 +42,17 @@ function DashboardUpdatePwd() {
            },   
        }
 
-       const body = {...values};
-
-       console.log(values);
-
-    //    // INIT REQ
-    //    dispatch(requestUpdatePwd());
-
-    //    axios.patch(`/api/v1/users/updateMyPassword`,  body, reqConfig).then((response) => {
-    //        if(response.status === 200 || response.status === 201) {
-    //            const { userData } = response.data;
-    //            dispatch(receiveUpdatePwd(userData));
-    //            resetForm();
-    //            setFormError('');
-    //        } else {
-    //            setFormError('There is an error, please try again');
-    //        }
-    //    }).catch(err => {
-    //        const message = err.response.data.errors ? err.response.data.errors[0].msg : err.response.data.message;
-    //        setFormError(message);
-    //        dispatch(updatePwdError(message));
-    //    });
+       axios.patch(`/api/v1/users-pwd/${adminState.selectedUser.uuid}`,  values, reqConfig).then((response) => {
+           if(response.status === 200 || response.status === 201) {
+               resetForm();
+               setFormError('');
+           } else {
+               setFormError('There is an error, please try again');
+           }
+       }).catch(err => {
+           const message = err.response.data.errors ? err.response.data.errors[0].msg : err.response.data.message;
+           setFormError(message);
+       });
    }
 
    // FORM HANDLER
@@ -67,7 +68,7 @@ function DashboardUpdatePwd() {
    });
 
     return (
-        <section className="student-update-pwd-section">
+        <section className="student-update-pwd-section" ref={blockRef}>
             <div className="student-update-pwd-heading-wrapper">
                 <h3 className="student-accommodation-title heading-three">Actualizeaza parola studentului</h3>    
                 {formError ? <GeneralErrorMessage>{formError}</GeneralErrorMessage> : null} 

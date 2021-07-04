@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useHistory } from 'react-router';
 import StudentDashboardNav from '../StudentDashboardNav/StudentDashboardNav';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
@@ -20,6 +20,11 @@ function StudentDashboardUpdateKin() {
     const [ currentKin, setCurrentKin ] = useState({});
     const [ isLoading, setIsLoading ] = useState(true);
     const [ formError, setFormError ] = useState('');
+    // REF
+    const blockRef = useRef(null)
+
+    // RESET SCROLL POS
+    const executeScroll = () => window.scrollTo(0, blockRef.current.offsetTop);  
     const userState = useSelector(userSelector);
     const { id } = useParams();
     const history = useHistory();
@@ -49,12 +54,12 @@ function StudentDashboardUpdateKin() {
             });
         }
         fetchCurrentkin();
-    }, []);
+    }, [history, id, userState]);
 
     // SUBMIT UPDATED KIN
     const onSubmit = (values, { resetForm }) => {
         // RESET SCROLL POSITION
-        window.scrollTo(0,0);
+        executeScroll();
         const reqConfig = {
             headers: {
                 'Content-Type': 'application/json',
@@ -127,7 +132,7 @@ function StudentDashboardUpdateKin() {
         <section className="dashboard-kin-update">
             <div className="dashboard-kin-update-inner">
                 <StudentDashboardNav />
-                <div className="dashboard-form-block">
+                <div className="dashboard-form-block" ref={blockRef}>
                     <div className="dashboard-form-block-heading-wrapper">
                         <h3 className="dashboard-form-title heading-three">Actualizeaza persoana de contact: {currentKin && `${currentKin.first_name} ${currentKin.last_name}`}</h3>
                         {formError ? <GeneralErrorMessage>{formError}</GeneralErrorMessage> : null }    

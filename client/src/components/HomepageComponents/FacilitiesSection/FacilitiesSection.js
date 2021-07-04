@@ -1,13 +1,20 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
 import { Link } from 'react-router-dom';
-// import { IconContext } from 'react-icons';
-// import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import { IconContext } from 'react-icons';
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import './FacilitiesSection.scss';
+import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 // SWIPER SLIDER
 import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Navigation, EffectFade  } from 'swiper';
 // Import Swiper styles
 import "swiper/swiper.min.css";
+import "swiper/components/navigation/navigation.scss";
+import 'swiper/components/effect-fade/effect-fade.scss';
+// INSTAL MODULES
+SwiperCore.use([Navigation, EffectFade]);
 
 
 const facilitiesData = [
@@ -34,7 +41,19 @@ const facilitiesData = [
     }
 ]
 
-function FacilitiesSection() {
+function FacilitiesSection({scrollPosition}) {
+
+    // STATE
+    const [ slidesLength, setSlidesLength ] = useState(null);
+    const [ activeIndex, setActiveIndex ] = useState(1);
+    const [ disabled, setDisabled ] = useState({
+        prevButton: false,
+        nextButton: false
+    });
+
+    // REF
+    const sliderPrevButton = useRef(null);
+    const sliderNextButton = useRef(null);
 
     return (
         <section className="facilities-section">
@@ -42,11 +61,38 @@ function FacilitiesSection() {
 
 
                 <Swiper 
+                    navigation={{
+                        prevEl: sliderPrevButton.current,
+                        nextEl: sliderNextButton.current,
+                    }}
                     slidesPerView={1}
                     grabCursor={true}
                     resistance={true}
                     resistanceRatio={0.5}
                     speed={1000}
+                    onInit={() => {
+                        setSlidesLength(facilitiesData.length);
+                        setActiveIndex(1);
+                    }}
+                    onSlideChange={(Swiper) => {
+                        setActiveIndex(Swiper.activeIndex + 1);
+                        if(Swiper.activeIndex === 0) {
+                            setDisabled({
+                                prevButton: true,
+                                nextButton: false
+                            });
+                        } else if(Swiper.activeIndex >= facilitiesData.length -1) {
+                            setDisabled({
+                                prevButton: false,
+                                nextButton: true
+                            });
+                        } else {
+                            setDisabled({
+                                prevButton: false,
+                                nextButton: false
+                            });
+                        }
+                    }}
                     className="facilities-slider"
                 >
                     {facilitiesData.map(facility => (
@@ -66,7 +112,16 @@ function FacilitiesSection() {
                                     <div className="showcase-background">
                                         <div className="showcase-background-overlay"></div>
                                         <div className="showcase-background-media">
-                                            <img src={facility.image.default} alt={facility.title} className="background-image" />
+                                            <LazyLoadImage
+                                                alt={facility.title}
+                                                src={facility.image.default}
+                                                effect="blur"
+                                                scrollPosition={scrollPosition}
+                                                className="background-image"
+                                                height={"100%"}
+                                                width={"100%"}
+                                            />
+                                            {/* <img src={facility.image.default} alt={facility.title} className="background-image" /> */}
                                         </div>
                                     </div>
                                 </div>
@@ -75,10 +130,21 @@ function FacilitiesSection() {
                     ))}              
 
                 </Swiper>
+
+                <button disabled={disabled.prevButton} className="showcase-prev-button" ref={sliderPrevButton}>
+                    <IconContext.Provider value={{color: '#fafafa', size: '34px'}}>
+                        <BsArrowLeft />
+                    </IconContext.Provider>
+                </button>
+                <button disabled={disabled.nextButton} className="showcase-next-button" ref={sliderNextButton}>
+                    <IconContext.Provider value={{color: '#fafafa', size: '34px'}}>
+                        <BsArrowRight />
+                    </IconContext.Provider>
+                </button>
                     
             </div>
         </section>
     )
 }
 
-export default FacilitiesSection
+export default trackWindowScroll(FacilitiesSection)

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import InitialTransition from '../utils/InitialTransition/InitialTransition';
 
 // COMPONENTS
+import Header from '../components/LayoutComponents/Header/Header';
 import HeaderBannerSmall from '../components/SharedComponents/ShowcaseBannerSmall/ShowcaseBannerSmall';
 import ResidenceHallDescription from '../components/ResidenceHallsComponents/ResidenceHallDescription/ResidenceHallDescription';
 import ResidenceHallPeople from '../components/ResidenceHallsComponents/ResidenceHallPeople/ResidenceHallPeople';
@@ -52,6 +54,8 @@ function ResidenceHall() {
 
     return (
         <>
+            <InitialTransition />
+            <Header />
             <HeaderBannerSmall bannerData={ bannerData } bannerImage={hallImage} />  
             <main className="page-content">
                 <ResidenceHallDescription sectionData={hallData} />

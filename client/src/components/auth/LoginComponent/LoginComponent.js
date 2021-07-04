@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
 import ButtonPrimary from '../../SharedComponents/Button/ButtonPrimary';
@@ -22,11 +22,16 @@ function LoginComponent() {
     // STATE
     const [ formError, setFormError ] = useState('');
     const [ visiblePassword, setVisiblePassword ] = useState(false);
+    // REF
+    const blockRef = useRef(null)
+
+    // RESET SCROLL POS
+    const executeScroll = () => window.scrollTo(0, blockRef.current.offsetTop);  
 
     const onSubmit = async (values) => {
 
         // RESET SCROLL POSITION
-        window.scrollTo(0, 0);
+        executeScroll();
         
         const user = {
             email: values.email,
@@ -72,7 +77,7 @@ function LoginComponent() {
     });
 
     return (
-        <section className="user-login-wrapper">
+        <section className="user-login-wrapper" ref={blockRef}>
             <div className="user-login-inner">
                 <div className="user-login-heading-wrapper">
                     <h3 className="user-login-title heading-three">Log In</h3>    

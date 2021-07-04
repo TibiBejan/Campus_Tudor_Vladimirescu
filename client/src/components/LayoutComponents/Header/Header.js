@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { withRouter, useHistory } from 'react-router-dom';
 import Navbar from './HeaderNavbar/Navbar';
 import PageMenu from '../PageMenu/PageMenu';
 import VerticalOverlay from '../VerticalOverlay/VerticalOverlay';
+import Gradient from '../PageGradient/Gradient';
 
 function Header() {
-
     // STATE
     const [ isScrolled, setIsScrolled ] = useState(false);
     const [ disabled, setDisabled ] = useState(false);
@@ -13,6 +14,7 @@ function Header() {
         clicked: false,
         buttonLabel: 'Menu'
     });
+    const history = useHistory();
 
     // CHECK PAGE SCROLL
     useEffect(() => {
@@ -26,7 +28,16 @@ function Header() {
 
         window.addEventListener('scroll', checkScroll);
         return () => window.removeEventListener('scroll', checkScroll);
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        history.listen(() => {
+            setMenuToggled({
+                clicked: false,
+                buttonLabel: 'Menu'
+            })
+        })
+    }, [history]);
 
     // FUNCTION TO HANDLE TOGGLED EVENT
     const handleToggledMenu = () => {
@@ -60,6 +71,7 @@ function Header() {
 
     return (
         <header>
+            <Gradient />
             <VerticalOverlay toggled={menuToggled}/>
             <Navbar disabled={disabled}  toggled={menuToggled} handleMenu={handleToggledMenu} scroll={isScrolled}/>
             <PageMenu toggled={menuToggled} handleMenu={handleToggledMenu} />
@@ -67,4 +79,4 @@ function Header() {
     )
 }
 
-export default Header;
+export default withRouter(Header);

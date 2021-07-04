@@ -35,9 +35,12 @@
                         min-height: 85rem;
                         display: grid;
                         grid-template-columns: repeat(2, 1fr);
+                        border-left: 0.1rem solid $primary-dark-gray-2;
+                        border-right: 0.1rem solid $primary-dark-gray-2;
                         
                         @media screen and (max-width: $desktop-utility-bp-medium) {
-                            @include flex-setup($flex-flow: column, $align-items: flex-start, $justify-content: flex-start);
+                            grid-template-columns: 1fr;
+                            grid-template-rows: repeat(2, 1fr);
                         }
 
                         .slide-inner-content {
@@ -113,6 +116,8 @@
                         }
 
                         .facilities-slide-showcase {
+                            height: 100%;
+                            width: 100%;
                             position: relative;
                             overflow: hidden;
             
@@ -122,28 +127,8 @@
                             }
                  
                             @media screen and (max-width: $bp-mobile) {
-                                height: 35rem;
+                               min-height: 35rem;
                             }
-                 
-                            // .showcase-prev-button,
-                            // .showcase-next-button {
-                            //     position: absolute;
-                            //     top: 50%;
-                            //     transform: translateY(-50%);
-                            //     width: 7.5rem;
-                            //     height: 7.5rem;
-                            //     @include flex-setup($align-items: center, $justify-content: center);
-                            //     background-color: rgba(0,0,0,0.6);
-                            //     z-index: 100;
-                            // }
-                 
-                            // .showcase-prev-button {
-                            //     left: 0;
-                            // }
-                 
-                            // .showcase-next-button {
-                            //     right: 0;
-                            // }
                  
                             .showcase-background {
                                 position: relative;
@@ -173,6 +158,26 @@
                     }
                 }
             }
+        }
+
+        .showcase-prev-button,
+        .showcase-next-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 7.5rem;
+            height: 7.5rem;
+            @include flex-setup($align-items: center, $justify-content: center);
+            background-color: rgba(0,0,0,0.8);
+            z-index: 100;
+        }
+
+        .showcase-prev-button {
+            left: 0;
+        }
+
+        .showcase-next-button {
+            right: 0;
         }
     }
 }

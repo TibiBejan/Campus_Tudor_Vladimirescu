@@ -1,6 +1,8 @@
 import React from 'react';
+import InitialTransition from '../utils/InitialTransition/InitialTransition';
 
 // COMPONENTS
+import Header from '../components/LayoutComponents/Header/Header';
 import HeaderBannerSmall from '../components/SharedComponents/ShowcaseBannerSmall/ShowcaseBannerSmall';
 import DescriptiveList from '../components/SharedComponents/DescriptiveListSection/DescriptiveList';
 import GallerySection from '../components/SharedComponents/GallerySection/GallerySection';
@@ -17,6 +19,8 @@ import { bannerData, showcaseData, gallerySlider, gallerySectionData, descriptiv
 function SportsBase() {
     return (
         <>
+            <InitialTransition />
+            <Header/>
             <HeaderBannerSmall bannerData={bannerData} bannerImage={bannerData.image.default}/>
             <main className="page-content">
                 <DescriptiveList sectionData={descriptiveData} />

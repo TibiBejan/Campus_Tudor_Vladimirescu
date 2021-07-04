@@ -1,5 +1,6 @@
 import React from 'react';
 import Map from '../../SharedComponents/Map/Map';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import './MapSection.scss';
 
 const mapData = {
@@ -27,7 +28,9 @@ function MapSection() {
                     </div>
                 </div>
                 <div className="map-inner-wrapper">
-                    <Map Lat={mapData.lat} Lng={mapData.lng} PopupText={mapData.popupText}/>
+                    <LazyLoadComponent>
+                        <Map Lat={mapData.lat} Lng={mapData.lng} PopupText={mapData.popupText}/>
+                    </LazyLoadComponent>
                 </div>
             </div>
         </section>

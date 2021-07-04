@@ -1,11 +1,12 @@
 import React from 'react';
 import './DssTeam.scss';
-
+import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import DssTeamImage_left from '../../../assets/images/AboutPageImages/dss-team-left.jpg';
 import DssTeamImage_right from '../../../assets/images/AboutPageImages/dss-team-right.jpg';
 
 
-function DssTeam() {
+function DssTeam({  scrollPosition }) {
     return (
         <section className="dss-team-section">
             <div className="dss-team-section-inner">
@@ -31,13 +32,31 @@ function DssTeam() {
                         <div className="image-block">
                             <div className="image-block-overlay"></div>
                             <div className="image-block-showcase">
-                                <img src={DssTeamImage_left} alt="" className="background-image" />
+                                <LazyLoadImage
+                                    alt="tuiasi-dss"
+                                    src={DssTeamImage_left}
+                                    effect="blur"
+                                    scrollPosition={scrollPosition}
+                                    className="background-image"
+                                    visibleByDefault={"true"}
+                                    height={"120%"}
+                                    width={"120%"}
+                                />
+                                {/* <img src={DssTeamImage_left} alt="" className="background-image" /> */}
                             </div>
                         </div>
                         <div className="image-block">
                             <div className="image-block-overlay"></div>
                             <div className="image-block-showcase">
-                                <img src={DssTeamImage_right} alt="" className="background-image" />
+                                <LazyLoadImage
+                                    alt="tuiasi-dss"
+                                    src={DssTeamImage_right}
+                                    effect="blur"
+                                    scrollPosition={scrollPosition}
+                                    className="background-image"
+                                    height={"100%"}
+                                />
+                                {/* <img src={DssTeamImage_right} alt="" className="background-image" /> */}
                             </div>
                         </div>
                     </div>
@@ -48,4 +67,4 @@ function DssTeam() {
     )
 }
 
-export default DssTeam;
+export default trackWindowScroll(DssTeam);

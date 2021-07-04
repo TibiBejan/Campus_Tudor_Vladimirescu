@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
 import GeneralErrorMessage from '../../SharedComponents/GeneralErrorMessage/GeneralErrorMessage';
 import Button from '../../SharedComponents/Button/ButtonPrimary';
@@ -19,6 +19,11 @@ function AdminDashboardSearch() {
     const dispatch = useDispatch();
     // STATE
     const [ formError, setFormError ] = useState('');
+    // REF
+    const blockRef = useRef(null)
+
+    // RESET SCROLL POS
+    const executeScroll = () => window.scrollTo(0, blockRef.current.offsetTop);  
     // EFFECT ON FIRST RENDER
     useEffect(() => {
         const fetchAllStudents = () => {
@@ -49,6 +54,8 @@ function AdminDashboardSearch() {
     }, [dispatch]);
 
     const onSubmit = async (values) => {
+
+        executeScroll();
 
         const reqConfig = {
             headers: {
@@ -107,7 +114,7 @@ function AdminDashboardSearch() {
 
     return (
         <>
-            <div className="dashboard-form-block">
+            <div className="dashboard-form-block" ref={blockRef}>
                 <div className="dashboard-form-block-heading-wrapper">
                     <h3 className="dashboard-form-title heading-three">Cauta in baza de date.</h3>    
                     {formError ? <GeneralErrorMessage>{formError}</GeneralErrorMessage> : null }    

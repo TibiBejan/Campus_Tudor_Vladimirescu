@@ -1,8 +1,10 @@
 import React from 'react';
 import YoutubePlayer from '../YouTubePlayer/YouTubePlayer';
+import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import './FacilityDescriptive.scss';
 
-function FacilityDescriptive({ sectionData }) {
+function FacilityDescriptive({ sectionData, scrollPosition }) {
     return (
         <section className="facility-descriptive-section">
             <div className="facility-descriptive-section-inner">
@@ -22,7 +24,15 @@ function FacilityDescriptive({ sectionData }) {
                         <div className="image-block">
                             <div className="image-block-overlay"></div>
                             <div className="image-block-showcase">
-                                <img src={sectionData.backgroundImageObj} alt={sectionData.backgroundImageLabel} className="background-image" />
+                                <LazyLoadImage
+                                    alt={sectionData.backgroundImageLabel}
+                                    src={sectionData.backgroundImageObj}
+                                    effect="blur"
+                                    scrollPosition={scrollPosition}
+                                    className="background-image"
+                                    height={"100%"}
+                                />
+                                {/* <img src={sectionData.backgroundImageObj} alt={sectionData.backgroundImageLabel} className="background-image" /> */}
                             </div>
                         </div>
                     )}
@@ -32,4 +42,4 @@ function FacilityDescriptive({ sectionData }) {
     )
 }
 
-export default FacilityDescriptive;
+export default trackWindowScroll(FacilityDescriptive);

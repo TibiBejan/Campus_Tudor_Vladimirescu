@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AdminDashboardNav from '../AdminDashboardNav/AdminDashboardNav';
 import AdminDashboardSearch from '../AdminDashboardSearch/AdminDashboardSearch';
 import AdminDashboardPagination from '../AdminDashboardPagination/AdminDashboardPagination';
@@ -12,6 +12,12 @@ function AdminDashboardMain() {
 
     // SLICE OF STATE
     const adminState = useSelector(adminSelector);
+    // RESET SCROLL POS
+    const executeScroll = () => window.scrollTo(0, 0); 
+    
+    useEffect(() => {
+        executeScroll();
+    }, [])
 
     return (
         <section className="admin-dashboard-main">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useHistory } from 'react-router';
 import StudentDashboardNav from '../StudentDashboardNav/StudentDashboardNav';
 import GeneralErrorMessage from '../../SharedComponents/GeneralErrorMessage/GeneralErrorMessage';
@@ -19,9 +19,16 @@ function StudentDasboardEnrollSuccess() {
     const history = useHistory();
     // STATE
     const [ formError, setFormError ] = useState('');
+    // REF
+    const blockRef = useRef(null)
+
+    // RESET SCROLL POS
+    const executeScroll = () => window.scrollTo(0, blockRef.current.offsetTop);  
 
     // ACCOMMODATE STUDENT
     const accommodateStudent = () => {
+        executeScroll();
+
         const reqConfig = {
             headers: {
                 'Content-Type': 'application/json',
@@ -41,7 +48,7 @@ function StudentDasboardEnrollSuccess() {
 
     return (
         <section className="dashboard-enroll-success">
-            <div className="dashboard-enroll-success-inner">
+            <div className="dashboard-enroll-success-inner" ref={blockRef}>
                 <StudentDashboardNav />
                 {formError ? <GeneralErrorMessage>{formError}</GeneralErrorMessage> : null}
                 <div className="enroll-success-illustration">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
 import ButtonPrimary from '../../SharedComponents/Button/ButtonPrimary';
 import { IconContext } from 'react-icons';
@@ -20,9 +20,15 @@ function ResetPasswordComponent() {
     const [ formError, setFormError ] = useState('');
     const [ visiblePassword, setVisiblePassword ] = useState(false);
     const [ visibleConfirmPassword, setVisibleConfirmPassword ] = useState(false);
+    // REF
+    const blockRef = useRef(null)
+
+    // RESET SCROLL POS
+    const executeScroll = () => window.scrollTo(0, blockRef.current.offsetTop);  
 
 
     const onSubmit = async (values) => {
+        executeScroll();
 
         const reqConfig = {
             headers: {
@@ -59,7 +65,7 @@ function ResetPasswordComponent() {
     });
 
     return (
-        <section className="reset-password-section">
+        <section className="reset-password-section" ref={blockRef}>
             <div className="reset-password-section-inner">
                 <div className="reset-password-content">
                     <div className="reset-password-paragraph-wrapper">

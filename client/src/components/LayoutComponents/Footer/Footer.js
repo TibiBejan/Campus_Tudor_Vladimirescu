@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import { BsArrowRight, BsArrowUp } from "react-icons/bs";
+import { useSelector } from 'react-redux';
+import { userSelector } from '../../../redux/userSlice';
 import './Footer.scss';
 
 function Footer() {
@@ -9,6 +11,8 @@ function Footer() {
     const scrollToTop = () => {
         window.scrollTo(0,0);
     }
+
+    const userState = useSelector(userSelector);
 
     return (
         <footer className="footer">
@@ -28,7 +32,10 @@ function Footer() {
                                 <IconContext.Provider value={{color: '#fafafa', size: '50px'}}>
                                     <BsArrowRight className="footer-link-icon"/>
                                 </IconContext.Provider>
-                                <span className="footer-link-label heading-two">Student</span>
+                                <span className="footer-link-label heading-two" style={{textTransform: 'capitalize'}}>
+                                    {userState.user && Object.keys(userState.user).length !== 0 ? userState.user.role : 'Student'}
+                                    {/* Student */}
+                                </span>
                             </Link>
                         </li>
                         <li className="footer-links-list-item">

@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import notFoundSvg from '../../../assets/images/404.svg';
+import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import './ErrorBanner.scss';    
 
-function ErrorBanner() {
+function ErrorBanner({scrollPosition}) {
     return (
         <div className="error-banner">
             <div className="error-banner-content">
@@ -21,11 +23,19 @@ function ErrorBanner() {
                     about the problem.
                 </p>
                 <div className="error-banner-illustration">
-                    <img src={notFoundSvg} alt="404 illustration" className="background-image"/>
+                    {/* <img src={notFoundSvg} alt="404 illustration" className="background-image"/> */}
+                    <LazyLoadImage
+                        alt="404 illustration"
+                        src={notFoundSvg}
+                        effect="blur"
+                        scrollPosition={scrollPosition}
+                        className="background-image"
+                        
+                    />
                 </div>
             </div>
         </div>
     )
 }
 
-export default ErrorBanner;
+export default trackWindowScroll(ErrorBanner);

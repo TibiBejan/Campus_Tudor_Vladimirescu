@@ -135,8 +135,14 @@ function PageMenu({ toggled, handleMenu }) {
 
         if(toggled.clicked === true) {
             fadeMenuIn().play();
+            document.body.style.overflow = 'hidden';
         } else {
             fadeMenuOut().play();
+            document.body.style.overflowY = 'scroll';
+        }
+
+        return () => {
+            document.body.style.overflowY = 'scroll';
         }
 
     }, [toggled])
@@ -179,7 +185,9 @@ function PageMenu({ toggled, handleMenu }) {
                 >
                     {menuNavCards.map((card, index) => (
                         <SwiperSlide key={index}>
-                            <MenuCard data={card} />
+                            <Link to="/news/post">
+                                <MenuCard data={card} />
+                            </Link>
                         </SwiperSlide>  
                     ))}
                 </Swiper>

@@ -1,11 +1,22 @@
 import React from 'react';
+import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import './ShowcaseBannerSmall.scss';
 
-function ShowcaseBannerSmall({ bannerData, bannerImage, hallName }) {
+function ShowcaseBannerSmall({ bannerData, bannerImage, hallName, scrollPosition }) {
     return (
         <div className="showcase-banner-small">
             <div className="showcase-banner-small-media">
-                <img src={bannerImage} alt="" className="background-image" />
+                <LazyLoadImage
+                    alt="tuiasi-dss"
+                    src={bannerImage}
+                    effect="blur"
+                    scrollPosition={scrollPosition}
+                    className="background-image"
+                    height={"100%"}
+                    width={"100%"}
+                />
+                {/* <img src={bannerImage} alt="" className="background-image" /> */}
             </div>
             <div className="showcase-banner-small-content">
                 <div className="content-heading-wrapper">
@@ -32,4 +43,4 @@ function ShowcaseBannerSmall({ bannerData, bannerImage, hallName }) {
     )
 }
 
-export default ShowcaseBannerSmall;
+export default trackWindowScroll(ShowcaseBannerSmall);

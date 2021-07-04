@@ -1,6 +1,8 @@
 import React from 'react';
+import InitialTransition from '../utils/InitialTransition/InitialTransition';
 
 // COMPONENTS
+import Header from '../components/LayoutComponents/Header/Header';
 import HeaderBannerSmall from '../components/SharedComponents/ShowcaseBannerSmall/ShowcaseBannerSmall';
 import AboutSection from '../components/SharedComponents/AboutSection/AboutSection';
 import GallerySection from '../components/SharedComponents/GallerySection/GallerySection';
@@ -18,6 +20,8 @@ import { bannerData, aboutSectionData, gallerySlider, gallerySectionData, textOn
 function Post() {
     return (
         <>
+            <InitialTransition />
+            <Header />
             <HeaderBannerSmall bannerData={ bannerData } bannerImage={ bannerData.image.default } />  
             <main className="page-content">
                 <AboutSection sectionData={aboutSectionData} />

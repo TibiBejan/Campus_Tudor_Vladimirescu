@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import GeneralErrorMessage from '../../SharedComponents/GeneralErrorMessage/GeneralErrorMessage';
 import EmptyNeighbordCard from '../../SharedComponents/EmptyNeighborCard/EmptyNeighbordCard';
 import NeighborCard from '../../SharedComponents/NeighborCard/NeighborCard';
@@ -6,15 +6,21 @@ import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestSelectedUser, receiveSelectedUser, selectedUserError } from '../../../redux/adminSlice';
 import { adminSelector } from '../../../redux/adminSlice';
+import { IconContext } from 'react-icons';
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import axios from 'axios';
-
+import './DashboardStudentsNeighbors.scss';
 
 // SWIPER SLIDER
 import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Navigation, EffectFade  } from 'swiper';
 // Import Swiper styles
 import "swiper/swiper.min.css";
-import "swiper/components/pagination/pagination.min.css"
-import './DashboardStudentsNeighbors.scss';
+import "swiper/components/navigation/navigation.scss";
+import 'swiper/components/effect-fade/effect-fade.scss';
+// INSTAL MODULES
+SwiperCore.use([Navigation, EffectFade]);
+
 
 function DashboardStudentsNeighbors() {
 
@@ -26,6 +32,16 @@ function DashboardStudentsNeighbors() {
     const [ students, setStudents ] = useState([]);
     const [ isLoading, setIsLoading ] = useState(true);
     const [ error, setError ] = useState('');
+    const [ slidesLength, setSlidesLength ] = useState(null);
+    const [ activeIndex, setActiveIndex ] = useState(1);
+    const [ disabled, setDisabled ] = useState({
+        prevButton: false,
+        nextButton: false
+    });
+
+    // REF
+    const sliderPrevButton = useRef(null);
+    const sliderNextButton = useRef(null);
 
     // EFFECT
     useEffect(() => {
@@ -93,6 +109,10 @@ function DashboardStudentsNeighbors() {
             <div className="student-accommodation-neighbors">
                 <Swiper 
                     slidesPerView={1}
+                    navigation={{
+                        prevEl: sliderPrevButton.current,
+                        nextEl: sliderNextButton.current,
+                    }}
                     breakpoints={{
                         1366: {slidesPerView: 2.5},
                         1250: {slidesPerView: 2},
@@ -104,6 +124,29 @@ function DashboardStudentsNeighbors() {
                     resistanceRatio={0.5}
                     spaceBetween={50}
                     speed={1000}
+                    onInit={() => {
+                        setSlidesLength(students.length);
+                        setActiveIndex(1);
+                    }}
+                    onSlideChange={(Swiper) => {
+                        setActiveIndex(Swiper.activeIndex + 1);
+                        if(Swiper.activeIndex === 0) {
+                            setDisabled({
+                                prevButton: true,
+                                nextButton: false
+                            });
+                        } else if(Swiper.activeIndex >= students.length -1) {
+                            setDisabled({
+                                prevButton: false,
+                                nextButton: true
+                            });
+                        } else {
+                            setDisabled({
+                                prevButton: false,
+                                nextButton: false
+                            });
+                        }
+                    }}
                     className="dashboard-accommodate-slider"
                 >
                     {students.length === 0 && (
@@ -118,6 +161,17 @@ function DashboardStudentsNeighbors() {
                             </Link>
                         </SwiperSlide>
                     ))}
+
+                    <button disabled={disabled.prevButton} className="showcase-prev-button" ref={sliderPrevButton}>
+                        <IconContext.Provider value={{color: '#fafafa', size: '34px'}}>
+                            <BsArrowLeft />
+                        </IconContext.Provider>
+                    </button>
+                    <button disabled={disabled.nextButton} className="showcase-next-button" ref={sliderNextButton}>
+                        <IconContext.Provider value={{color: '#fafafa', size: '34px'}}>
+                            <BsArrowRight />
+                        </IconContext.Provider>
+                    </button>
                 </Swiper>
             </div>
         </section>

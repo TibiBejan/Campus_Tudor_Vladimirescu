@@ -58,10 +58,10 @@
                 height: 60vw;
                 padding-right: 25%;
 
-                .background-image {
-                    filter: brightness(60%);
-                    transition: 1s ease-in-out;
-                }
+                // .background-image {
+                //     filter: brightness(60%);
+                //     transition: 1s ease-in-out;
+                // }
             }
 
             @media screen and (max-width: $bp-medium) {
@@ -74,14 +74,24 @@
                 padding: 0;
 
                 
-                .background-image {
-                    filter: brightness(100%);
-                }
+                // .background-image {
+                //     filter: brightness(100%);
+                // }
             }
 
             .background-image {
                 pointer-events: none;
                 user-select: none;
+                filter: brightness(90%);
+
+                @media screen and (max-width: $bp-large) {
+                    filter: brightness(60%);
+                    transition: 1s ease-in-out;
+                }
+
+                @media screen and (max-width: $bp-small) {
+                    filter: brightness(100%);
+                }
             }
         }
 

@@ -1,8 +1,10 @@
 import React from 'react';
 import sectionImage from '../../../assets/images/ResidenceHalls/residence-hall-descriptive-image.jpg';
+import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import './ResidenceHallDescription.scss';
 
-function ResidenceHallDescription({ sectionData }) {
+function ResidenceHallDescription({ sectionData, scrollPosition }) {
 
     return (
         <section className="descriptive-list-section">
@@ -11,7 +13,15 @@ function ResidenceHallDescription({ sectionData }) {
                     <div className="image-block">
                         <div className="image-block-overlay"></div>
                         <div className="image-block-showcase">
-                            <img src={sectionImage} alt={`Una dintre camerele caminului ${sectionData.hall_number}`} className="background-image" />
+                            <LazyLoadImage
+                                alt={`Una dintre camerele caminului ${sectionData.hall_number}`}
+                                src={sectionImage}
+                                effect="blur"
+                                scrollPosition={scrollPosition}
+                                className="background-image"
+                                height={"100%"}
+                            />
+                            {/* <img src={sectionImage} alt={`Una dintre camerele caminului ${sectionData.hall_number}`} className="background-image" /> */}
                         </div>
                     </div>
                 </div>
@@ -54,4 +64,4 @@ function ResidenceHallDescription({ sectionData }) {
     )
 }
 
-export default ResidenceHallDescription;
+export default trackWindowScroll(ResidenceHallDescription);

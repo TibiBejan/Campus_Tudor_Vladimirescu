@@ -1,7 +1,9 @@
 import React from 'react';
+import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import './PersonCard.scss';
 
-function PersonCard({ cardData }) {
+function PersonCard({ cardData, scrollPosition }) {
 
     const profileImage = require(`../../../assets/images/Staff/${cardData.name.split(' ').join('-')}.png`)
 
@@ -9,7 +11,17 @@ function PersonCard({ cardData }) {
         <div className="person-card">
             <div className="person-card-bio">
                 <div className="profile-image">
-                    <img src={profileImage.default} alt={cardData.name} className="background-image" />
+                    {/* <img src={profileImage.default} alt={cardData.name} className="background-image" /> */}
+                    <LazyLoadImage
+                        alt={cardData.name}
+                        src={profileImage.default}
+                        effect="blur"
+                        scrollPosition={scrollPosition}
+                        className="background-image"
+                        // visibleByDefault={"true"}
+                        height={"100%"}
+                        width={"100%"}
+                    />
                 </div>
                 <h3 className="person-name heading-three">{cardData.name}</h3>
                 <p className="person-job-title paragraph">{cardData.position}</p>
@@ -22,4 +34,4 @@ function PersonCard({ cardData }) {
     )
 }
 
-export default PersonCard;
+export default trackWindowScroll(PersonCard);

@@ -9,11 +9,7 @@
     height: 12rem;
     @include flex-setup($align-items: center, $justify-content: space-between);
     z-index: 999;
-
-    @media screen and (max-width: $bp-mobile) {
-        display: grid;
-        grid-template-columns: 40% 1fr;
-    }
+    transition: var(--hover-transition);
 
     &::after {
         content: '';
@@ -23,7 +19,7 @@
         bottom: 0;
         height: 0.1rem;
         width: 100%;
-        background-color: $secondary-dark-blue-2; //$primary-dark-gray-2
+        background-color: $primary-dark-gray-2;
     }
 
     @media screen and (max-width: $bp-large) {
@@ -45,7 +41,7 @@
     &-logo {
         height: 100%;
         width: 24rem;
-        background-color: $secondary-dark-blue-2; //$primary-dark-gray-2
+        background-color: $primary-dark-gray-2;
         transition: var(--hover-transition);
 
         @media screen and (max-width: $bp-large) {
@@ -65,13 +61,17 @@
         }
     
         @media screen and (max-width: $bp-mobile) {
-            width: 100%;
+            padding: 0 5rem;
+        }
+
+        @media screen and (max-width: $bp-mobile-small) {
+            padding: 0 3rem;
         }
 
         &.active-scrolled {
             width: 12rem;
             height: 100%;
-            background-color:$primary-light-text-1; //$primary-light-gray-1
+            background-color: $primary-light-gray-1;
 
             @media screen and (max-width: $bp-large) {
                 width: 10rem;
@@ -86,7 +86,11 @@
             }
         
             @media screen and (max-width: $bp-mobile) {
-                width: 100%;
+                padding: 0 5rem;
+            }
+
+            @media screen and (max-width: $bp-mobile-small) {
+                padding: 0 3rem;
             }
         }
 
@@ -106,15 +110,20 @@
         @include flex-setup($align-items: center, $justify-content: flex-end);
 
         @media screen and (max-width: $bp-mobile) {
-            display: grid;
-            grid-template-columns: 70% 30%;
+            width: 100%;
         }
 
         .action-menu-toggler,
         .action-account {
             position: relative;
+            width: 100%;
             height: 100%;
-            @include flex-setup($align-items: center, $justify-content: center);
+            @include flex-setup($align-items: center, $justify-content: space-between);
+
+            @media screen and (max-width: $bp-small) {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
 
             &::before {
                 content: '';
@@ -124,7 +133,7 @@
                 left: 0;
                 height: 100%;
                 width: 0.1rem;
-                background-color: $secondary-dark-blue-2; //$primary-dark-gray-2
+                background-color: $primary-dark-gray-2;
             }
 
             .transparent-button {
@@ -136,7 +145,7 @@
 
                 @media screen and (min-width: $bp-medium) {
                     &:hover {
-                        background-color: $secondary-dark-blue-2; //$primary-dark-gray-2
+                        background-color: $primary-dark-gray-2;
                         padding: 0 12.5rem;
     
                         @media screen and (max-width: $bp-medium) {
@@ -150,8 +159,7 @@
                 }
 
                 @media screen and (max-width: $bp-mobile) {
-                    width: 100%;
-                    padding: 0;
+                    padding: 0
                 }
             }
 
@@ -160,21 +168,16 @@
                 @include flex-setup($align-items: center, $justify-content: center);
                 padding: 0 var(--general-padding-small);
                 background-color: transparent;
+                border-right: 0.1rem solid $primary-dark-gray-2;
                 transition: var(--hover-transition);
 
                 @media screen and (max-width: $bp-medium) {
                     padding: 0 var(--general-padding-small);
                 }
 
-                svg {
-                    height: 22.5%;
-                    width: auto;
-                    fill: $primary-light-text-1; //$primary-light-gray-1
-                }
-
                 @media screen and (min-width: $bp-medium) {
                     &:hover {
-                        background-color: $secondary-dark-blue-2; //$primary-dark-gray-2
+                        background-color: $primary-dark-gray-2;
                         padding: 0 7.5rem;
     
                         @media screen and (max-width: $bp-medium) {
@@ -182,6 +185,17 @@
                         }
                     }
                 }
+
+                
+                @media screen and (max-width: $bp-mobile) {
+                    padding: 0 2rem;
+                }
+            }
+        }
+
+        .action-menu-toggler > *{
+            @media screen and (max-width: $bp-small) {
+                grid-column: 1 / -1;
             }
         }
     }

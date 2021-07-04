@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import StudentDashboardNav from '../StudentDashboardNav/StudentDashboardNav';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
 import GeneralErrorMessage from '../../SharedComponents/GeneralErrorMessage/GeneralErrorMessage';
@@ -20,12 +20,16 @@ function StudentDashboardAccount() {
     const userState = useSelector(userSelector);
     // STATE
     const [ formError, setFormError ] = useState('');
+    // REF
+    const blockRef = useRef(null)
 
+    // RESET SCROLL POS
+    const executeScroll = () => window.scrollTo(0, blockRef.current.offsetTop);  
 
     const onSubmit = (values) => {
 
         // RESET SCROLL POSITION
-        window.scrollTo(0, 0);
+        executeScroll();
 
         const reqConfig = {
             headers: {
@@ -69,7 +73,7 @@ function StudentDashboardAccount() {
         <section className="dashboard-account-update">
             <div className="dashboard-account-update-inner">
                 <StudentDashboardNav />
-                <div className="dashboard-form-block">
+                <div className="dashboard-form-block" ref={blockRef}>
                     <div className="dashboard-form-block-heading-wrapper">
                         <h3 className="dashboard-form-title heading-three">Actualizeaza-ti informatiile contului</h3>    
                         {formError ? <GeneralErrorMessage>{formError}</GeneralErrorMessage> : null }    

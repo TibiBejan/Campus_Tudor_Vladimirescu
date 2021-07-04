@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { IconContext } from 'react-icons';
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import './GallerySection.scss';
 
 // SWIPER SLIDER
@@ -13,7 +15,7 @@ import 'swiper/components/effect-fade/effect-fade.scss';
 // INSTAL MODULES
 SwiperCore.use([Navigation, EffectFade]);
 
-function GallerySection({ images, sectionData }) {
+function GallerySection({ images, sectionData, scrollPosition }) {
 
     // STATE
     const [ slidesLength, setSlidesLength ] = useState(null);
@@ -78,7 +80,16 @@ function GallerySection({ images, sectionData }) {
                         {images.map((image, index) => (
                             <SwiperSlide key={index}>
                                 <div className="gallery-slide-image">
-                                    <img src={image.image.default} alt={image.label} className="background-image" />
+                                    <LazyLoadImage
+                                        alt={image.label}
+                                        src={image.image.default}
+                                        effect="blur"
+                                        scrollPosition={scrollPosition}
+                                        className="background-image"
+                                        height={"100%"}
+                                        width={"100%"}
+                                    />
+                                    {/* <img src={image.image.default} alt={image.label} className="background-image" /> */}
                                 </div>
                             </SwiperSlide>
                         ))}
@@ -112,4 +123,4 @@ function GallerySection({ images, sectionData }) {
     )
 }
 
-export default GallerySection;
+export default trackWindowScroll(GallerySection);

@@ -1,6 +1,8 @@
 import React from 'react';
+import InitialTransition from '../utils/InitialTransition/InitialTransition';
 
 // COMPONENTS
+import Header from '../components/LayoutComponents/Header/Header';
 import HeaderBannerSmall from '../components/SharedComponents/ShowcaseBannerSmall/ShowcaseBannerSmall';
 import AboutSection from '../components/SharedComponents/AboutSection/AboutSection';
 import DescriptiveShowcase from '../components/DSSPageComponents/DescriptiveShowcaseSection/DescriptiveShowcase';
@@ -21,6 +23,8 @@ const bannerData = {
 function StudentServices() {
     return (
         <>
+            <InitialTransition />
+            <Header />
             <HeaderBannerSmall bannerData={ bannerData } bannerImage={ bannerImage } />
             <main className="page-content">
                 <AboutSection sectionData={ aboutSectionData }/>

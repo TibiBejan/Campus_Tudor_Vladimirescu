@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import InitialTransition from '../utils/InitialTransition/InitialTransition';
 
 // COMPONENTS
+import Header from '../components/LayoutComponents/Header/Header';
 import AuthBanner from '../components/SharedComponents/AuthBanner/AuthBanner';
 import StudentDashboardCreateInfo from '../components/StudentDashboard/StudentDashboardCreateInfo/StudentDashboardCreateInfo';
 import StudentDashboardUpdateInfo from '../components/StudentDashboard/StudentDashboardUpdateInfo/StudentDashboardUpdateInfo';
@@ -61,6 +63,8 @@ function StudentDashboardInfromation() {
 
     return (
         <>
+            <InitialTransition />
+            <Header />
             <main className="page-content">
                 <AuthBanner sectionData={ bannerData }/>    
                 {

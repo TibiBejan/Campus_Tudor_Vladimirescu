@@ -1,6 +1,9 @@
-import React, { useEffect, useRef } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React, { useEffect, useRef, lazy, Suspense } from 'react';
+// import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route, useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
+import { AnimatePresence } from 'framer-motion';
+import InitialTransition from './utils/InitialTransition/InitialTransition';
 import axios from 'axios';
 
 // REDUX
@@ -11,64 +14,61 @@ import { adminSelector } from './redux/adminSlice';
 // UTILS
 import ScrollToTop from './utils/ScrollToTop';
 
-// PAGE'S
-import Index from './pages/Index';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import News from './pages/News';
-import Organisations from './pages/Organisations';
-import StudentServices from './pages/StudentServices';
-import Cafetaria from './pages/Cafetaria';
-import SportsBase from './pages/SportsBase';
-import Tuiasi from './pages/Tuiasi';
-import HealthSecurity from './pages/HealthSecurity';
-import Police from './pages/Police';
-import Dispensary from './pages/Dispensary';
-import CounselingCenter from './pages/CounselingCenter';
-import Accommodation from './pages/Accommodation';
-import ResidenceHalls from './pages/ResidenceHalls';
-import FAQ from './pages/FAQ';
-import ResidenceHall from './pages/ResidenceHall';
-import Post from './pages/Post';
-
-import Login from './pages/Login';
-import Register from './pages/Register';
-import ForgotPassword from './pages/ForgotPassword';
-import ResetPassword from './pages/ResetPassword';
-
-import StudentDashboard from './pages/StudentDashboard';
-import StudentDashboardPwdUpdate from './pages/StudentDashboardPwdUpdate';
-import StudentDashboardAccountInfo from './pages/StudentDashboardAccountInfo';
-import StudentDashboardEnrollment from './pages/StudentDashboardEnrollment';
-import StudentDashboardEnrollmentConfirm from './pages/StudentDashboardEnrollmentConfirm';
-import StudentDashboardInformation from './pages/StudentDashboardInfromation';
-import StudentDashboardKin from './pages/StudentDashboardKin';
-import StudentDashboardKinUpdate from './pages/StudentDashboardKinUpdate';
-
-import AdminDashboard from './pages/AdminDashboard';
-import AdminDashboardAccountInfo from './pages/AdminDashboardAccountInfo';
-import AdminDashboardPassword from './pages/AdminDashboardPassword';
-
-import Page404 from './pages/Page404';
-
-
-// COMPONENTS
-import Gradient from './components/LayoutComponents/PageGradient/Gradient';
-import Header from './components/LayoutComponents/Header/Header';
-
 import PrivateRoute from './utils/PrivateRoute';
 import PublicRoute from './utils/PublicRoute';
 import AdminDashboardStudent from './pages/AdminDashboardStudent';
+
+// LAZY ROUTES
+const Index = lazy(()=> import('./pages/Index'));
+const About = lazy(()=> import('./pages/About'));
+const Contact = lazy(()=> import('./pages/Contact'));
+const News = lazy(()=> import('./pages/News'));
+const Organisations = lazy(()=> import('./pages/Organisations'));
+const StudentServices = lazy(()=> import('./pages/StudentServices'));
+const Cafetaria = lazy(()=> import('./pages/Cafetaria'));
+const SportsBase = lazy(()=> import('./pages/SportsBase'));
+const Tuiasi = lazy(()=> import('./pages/Tuiasi'));
+const HealthSecurity = lazy(()=> import('./pages/HealthSecurity'));
+const Police = lazy(()=> import('./pages/Police'));
+const Dispensary = lazy(()=> import('./pages/Dispensary'));
+const CounselingCenter = lazy(()=> import('./pages/CounselingCenter'));
+const Accommodation = lazy(()=> import('./pages/Accommodation'));
+const ResidenceHalls = lazy(()=> import('./pages/ResidenceHalls'));
+const ResidenceHall = lazy(()=> import('./pages/ResidenceHall'));
+const FAQ = lazy(()=> import('./pages/FAQ'));
+const Post = lazy(()=> import('./pages/Post'));
+
+const AdminDashboard = lazy(()=> import('./pages/AdminDashboard'));
+const AdminDashboardAccountInfo = lazy(()=> import('./pages/AdminDashboardAccountInfo'));
+const AdminDashboardPassword = lazy(()=> import('./pages/AdminDashboardPassword'));
+const AdminDashboardCreateAcc = lazy(()=> import('./pages/AdminDashboardCreateAcc'));
+
+const StudentDashboard = lazy(()=> import('./pages/StudentDashboard'));
+const StudentDashboardPwdUpdate = lazy(()=> import('./pages/StudentDashboardPwdUpdate'));
+const StudentDashboardAccountInfo = lazy(()=> import('./pages/StudentDashboardAccountInfo'));
+const StudentDashboardEnrollment = lazy(()=> import('./pages/StudentDashboardEnrollment'));
+const StudentDashboardEnrollmentConfirm = lazy(()=> import('./pages/StudentDashboardEnrollmentConfirm'));
+const StudentDashboardInformation = lazy(()=> import('./pages/StudentDashboardInfromation'));
+const StudentDashboardKin = lazy(()=> import('./pages/StudentDashboardKin'));
+const StudentDashboardKinUpdate = lazy(()=> import('./pages/StudentDashboardKinUpdate'));
+
+const Login = lazy(()=> import('./pages/Login'));
+const Register = lazy(()=> import('./pages/ForgotPassword'));
+const ForgotPassword = lazy(()=> import('./pages/Login'));
+const ResetPassword = lazy(()=> import('./pages/ResetPassword'));
+
+const Page404 = lazy(()=> import('./pages/Page404'));
 
 function App() {
 
   // HOOKS
   const dispatch = useDispatch();
   const adminState = useSelector(adminSelector);
+  const location = useLocation();
 
   // REF"S
   const app = useRef(null);
-
+  // FETCH AUTH USER ON RENDER
   useEffect(() => {
     const fetchUser = () => {
       // INIT REQ
@@ -90,32 +90,28 @@ function App() {
     fetchUser();
   }, [dispatch]);
 
-
   //EFFECT
   useEffect(() => {
     gsap.to(app.current, {duration: 0, visibility: 'visible'});
   }, []);
 
   return (
-      <Router>
+      <>
         <ScrollToTop />
         <div className="App" ref={app}>
-          <Gradient />
-          <Header />
-            <Switch>
-
+        <AnimatePresence exitBeforeEnter>
+          <Suspense fallback={<InitialTransition />}> 
+            <Switch location={location} key={location.pathname}>
+              {/* PRIVATE ADMIN ROUTES */}
               <PrivateRoute role="admin" component={AdminDashboard} exact path="/admin" />
               <PrivateRoute role="admin" component={AdminDashboardAccountInfo} exact path="/admin-details" />
               <PrivateRoute role="admin" component={AdminDashboardPassword} exact path="/admin-password" />
               {Object.keys(adminState.selectedUser).length !== 0 
                 ? <PrivateRoute role="admin" component={AdminDashboardStudent} exact path="/admin/:id" /> 
                 : null}
-            
-              <PublicRoute component={Login} exact path="/login" />
-              <PublicRoute component={ForgotPassword} exact path="/forgot-password" />
-              <PublicRoute component={ResetPassword} exact path="/reset-password/:id" />
-              <PublicRoute component={Register} exact path="/register" />
-
+              <PrivateRoute role="admin" component={AdminDashboardCreateAcc} exact path="/admin-create" />
+                
+              {/* PRIVATE USER ROUTES */}
               <PrivateRoute  role="student" component={StudentDashboard} exact path="/:name/dashboard" />
               <PrivateRoute  role="student" component={StudentDashboardPwdUpdate} exact path="/:name/update-password" />
               <PrivateRoute  role="student" component={StudentDashboardAccountInfo} exact path="/:name/update-details" />
@@ -125,10 +121,16 @@ function App() {
               <PrivateRoute  role="student" component={StudentDashboardKin} exact path="/:name/kins" />
               <PrivateRoute  role="student" component={StudentDashboardKinUpdate} exact path="/:name/kins/:id" />
 
+              {/* USER AUTH ROUTES */}
+              <PublicRoute component={Login} exact path="/login" />
+              <PublicRoute component={ForgotPassword} exact path="/forgot-password" />
+              <PublicRoute component={ResetPassword} exact path="/reset-password/:id" />
+              <PublicRoute component={Register} exact path="/register" />
+  
+              {/* USER  ROUTES */}
               <Route exact path="/">
                 <Index />
               </Route>
-
               <Route path="/about">
                 <About />
               </Route>
@@ -181,10 +183,13 @@ function App() {
                 <FAQ />
               </Route>
 
+              {/* 404 ROUT */}
               <Route component={Page404} />
             </Switch>
+          </Suspense>
+        </AnimatePresence>
         </div>
-      </Router>
+      </>
   );
 }
 

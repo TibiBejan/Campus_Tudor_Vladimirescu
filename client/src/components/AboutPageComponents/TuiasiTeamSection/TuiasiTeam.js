@@ -1,10 +1,11 @@
 import React from 'react';
 import './TuiasiTeam.scss';
-
+import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import campusImageRight from '../../../assets/images/AboutPageImages/campus-showcase-1.jpg';
 import campusImageLeft from '../../../assets/images/AboutPageImages/campus-showcase-2.jpg'; 
 
-function TuiasiTeam() {
+function TuiasiTeam({scrollPosition}) {
     return (
         <section className="tuiasi-team-section">
             <div className="tuiasi-team-section-inner">
@@ -38,7 +39,15 @@ function TuiasiTeam() {
                         <div className="image-block">
                             <div className="image-block-overlay"></div>
                             <div className="image-block-showcase">
-                                <img src={campusImageRight} alt="Tuiasi Team Showcase" className="background-image" />
+                                <LazyLoadImage
+                                    alt="Tuiasi Team Showcase"
+                                    src={campusImageRight}
+                                    effect="blur"
+                                    scrollPosition={scrollPosition}
+                                    className="background-image"
+                                    height={"100%"}
+                                />
+                                {/* <img src={campusImageRight} alt="Tuiasi Team Showcase" className="background-image" /> */}
                             </div>
                         </div>
                     </div>
@@ -48,7 +57,15 @@ function TuiasiTeam() {
                         <div className="image-block">
                             <div className="image-block-overlay"></div>
                             <div className="image-block-showcase">
-                                <img src={campusImageLeft} alt="Tuiasi Team Showcase" className="background-image" />
+                                <LazyLoadImage
+                                    alt="Tuiasi Team Showcase"
+                                    src={campusImageLeft}
+                                    effect="blur"
+                                    scrollPosition={scrollPosition}
+                                    className="background-image"
+                                    height={"100%"}
+                                />
+                                {/* <img src={campusImageLeft} alt="Tuiasi Team Showcase" className="background-image" /> */}
                             </div>
                         </div>
                     </div>
@@ -83,4 +100,4 @@ function TuiasiTeam() {
     )
 }
 
-export default TuiasiTeam;
+export default trackWindowScroll(TuiasiTeam);

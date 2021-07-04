@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import StudentDashboardNav from '../StudentDashboardNav/StudentDashboardNav';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
+import { IconContext } from 'react-icons';
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import GeneralErrorMessage from '../../SharedComponents/GeneralErrorMessage/GeneralErrorMessage';
 import ButtonPrimary from '../../SharedComponents/Button/ButtonPrimary';
 import KinCard from '../../SharedComponents/KinCard/KinCard';
@@ -12,13 +14,17 @@ import { createKinSchema } from '../../../validation/UserSchema';
 // REDUX
 import { useDispatch, useSelector } from 'react-redux';
 import { requestKins, receiveKins, kinsError, userMetaSelector } from '../../../redux/userMetaSlice';
+import './StudentDashboardKins.scss';
+
 // SWIPER SLIDER
 import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Navigation, EffectFade  } from 'swiper';
 // Import Swiper styles
 import "swiper/swiper.min.css";
-import "swiper/components/pagination/pagination.min.css";
-
-import './StudentDashboardKins.scss';
+import "swiper/components/navigation/navigation.scss";
+import 'swiper/components/effect-fade/effect-fade.scss';
+// INSTAL MODULES
+SwiperCore.use([Navigation, EffectFade]);
 
 function StudentDashboardKins() {
 
@@ -27,12 +33,24 @@ function StudentDashboardKins() {
     const userMetaState = useSelector(userMetaSelector);
     // STATE
     const [ formError, setFormError ] = useState('');
+    const [ slidesLength, setSlidesLength ] = useState(null);
+    const [ activeIndex, setActiveIndex ] = useState(1);
+    const [ disabled, setDisabled ] = useState({
+        prevButton: false,
+        nextButton: false
+    });
+
     // REF
+    const sliderPrevButton = useRef(null);
+    const sliderNextButton = useRef(null);
     const inputFocus = useRef(null);
+    const blockRef = useRef(null)
+    // RESET SCROLL POS
+    const executeScroll = () => window.scrollTo(0, blockRef.current.offsetTop);  
 
     const onSubmit = (values, { resetForm }) => {
         // RESET SCROLL POSITION
-        window.scrollTo(0,0);
+        executeScroll();
 
         const reqConfig = {
             headers: {
@@ -113,6 +131,10 @@ function StudentDashboardKins() {
 
                 <Swiper 
                     slidesPerView={1}
+                    navigation={{
+                        prevEl: sliderPrevButton.current,
+                        nextEl: sliderNextButton.current,
+                    }}
                     breakpoints={{
                         1500: {slidesPerView: 3},
                         1366: {slidesPerView: 2.5},
@@ -125,6 +147,29 @@ function StudentDashboardKins() {
                     resistance={true}
                     resistanceRatio={0.5}
                     speed={1000}
+                    onInit={() => {
+                        setSlidesLength(userMetaState.userKins.length);
+                        setActiveIndex(1);
+                    }}
+                    onSlideChange={(Swiper) => {
+                        setActiveIndex(Swiper.activeIndex + 1);
+                        if(Swiper.activeIndex === 0) {
+                            setDisabled({
+                                prevButton: true,
+                                nextButton: false
+                            });
+                        } else if(Swiper.activeIndex >= userMetaState.userKins.length -1) {
+                            setDisabled({
+                                prevButton: false,
+                                nextButton: true
+                            });
+                        } else {
+                            setDisabled({
+                                prevButton: false,
+                                nextButton: false
+                            });
+                        }
+                    }}
                     className="student-kins-slider"
                 >
                     <SwiperSlide>
@@ -135,10 +180,21 @@ function StudentDashboardKins() {
                             <KinCard cardData={kin} />
                         </SwiperSlide>
                     ))}
+
+                    <button disabled={disabled.prevButton} className="showcase-prev-button" ref={sliderPrevButton}>
+                        <IconContext.Provider value={{color: '#fafafa', size: '34px'}}>
+                            <BsArrowLeft />
+                        </IconContext.Provider>
+                    </button>
+                    <button disabled={disabled.nextButton} className="showcase-next-button" ref={sliderNextButton}>
+                        <IconContext.Provider value={{color: '#fafafa', size: '34px'}}>
+                            <BsArrowRight />
+                        </IconContext.Provider>
+                    </button>
                 </Swiper>
 
                 <div className="dashboard-form-block">
-                    <div className="dashboard-form-block-heading-wrapper">
+                    <div className="dashboard-form-block-heading-wrapper" ref={blockRef}>
                         <h3 className="dashboard-form-title heading-three">Adauga o persoana de contact</h3>    
                         {formError ? <GeneralErrorMessage>{formError}</GeneralErrorMessage> : null }    
                     </div>

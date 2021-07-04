@@ -1,6 +1,8 @@
 import React from 'react';
+import InitialTransition from '../utils/InitialTransition/InitialTransition';
 
 // COMPONENTS
+import Header from '../components/LayoutComponents/Header/Header';
 import HeaderBannerSmall from '../components/SharedComponents/ShowcaseBannerSmall/ShowcaseBannerSmall';
 import ResidenceHallsSwiper from '../components/ResidenceHallsComponents/ResidenceHallsSwiper/ResidenceHallsSwiper';
 import ContactSectionSmall from '../components/SharedComponents/ContactSectionSmall/ContactSectionSmall'
@@ -14,6 +16,8 @@ import { bannerData, residenceCardsData } from '../data/ResidenceHallsPageData';
 function ResidenceHalls() {
     return (
         <>
+            <InitialTransition />
+            <Header />
             <HeaderBannerSmall bannerData={ bannerData } bannerImage={ bannerData.image.default } />  
             <main className="page-content">
                 <ResidenceHallsSwiper cards={residenceCardsData} />

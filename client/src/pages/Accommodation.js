@@ -1,6 +1,8 @@
 import React from 'react';
+import InitialTransition from '../utils/InitialTransition/InitialTransition';
 
 // COMPONENTS
+import Header from '../components/LayoutComponents/Header/Header';
 import HeaderBannerSmall from '../components/SharedComponents/ShowcaseBannerSmall/ShowcaseBannerSmall';
 import AboutSection from '../components/SharedComponents/AboutSection/AboutSection';
 import ReviewSection from '../components/SharedComponents/ReviewSection/ReviewSection';
@@ -15,6 +17,8 @@ import { bannerData, aboutData, reviewSectionData } from '../data/AccommodationP
 function Accommodation() {
     return (
         <>
+            <InitialTransition />
+            <Header />
             <HeaderBannerSmall bannerData={ bannerData } bannerImage={ bannerData.image.default } />  
             <main className="page-content">
                 <AboutSection sectionData={ aboutData } />

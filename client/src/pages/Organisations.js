@@ -1,6 +1,8 @@
 import React from 'react';
+import InitialTransition from '../utils/InitialTransition/InitialTransition';
 
 // COMPONENTS
+import Header from '../components/LayoutComponents/Header/Header';
 import HeaderBannerSmall from '../components/SharedComponents/ShowcaseBannerSmall/ShowcaseBannerSmall';
 import OrganisationsSection from '../components/OrganisationsPageComponents/OrganisationsSection/OrganisationsSection';
 import FacilitiesPreview from '../components/SharedComponents/FacilitiesPreviewSection/FacilitiesPreview';
@@ -17,6 +19,8 @@ const bannerData = {
 function Organisations() {
     return (
         <>
+            <InitialTransition />
+            <Header />
             <HeaderBannerSmall bannerData={bannerData} bannerImage={bannerImage}/>
             <main className="page-content">
                 <OrganisationsSection />

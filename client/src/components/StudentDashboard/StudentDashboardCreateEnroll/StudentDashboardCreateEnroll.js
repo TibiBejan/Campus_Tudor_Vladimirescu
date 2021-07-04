@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useHistory } from 'react-router';
 import StudentDashboardNav from '../StudentDashboardNav/StudentDashboardNav';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
@@ -24,6 +24,11 @@ function StudentDashboardCreateEnroll() {
     // STATE
     const [ formError, setFormError ] = useState('');
     const [ typeOfStudy, setTypeOfStudy ] = useState('');
+    // REF
+    const blockRef = useRef(null)
+
+    // RESET SCROLL POS
+    const executeScroll = () => window.scrollTo(0, blockRef.current.offsetTop);  
 
     // HANDLE FIELD ON BLUR
     const handleBlur = (e) => setTypeOfStudy(e.target.value);
@@ -31,7 +36,7 @@ function StudentDashboardCreateEnroll() {
     // CREATE ENROLLMENT
     const onSubmit = (values, { resetForm }) => {
         // RESET SCROLL POSITION
-        window.scrollTo(0,0);
+        executeScroll();
 
         const reqConfig = {
             headers: {
@@ -77,7 +82,7 @@ function StudentDashboardCreateEnroll() {
         <section className="dashboard-create-enroll">
             <div className="dashboard-create-enroll-inner">
                 <StudentDashboardNav />
-                <div className="dashboard-form-block">
+                <div className="dashboard-form-block" ref={blockRef}>
                     <div className="dashboard-form-block-heading-wrapper">
                         <h3 className="dashboard-form-title heading-three">Adauga informatiile personale</h3>    
                         {formError ? <GeneralErrorMessage>{formError}</GeneralErrorMessage> : null }    

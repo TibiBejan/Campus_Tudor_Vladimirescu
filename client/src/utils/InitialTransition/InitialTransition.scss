@@ -1,0 +1,46 @@
+@import '../../scss/variables';
+@import '../../scss/mixins';
+
+.black-box-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    @include flex-setup($align-items: center, $justify-content: center);
+    background-color: $primary-dark-gray-1;
+    z-index: 99999;
+}
+
+.absolute-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    @include flex-setup($align-items: center, $justify-content: center);
+    z-index: 99998;
+}
+
+.text-white {
+	color: $primary-light-gray-1 !important;
+	background-color: $primary-light-gray-1 !important;
+}
+
+.svg-rect {
+    width: 100%;
+    height: 100%;
+    fill: $primary-light-gray-1;
+}
+
+.svg-rect-anim {
+    width: 100%;
+    height: 100%;
+    fill: $primary-dark-gray-2;
+}
+
+.svg-text {
+    font-size: 4.5rem;
+    line-height: 4.5rem;
+    font-weight: 700;
+}

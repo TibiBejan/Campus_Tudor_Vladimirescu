@@ -1,6 +1,8 @@
 import React from 'react';
+import InitialTransition from '../utils/InitialTransition/InitialTransition';
 
 // COMPONENTS
+import Header from '../components/LayoutComponents/Header/Header';
 import HeaderBannerSmall from '../components/SharedComponents/ShowcaseBannerSmall/ShowcaseBannerSmall';
 import ReasonSection from '../components/TuiasiPageComponents/ReasonSection/ReasonSection';
 import BecomeStudent from '../components/TuiasiPageComponents/BecomeStudentSection/BecomeStudent';
@@ -13,6 +15,8 @@ import { bannerData, engineeringData, laboratoryData, studentsData, cafeteriaDat
 function Tuiasi() {
     return (
         <>
+            <InitialTransition />
+            <Header />
             <HeaderBannerSmall bannerData={bannerData} bannerImage={bannerData.image.default}/>
             <main className="page-content">
 

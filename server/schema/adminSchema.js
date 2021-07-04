@@ -1,7 +1,7 @@
 const { body } = require('express-validator');
 
 exports.createUserSchema = [
-    body('firstName')
+    body('first_name')
         .exists()
         .withMessage('Your first name is required')
         .isAlpha()
@@ -10,7 +10,7 @@ exports.createUserSchema = [
         .withMessage('Your first name must be at least 3 chars long')
         .trim().escape()
         .withMessage('First Name is not valid'),
-    body('lastName')
+    body('last_name')
         .exists()
         .withMessage('Your last name is required')
         .isAlpha()
@@ -31,7 +31,7 @@ exports.createUserSchema = [
         .notEmpty()
         .isLength({ min: 8 })
         .withMessage('Password must be at least 8 chars long'),
-    body('confirmPassword')
+    body('password_confirm')
         .exists()
         .custom((value, { req }) => value === req.body.password)
         .withMessage('confirm_password field must have the same value as the password field'),
@@ -42,7 +42,7 @@ exports.createUserSchema = [
 ]
 
 exports.updateUserSchema = [
-    body('firstName')
+    body('first_name')
         .optional()
         .isAlpha()
         .withMessage('Your first name must contain only alphabetical chars')
@@ -50,7 +50,7 @@ exports.updateUserSchema = [
         .withMessage('Your first name must be at least 3 chars long')
         .trim().escape()
         .withMessage('First Name is not valid'),
-    body('lastName')
+    body('last_name')
         .optional()
         .isAlpha()
         .withMessage('Your last name must contain only alphabetical chars')

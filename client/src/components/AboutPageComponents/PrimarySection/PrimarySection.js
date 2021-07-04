@@ -1,9 +1,10 @@
 import React from 'react';
 import './PrimarySection.scss';
-
+import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import primarySectionImage from '../../../assets/images/AboutPageImages/showcase-top.jpg';
 
-function PrimarySection() {
+function PrimarySection({ scrollPosition }) {
     return (
         <section className="primary-section">
             <div className="primary-section-inner">
@@ -34,7 +35,15 @@ function PrimarySection() {
                         <div className="image-block">
                             <div className="image-block-overlay"></div>
                             <div className="image-block-showcase">
-                                <img src={primarySectionImage} alt="" className="background-image" />
+                                <LazyLoadImage
+                                    alt="tuiasi-dss"
+                                    src={primarySectionImage}
+                                    effect="blur"
+                                    scrollPosition={scrollPosition}
+                                    className="background-image"
+                                    height={"100%"}
+                                />
+                                {/* <img src={primarySectionImage} alt="" className="background-image" /> */}
                             </div>
                         </div>
                     </div>
@@ -52,4 +61,4 @@ function PrimarySection() {
     )
 }
 
-export default PrimarySection;
+export default trackWindowScroll(PrimarySection);

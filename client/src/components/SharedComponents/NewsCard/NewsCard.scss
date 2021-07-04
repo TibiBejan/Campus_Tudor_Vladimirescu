@@ -15,9 +15,9 @@
                 box-shadow: 0.5rem 0.5rem 1rem rgba(0,0,0,0.4);
             }
 
-            .news-card-showcase .background-image {
-                transform: scale(1.1);
-            }
+            // .news-card-showcase .background-image {
+            //     transform: scale(1.1);
+            // }
 
             .news-card-content .content-inner .button-primary {
                 &::after {
@@ -45,6 +45,7 @@
 
         &-showcase {
             overflow: hidden;
+            width: 100%;
 
             @media screen and (max-width: $bp-medium) {
                 height: 30rem;

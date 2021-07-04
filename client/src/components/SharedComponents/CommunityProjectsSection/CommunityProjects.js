@@ -63,7 +63,7 @@ function CommunityProjects() {
                 >
                     {communityProjectsCards.map((card, index) => (
                         <SwiperSlide key={index}>
-                        <PreviewCard cardData={card} />
+                            <PreviewCard cardData={card} />
                         </SwiperSlide>  
                     ))}
 

@@ -1,6 +1,8 @@
 import React from 'react';
+import InitialTransition from '../utils/InitialTransition/InitialTransition';
 
 // COMPONENTS
+import Header from '../components/LayoutComponents/Header/Header';
 import HeaderBannerSmall from '../components/SharedComponents/ShowcaseBannerSmall/ShowcaseBannerSmall';
 import AboutSection from '../components/SharedComponents/AboutSection/AboutSection';
 import GallerySection from '../components/SharedComponents/GallerySection/GallerySection';
@@ -22,6 +24,8 @@ const bannerData = {
 function Cafetaria() {
     return (
         <>
+            <InitialTransition />
+            <Header />
             <HeaderBannerSmall bannerData={bannerData} bannerImage={bannerImage}/>
             <main className="page-content">
                 <AboutSection sectionData={aboutCafeteria} />

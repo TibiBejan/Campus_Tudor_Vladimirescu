@@ -5,9 +5,11 @@ import Button from '../Button/ButtonPrimary';
 import { useSelector } from 'react-redux';
 import { userSelector } from '../../../redux/userSlice';
 import kinIllustration from '../../../assets/images/kin-illustration.svg';
+import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import './KinCard.scss';
 
-function KinCard({ cardData }) {
+function KinCard({ cardData, scrollPosition }) {
 
     // SLICE OF STATE
     const userState = useSelector(userSelector);
@@ -17,7 +19,16 @@ function KinCard({ cardData }) {
             <div className="kin-card">
                 <div className="kin-card-showcase">
                     <div className="card-showcase-profile-image">
-                        <img src={kinIllustration} alt="Ilustratia persoanei de contact a studentului" className="background-image" />
+                        {/* <img src={kinIllustration} alt="Ilustratia persoanei de contact a studentului" className="background-image" /> */}
+                    
+                        <LazyLoadImage
+                            alt="Ilustratia persoanei de contact a studentului"
+                            src={kinIllustration}
+                            effect="blur"
+                            scrollPosition={scrollPosition}
+                            className="background-image"
+                            height={"100%"}
+                        />
                     </div>
                 </div>
                 <div className="kin-card-content">
@@ -31,4 +42,4 @@ function KinCard({ cardData }) {
     )
 }
 
-export default KinCard;
+export default trackWindowScroll(KinCard);

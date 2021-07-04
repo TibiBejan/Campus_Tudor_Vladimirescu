@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import GeneralErrorMessage from '../../SharedComponents/GeneralErrorMessage/GeneralErrorMessage';
 import NoHallCard from '../../SharedComponents/NoHallCard/NoHallCard';
 import { Link } from 'react-router-dom';
@@ -138,7 +140,15 @@ function DashboardStudentAccommodation() {
                     <Link to={`/residence-halls/t${adminState.selectedUser.hallId}`} className="hall-card-wrapper">
                         <div className="hall-card">
                             <div className="hall-card-background">
-                                <img src={ hallImage } alt={`Camin T${adminState.selectedUser.hallId}`} className="background-image" />
+                                <LazyLoadImage
+                                    alt={`Camin T${adminState.selectedUser.hallId}`}
+                                    src={hallImage}
+                                    effect="blue"
+                                    className="background-image"
+                                    height={"100%"}
+                                    width={"100%"}
+                                />
+                                {/* <img src={ hallImage } alt={`Camin T${adminState.selectedUser.hallId}`} className="background-image" /> */}
                             </div>
                             <div className="hall-card-content">
                                 <h4 className="hall-card-title heading-four">Camin T{student.hallId}</h4>

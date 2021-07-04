@@ -1,6 +1,8 @@
 import React from 'react';
+import InitialTransition from '../utils/InitialTransition/InitialTransition';
 
 // COMPONENTS
+import Header from '../components/LayoutComponents/Header/Header';
 import ShowcaseBanner from '../components/SharedComponents/ShowcaseBanner/ShowcaseBanner';
 import AboutSection from '../components/SharedComponents/AboutSection/AboutSection';
 import FacilitiesSection from '../components/HomepageComponents/FacilitiesSection/FacilitiesSection';
@@ -9,14 +11,15 @@ import StatsSection from '../components/SharedComponents/StatsSection/StatsSecti
 import Footer from '../components/LayoutComponents/Footer/Footer';
 
 // DATA AND MEDIA
-import bannerVideoSrc from '../assets/videos/students-enroll-video.mp4';
 import { aboutDss, aboutAccommodation } from '../data/HomepageData';
 
 function Index() {
 
     return (
         <>
-            <ShowcaseBanner videoSrc={ bannerVideoSrc } />
+            <InitialTransition />
+            <Header />
+            <ShowcaseBanner/>
             <main className="page-content">
                 <AboutSection sectionData={ aboutDss }/>
                 <FacilitiesSection />

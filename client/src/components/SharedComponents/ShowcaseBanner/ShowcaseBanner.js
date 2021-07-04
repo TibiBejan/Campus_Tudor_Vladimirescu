@@ -1,22 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ButtonPrimary from '../Button/ButtonPrimary';
+import bannerImage from '../../../assets/images/showcase-banner-image.jpg';
+import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import './ShowcaseBanner.scss';
 
-function ShowcaseBanner({ videoSrc }) {
+function ShowcaseBanner({scrollPosition}) {
     return (
         <div className="showcase-banner">
             <div className="showcase-banner-media">
-                <video 
-                    autoPlay="autoplay"
-                    muted="muted"
-                    loop="loop"
-                    playsInline
-                    preload="auto" 
-                    src={videoSrc} 
-                    type="video/mp4"
-                    className="media-background">
-                </video>
+                <LazyLoadImage 
+                    src={bannerImage} 
+                    alt="Campus Enrollment Process" 
+                    className="background-image"
+                    effect="blur"
+                    scrollPosition={scrollPosition}
+                    height={"100%"}
+                    width={"100%"}
+                />
             </div>
             <div className="showcase-banner-content">
                 <div className="content-heading-wrapper">
@@ -38,4 +41,4 @@ function ShowcaseBanner({ videoSrc }) {
     )
 }
 
-export default ShowcaseBanner;
+export default trackWindowScroll(ShowcaseBanner);

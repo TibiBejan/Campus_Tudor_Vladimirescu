@@ -1,7 +1,9 @@
 import React from 'react';
+import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import './ReviewsSection.scss';
 
-function ReviewSection({ sectionData }) {
+function ReviewSection({ sectionData, scrollPosition }) {
     return (
         <section className="review-section">
             <div className="review-section-inner">
@@ -9,7 +11,15 @@ function ReviewSection({ sectionData }) {
                     <div className="image-block">
                         <div className="image-block-overlay"></div>
                         <div className="image-block-showcase">
-                            <img src={sectionData.image.default} alt={sectionData.studentName} className="background-image" />
+                            <LazyLoadImage
+                                alt={sectionData.studentName}
+                                src={sectionData.image.default}
+                                effect="blur"
+                                scrollPosition={scrollPosition}
+                                className="background-image"
+                                height={"100%"}
+                            />
+                            {/* <img src={sectionData.image.default} alt={sectionData.studentName} className="background-image" /> */}
                         </div>
                     </div>
                 </div>
@@ -32,4 +42,4 @@ function ReviewSection({ sectionData }) {
     )
 }
 
-export default ReviewSection;
+export default trackWindowScroll(ReviewSection);

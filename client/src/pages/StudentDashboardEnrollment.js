@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
+import InitialTransition from '../utils/InitialTransition/InitialTransition';
+
 // COMPONENTS
+import Header from '../components/LayoutComponents/Header/Header';
 import AuthBanner from '../components/SharedComponents/AuthBanner/AuthBanner';
 import StudentDashboardCreateEnroll from '../components/StudentDashboard/StudentDashboardCreateEnroll/StudentDashboardCreateEnroll';
 import StudentDashboardUpdateEnroll from '../components/StudentDashboard/StudentDashboardUpdateEnroll/StudentDashboardUpdateEnroll';
@@ -59,6 +62,8 @@ function StudentDashboardEnrollment() {
 
     return (
         <>
+            <InitialTransition />
+            <Header />
             <main className="page-content">
                 <AuthBanner sectionData={ bannerData }/>    
                 {

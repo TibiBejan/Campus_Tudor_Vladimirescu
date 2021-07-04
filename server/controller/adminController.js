@@ -289,34 +289,40 @@ exports.getStudentNeighbors = async (req, res, next) => {
 
 exports.createUser = async (req, res, next) => {
 
-    const { firstName, lastName, email, password,  role } = req.body;
+    const { first_name, last_name, email, password, password_confirm, role } = req.body;
 
     try {
         // HASH PASSWORD
         const salt = await bcrypt.genSalt(12);
         const hashedPassword = await bcrypt.hash(password, salt);
 
+        const existingUser = await User.findOne({where: { email: email }});
+
+        if(existingUser) {
+            return next(new AppError("E-mail is used, please try with another one", 500));
+        }
+
         const newUser = await User.create({
-            first_name: firstName,
-            last_name: lastName,
+            first_name: first_name,
+            last_name: last_name,
             email: email,
             password: hashedPassword,
             role: role
         });
 
+        console.log(newUser)
+
         return res.status(201).json({
             status: "success",
             message: "User created!",
-            data: {
-                userData: newUser
-            }
+            userData: newUser
         });
     }
 
     catch(err) {
         return res.status(500).json({
             status: "Error",
-            message: "Internal Server Error - Please try again..."
+            message: "Internal Server Error - Please try again."
         })
     }
 }
@@ -339,6 +345,44 @@ exports.updateUser = async (req, res, next) => {
         return res.status(200).json({
             status: "success",
             message: "User has been updated!"
+        });
+    }
+
+    catch(err) {
+        res.status(500).json({
+            status: "Error",
+            message: "Internal Server Error - Please try again..."
+        })
+    }
+}
+
+exports.updatePwd = async (req, res, next) => {
+    const targetId = req.params.id;
+
+    try {
+        const user = await User.findOne({where: {uuid: targetId}});
+
+        if(!user) {
+            return next(new AppError("User not found.", 404));
+        }
+
+        // CHECK IF POSTED PASSWORD IS CORRECT
+        // HASH PASSWORD
+        const salt = await bcrypt.genSalt(12);
+        const hashedPasswordNew = await bcrypt.hash(req.body.password_new, salt);
+
+        if(!await user.checkPwdValidation(req.body.password_confirm, user.password)) {
+            return next(new AppError("Your current password is wrong.", 401));
+        }
+
+        // UPDATE PASSWORD
+        user.password = hashedPasswordNew;
+        user.password_changed_at = new Date(Date.now()).toUTCString();
+        await user.save();
+
+        return res.status(200).json({
+            status: "success",
+            message: "User's password has been updated!"
         });
     }
 

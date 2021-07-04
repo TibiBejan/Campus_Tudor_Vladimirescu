@@ -1,7 +1,9 @@
 import React from 'react';
+import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import './ReasonSection.scss';
 
-function ReasonSection({ sectionData }) {
+function ReasonSection({ sectionData, scrollPosition }) {
     return (
         <section className="reason-section">
             <div className="reason-section-inner">
@@ -22,7 +24,16 @@ function ReasonSection({ sectionData }) {
                             <div className="image-block" key={`image-block-${index}`}>
                                 <div className="image-block-overlay"></div>
                                 <div className="image-block-showcase">
-                                    <img src={image.imageObj.default} alt={image.imageAlt} className="background-image" />
+                                    <LazyLoadImage
+                                        alt={image.imageAlt}
+                                        src={image.imageObj.default}
+                                        effect="blur"
+                                        scrollPosition={scrollPosition}
+                                        className="background-image"
+                                        height={"100%"}
+                                        width={"100%"}
+                                    />
+                                    {/* <img src={image.imageObj.default} alt={image.imageAlt} className="background-image" /> */}
                                 </div>
                             </div>
                         ))}
@@ -33,4 +44,4 @@ function ReasonSection({ sectionData }) {
     )
 }
 
-export default ReasonSection;
+export default trackWindowScroll(ReasonSection);

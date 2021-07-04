@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import AdminDashboardNav from '../AdminDashboardNav/AdminDashboardNav';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
 import GeneralErrorMessage from '../../SharedComponents/GeneralErrorMessage/GeneralErrorMessage';
@@ -25,10 +25,15 @@ function AdminDashboardPasswordUpdate() {
     const [ visibleCurrentPassword, setVisibleCurrentPassword ] = useState(false);
     const [ visiblePassword, setVisiblePassword ] = useState(false);
     const [ visibleConfirmPassword, setVisibleConfirmPassword ] = useState(false);
+    // REF
+    const blockRef = useRef(null)
+
+    // RESET SCROLL POS
+    const executeScroll = () => window.scrollTo(0, blockRef.current.offsetTop);  
 
     const onSubmit = async (values, { resetForm }) => {
         // RESET SCROLL POSITION
-        window.scrollTo(0, 0);
+        executeScroll();
 
         const reqConfig = {
             headers: {
@@ -76,7 +81,7 @@ function AdminDashboardPasswordUpdate() {
         <section className="dashboard-admin-password-update">
             <div className="dashboard-admin-password-update-inner">
                 <AdminDashboardNav />
-                <div className="dashboard-form-block">
+                <div className="dashboard-form-block" ref={blockRef}>
                     <div className="dashboard-form-block-heading-wrapper">
                         <h3 className="dashboard-form-title heading-three">Update password</h3>    
                         {formError ? <GeneralErrorMessage>{formError}</GeneralErrorMessage> : null }    

@@ -1,5 +1,6 @@
 import React from 'react';
 import YouTubePlayer from '../../SharedComponents/YouTubePlayer/YouTubePlayer';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import './VirtualTour.scss';
 
 function VirtualTour() {
@@ -20,7 +21,9 @@ function VirtualTour() {
                         <div className="media-block">
                             <div className="media-block-overlay"></div>
                             <div className="media-block-showcase">
+                            <LazyLoadComponent>
                                 <YouTubePlayer videoId="ZoZP35IYdiw" />
+                            </LazyLoadComponent>
                             </div>
                         </div>
                     </div>   

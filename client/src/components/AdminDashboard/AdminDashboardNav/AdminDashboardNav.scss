@@ -5,11 +5,10 @@
 .dashboard-admin-nav-secondary {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     margin-bottom: var(--margin-medium);
-    // border: 0.1rem solid $primary-dark-gray-2;
-
-    @media screen and (max-width: $bp-large) {
+    
+    @media screen and (max-width: $desktop-utility-bp-large) {
         grid-template-columns: repeat(3, 1fr);
         border-bottom: none;
     }

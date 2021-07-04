@@ -154,6 +154,7 @@
         }
 
         .dashboard-accommodate-slider {
+            position: relative;
             width: 100%;
             height: 60rem;
             @include flex-setup($flex-flow: column, $align-items: center, $justify-content: flex-start);
@@ -167,6 +168,45 @@
                 .swiper-slide {
                     height: 100%;
                     height: 60rem;
+                }
+            }
+
+            .showcase-prev-button {
+                position: absolute;
+                top: 50%;
+                left: 0%;
+                transform: translateY(-50%);
+                z-index: 100;
+
+            }
+    
+            .showcase-next-button {
+                position: absolute;
+                top: 50%;
+                right: 0%;
+                transform: translateY(-50%);
+                z-index: 100;
+            }
+    
+            .showcase-prev-button,
+            .showcase-next-button {
+                width: 7.5rem;
+                height: 7.5rem;
+                background-color: rgba(0,0,0,0.6);
+                border-radius: 50%;
+                opacity: 1;
+                visibility: visible;
+                transition: var(--hover-transition);
+    
+                @media screen and (max-width: $desktop-utility-bp-medium) {
+                    width: 6.5rem;
+                    height: 6.5rem;
+                    background-color: rgba(0,0,0,0.9);
+                }
+    
+                &:disabled {
+                    opacity: 0;
+                    visibility: hidden;
                 }
             }
         }

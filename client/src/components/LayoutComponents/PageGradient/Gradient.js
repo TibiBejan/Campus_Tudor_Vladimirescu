@@ -6,9 +6,9 @@ const GradientEl = styled.div`
     top: 0;
     left: 0;
     width: 100vw;
-    height: 10rem;
+    height: 25rem;
     background-image: linear-gradient(#1a1a1a, transparent);
-    z-index: 100;
+    z-index: 500;
     pointer-events: none;
     user-select: none;
 `;

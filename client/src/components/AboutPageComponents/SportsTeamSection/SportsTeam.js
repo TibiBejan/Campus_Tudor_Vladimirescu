@@ -1,10 +1,11 @@
 import React from 'react';
 import './SportsTeam.scss';
-
+import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import sportsBaseBasketball from '../../../assets/images/AboutPageImages/baza-sportiva-basketball.jpg';
 import sportsBaseFootball from '../../../assets/images/AboutPageImages/baza-sportiva-football.jpg';
 
-function SportsTeam() {
+function SportsTeam({  scrollPosition }) {
     return (
         <section className="sports-team-section">
             <div className="sports-team-section-inner">
@@ -13,13 +14,29 @@ function SportsTeam() {
                         <div className="image-block">
                             <div className="image-block-overlay"></div>
                             <div className="image-block-showcase">
-                                <img src={sportsBaseBasketball} alt="Sports team basketball game" className="background-image" />
+                                <LazyLoadImage
+                                    alt="Sports team basketball game"
+                                    src={sportsBaseBasketball}
+                                    effect="blur"
+                                    scrollPosition={scrollPosition}
+                                    className="background-image"
+                                    height={"100%"}
+                                />
+                                {/* <img src={sportsBaseBasketball} alt="Sports team basketball game" className="background-image" /> */}
                             </div>
                         </div>
                         <div className="image-block">
                             <div className="image-block-overlay"></div>
                             <div className="image-block-showcase">
-                                <img src={sportsBaseFootball} alt="Sports team football court" className="background-image" />
+                                <LazyLoadImage
+                                    alt="Sports team football court"
+                                    src={sportsBaseFootball}
+                                    effect="blur"
+                                    scrollPosition={scrollPosition}
+                                    className="background-image"
+                                    height={"100%"}
+                                />
+                                {/* <img src={sportsBaseFootball} alt="Sports team football court" className="background-image" /> */}
                             </div>
                         </div>
                     </div>
@@ -44,4 +61,4 @@ function SportsTeam() {
     )
 }
 
-export default SportsTeam;
+export default trackWindowScroll(SportsTeam);

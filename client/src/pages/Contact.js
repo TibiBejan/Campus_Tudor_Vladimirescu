@@ -1,6 +1,8 @@
 import React from 'react';
+import InitialTransition from '../utils/InitialTransition/InitialTransition';
 
 // COMPONENTS
+import Header from '../components/LayoutComponents/Header/Header';
 import HeaderBannerSmall from '../components/SharedComponents/ShowcaseBannerSmall/ShowcaseBannerSmall';
 import ContactPersons from '../components/ContactPageComponents/ContactPersonsSection/ContactPersons';
 import ContactFormSection from '../components/ContactPageComponents/ContactFormSection/ContactFormSection';
@@ -22,6 +24,8 @@ const bannerData = {
 function Contact() {
     return (
         <>
+            <InitialTransition />
+            <Header />
             <HeaderBannerSmall bannerData={bannerData} bannerImage={bannerImage}/>
             <main className="page-content">
                 <ContactPersons />

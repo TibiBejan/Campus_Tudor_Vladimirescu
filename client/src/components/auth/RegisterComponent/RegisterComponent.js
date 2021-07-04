@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ButtonPrimary from '../../SharedComponents/Button/ButtonPrimary';
 import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage';
 
@@ -15,11 +15,16 @@ function RegisterComponent() {
 
     // STATE
     const [ formError, setFormError ] = useState('');
+    // REF
+    const blockRef = useRef(null)
+
+    // RESET SCROLL POS
+    const executeScroll = () => window.scrollTo(0, blockRef.current.offsetTop);  
 
     const onSubmit = (values) => {
 
         // RESET SCROLL POSITION
-        window.scrollTo(0, 0);
+        executeScroll();
 
         const user = {
             first_name: values.first_name,
@@ -62,7 +67,7 @@ function RegisterComponent() {
     });
 
     return (
-        <section className="register-form-section">
+        <section className="register-form-section" ref={blockRef}>
             <div className="register-form-section-inner">
                 <div className="register-heading-wrapper">
                     <h3 className="register-title heading-three">Create an account</h3>    

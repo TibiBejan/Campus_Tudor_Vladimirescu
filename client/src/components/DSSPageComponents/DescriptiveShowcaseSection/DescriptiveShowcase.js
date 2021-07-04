@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import './DescriptiveShowcase.scss';
 
 
@@ -25,7 +27,7 @@ const descriptiveData = [
 ]
 
 
-function DescriptiveShowcase() {
+function DescriptiveShowcase({  scrollPosition }) {
 
     // STATE    
     const [ activeIndex, setactiveIndex ] = useState(0);
@@ -68,7 +70,15 @@ function DescriptiveShowcase() {
                             >
                                 <div className="image-block-overlay"></div>
                                 <div className="image-block-showcase">
-                                    <img src={descriptiveData[activeIndex].image.default} alt={descriptiveData[activeIndex].title} className="background-image" />
+                                    <LazyLoadImage
+                                        alt={descriptiveData[activeIndex].title}
+                                        src={descriptiveData[activeIndex].image.default}
+                                        effect="blur"
+                                        scrollPosition={scrollPosition}
+                                        className="background-image"
+                                        height={"100%"}
+                                    />
+                                    {/* <img src={descriptiveData[activeIndex].image.default} alt={descriptiveData[activeIndex].title} className="background-image" /> */}
                                 </div>
                             </motion.div>
                         </div>
@@ -90,4 +100,4 @@ function DescriptiveShowcase() {
     )
 }
 
-export default DescriptiveShowcase;
+export default trackWindowScroll(DescriptiveShowcase);

@@ -5,9 +5,9 @@ import './DeleteModal.scss';
 function DeleteModal({ handleDelete, toggleModal, toggled }) {
 
     useEffect(() => {
-        toggled ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'scroll';
+        toggled ? document.body.style.overflow = 'hidden' : document.body.style.overflowY = 'scroll';
         return () => {
-            document.body.style.overflow = 'scroll';
+            document.body.style.overflowY = 'scroll';
         }
     }, [toggled]);
 

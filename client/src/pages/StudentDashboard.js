@@ -4,8 +4,10 @@ import { requestAccommodation, receiveAccommodation, accommodationError, accommo
 import { userSelector } from '../redux/userSlice';
 import { userEnrollSelector } from '../redux/userEnrollSlice';
 import axios from 'axios';
+import InitialTransition from '../utils/InitialTransition/InitialTransition';
 
 // COMPONENTS
+import Header from '../components/LayoutComponents/Header/Header';
 import AuthBanner from '../components/SharedComponents/AuthBanner/AuthBanner';
 import StudentDashboardMain from '../components/StudentDashboard/StudentDashboardMain/StudentDashboardMain';
 import StudentDashboardAccommodate from '../components/StudentDashboard/StudentDashboardAccommodate/StudentDashboardAccommodate';
@@ -69,6 +71,8 @@ function StudentDashboard() {
 
     return (
         <>
+            <InitialTransition />
+            <Header />
             <main className="page-content">
                 <AuthBanner sectionData={ bannerData }/>    
                 {

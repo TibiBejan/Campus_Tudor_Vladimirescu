@@ -35,6 +35,15 @@ function AdminDashboardNav() {
             </li>
             <li className="dashboard-admin-nav-list-item">
                 <NavLink 
+                    to='/admin-create' 
+                    activeClassName="selected" 
+                    className="dashboard-nav-link"
+                >
+                    <span className="label-medium">Create student</span>
+                </NavLink>
+            </li>
+            <li className="dashboard-admin-nav-list-item">
+                <NavLink 
                     to='/admin-details' 
                     activeClassName="selected" 
                     className="dashboard-nav-link"
