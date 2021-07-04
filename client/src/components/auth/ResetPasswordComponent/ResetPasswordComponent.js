@@ -33,7 +33,7 @@ function ResetPasswordComponent() {
         const reqConfig = {
             headers: {
                 'Content-Type': 'application/json',
-                "Access-Control-Allow-Origin": "*",
+                // "Access-Control-Allow-Origin": "*",
                 withCredentials: true,
                 credentials: 'include'
             },         

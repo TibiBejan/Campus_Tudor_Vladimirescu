@@ -29,10 +29,10 @@ const app = express();
 app.use(helmet());
 app.use(cors(
     {
-        'Acces-Control-Allow-Origin': '*',
+        "Access-Control-Allow-Credentials": true,
         // 'Access-Control-Allow-Credentials': true,
-        // origin: ['http://localhost:3000', 'https://compassionate-almeida-31a739.netlify.app'],
-        credentials: true,
+        origin: ['http://localhost:3000', 'https://compassionate-almeida-31a739.netlify.app'],
+        // credentials: true,
         optionSuccessStatus:200
     }
 ));
