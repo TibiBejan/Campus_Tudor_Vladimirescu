@@ -104,9 +104,6 @@ exports.checkLogIn = async (req, res, next) => {
         }
 
         createToken(user, 200, "Token verified!", res);
-
-        // req.user = user;
-        // next();
     }
 }
 

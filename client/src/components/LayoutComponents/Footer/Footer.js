@@ -61,7 +61,7 @@ function Footer() {
                         <p className="footer-newsletter-paragraph paragraph">Subscribe to Tudor news</p>
                         <form className="contact-form-newsletter" method="POST">
                             <div className="form-group">
-                                <input type="email" id="email" name="email" required autoComplete="off" className="form-group-input"/>
+                                <input type="email" id="email-footer" name="email" required autoComplete="off" className="form-group-input"/>
                                 <label htmlFor="email" className="form-group-label">Your E-mail Adress</label>
                             </div>
                             <button className="submit-button-newsletter">

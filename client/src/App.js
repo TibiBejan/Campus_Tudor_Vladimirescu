@@ -84,6 +84,7 @@ function App() {
                 dispatch(checkLoginError('There is an error, please try again'));
             }
         }).catch(err => {
+            
             const { message } = err.response.data;
             dispatch(checkLoginError(message ? message : ''));
         });
