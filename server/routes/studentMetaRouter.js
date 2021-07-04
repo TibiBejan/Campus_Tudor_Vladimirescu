@@ -1,6 +1,6 @@
 const express = require('express');
 const { validateRequestSchema } = require('../middleware/validateRequestSchema');
-const { createStudentMetaSchema, updateStudentMetaSchema } = require('../schema/StudentMetaSchema');
+const { createStudentMetaSchema, updateStudentMetaSchema } = require('../schema/studentMetaSchema');
 
 // DEFINE ROUTER
 const studentMetaRouter = express.Router();

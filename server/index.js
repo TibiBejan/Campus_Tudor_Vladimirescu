@@ -1,8 +1,8 @@
 // IMPORT MODULES
 const express = require('express');
-// const session = require('express-session');
 const morgan = require('morgan');
 const cors = require('cors');
+const path = require('path');
 const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
@@ -45,9 +45,12 @@ if(process.env.NODE_ENV === 'development') {
     app.use(morgan('combined'));
 }
 
+// REACT STATIC FILES
+app.use(express.static(path.join(__dirname, 'client/build')));
+
 // REQUEST LIMITER MIDDLEWEAR
 const limiter = rateLimit({
-    max: 250, // 100 REQUEST PER 15Min
+    max: 250,
     windowMs: 15 * 60 * 1000,
     message: 'Too many request from this IP, please try again in 15 minutes!'
 });
@@ -62,6 +65,13 @@ app.use('/api/v1/halls', hallRouter);
 app.use('/api/v1/', accommodationRouter);
 app.use(adminRouter);
 
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
+
+
 // ERROR MIDDLEWEAR
 app.all('*', (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
@@ -69,7 +79,8 @@ app.all('*', (req, res, next) => {
 app.use(globalErrorController);
 
 // START SERVER AND LISTEN ON PORT 8001 ( DEV ) || 3001 ( PROD )
-app.listen({ port: process.env.PORT || 3001 }, async () => {
+const port = process.env.PORT || 3001
+app.listen(port, async () => {
     console.log(`App running on port 8001...`);
     await sequelize.sync(); //{force: true}
     console.log("Database connected");
