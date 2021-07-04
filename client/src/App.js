@@ -53,8 +53,8 @@ const StudentDashboardKin = lazy(()=> import('./pages/StudentDashboardKin'));
 const StudentDashboardKinUpdate = lazy(()=> import('./pages/StudentDashboardKinUpdate'));
 
 const Login = lazy(()=> import('./pages/Login'));
-const Register = lazy(()=> import('./pages/ForgotPassword'));
-const ForgotPassword = lazy(()=> import('./pages/Login'));
+const Register = lazy(()=> import('./pages/Register'));
+const ForgotPassword = lazy(()=> import('./pages/ForgotPassword'));
 const ResetPassword = lazy(()=> import('./pages/ResetPassword'));
 
 const Page404 = lazy(()=> import('./pages/Page404'));

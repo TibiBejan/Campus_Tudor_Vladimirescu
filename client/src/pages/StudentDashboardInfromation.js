@@ -58,7 +58,7 @@ function StudentDashboardInfromation() {
     }, [dispatch]);
 
     if(isLoading) {
-        return <p>Loading...</p>
+        return <InitialTransition />
     }
 
     return (

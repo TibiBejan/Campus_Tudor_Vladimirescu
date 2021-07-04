@@ -17,6 +17,7 @@ function NewsCard({ cardData, scrollPosition }) {
                         scrollPosition={scrollPosition}
                         className="background-image"
                         height={"100%"}
+                        width={"100%"}
                     />
                     <img src={cardData.image.default} alt={cardData.title} className="background-image" />
                 </div>

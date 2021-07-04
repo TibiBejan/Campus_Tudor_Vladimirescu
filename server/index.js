@@ -10,10 +10,7 @@ const dotenv = require('dotenv').config();
 const { sequelize } = require('./models');
 const AppError = require('./utils/appError');
 const globalErrorController = require('./controller/errorController');
-// // DB MODULE
-// const db = require('./db/connection');
-// // DB SESSION STORE MODULE
-// const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const compression = require('compression');
 
 // IMPORT ROUTES
 const authRouter = require('./routes/authRouter');
@@ -37,32 +34,7 @@ app.use(cors(
     }
 ));
 app.use(cookieParser());
-
-// // SESSION
-// const sessionStore = new SequelizeStore({
-//     db: db,
-//     checkExpirationInterval: 15 * 60 * 1000,
-//     expiration: 7 * 24 * 60 * 60 * 1000
-// });
-
-// app.use(session({
-//     secret: process.env.SESSION_SECRET,
-//     saveUninitialized: false,
-//     resave: false,
-//     name: 'SESSION_NAME',
-//     cookie: {
-//         domain: '.app.localhost',
-//         path: '/',
-//         httpOnly: true,
-//         sameSite: 'Lax',
-//         secure: false,
-//         maxAge: 1000 * 60 * 60 * 24 * 7,
-//     },
-//     store: sessionStore
-// }));
-
-// // SYNC DB SESSION STORE TABLE
-// sessionStore.sync();
+app.use(compression());
 
 // BODY PARSER FOR req.body
 app.use(express.json());

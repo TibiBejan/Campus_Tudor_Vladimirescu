@@ -57,7 +57,7 @@ function StudentDashboardEnrollment() {
     }, [dispatch]);
 
     if(isLoading) {
-        return <p>Loading...</p>
+        return <InitialTransition />
     }
 
     return (

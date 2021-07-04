@@ -5,6 +5,7 @@ import ErrorMessageEl from '../../SharedComponents/FormErrorMessage/ErrorMessage
 import GeneralErrorMessage from '../../SharedComponents/GeneralErrorMessage/GeneralErrorMessage';
 import ButtonPrimary from '../../SharedComponents/Button/ButtonPrimary';
 import axios from 'axios';
+import IntialTransition from '../../../utils/InitialTransition/InitialTransition';
 
 import { useFormik } from 'formik';
 import { createKinSchema } from '../../../validation/UserSchema';
@@ -125,7 +126,7 @@ function StudentDashboardUpdateKin() {
     });
 
     if(isLoading) {
-        return <p>Loading...</p>
+        return <IntialTransition />
     }
 
     return (

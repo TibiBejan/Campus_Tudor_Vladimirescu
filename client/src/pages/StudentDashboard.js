@@ -66,7 +66,7 @@ function StudentDashboard() {
     }, [dispatch, userState.user.uuid, userEnrollState]);
 
     if(isLoading) {
-        return <p>Loading...</p>
+        return <InitialTransition />
     }
 
     return (

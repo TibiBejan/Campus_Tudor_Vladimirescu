@@ -6,6 +6,7 @@ import NoHallCard from '../../SharedComponents/NoHallCard/NoHallCard';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { adminSelector } from '../../../redux/adminSlice';
+import InitialTransition from '../../../utils/InitialTransition/InitialTransition';
 import axios from 'axios';
 
 import './DashboardStudentAccommodation.scss';
@@ -50,7 +51,7 @@ function DashboardStudentAccommodation() {
     }, [adminState.selectedUser.uuid]);
 
     if(isLoading) {
-        return <p>Loading...</p>
+        return <InitialTransition />
     }
 
     return (
