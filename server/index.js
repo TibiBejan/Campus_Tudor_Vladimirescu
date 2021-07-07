@@ -31,7 +31,7 @@ app.use(cors(
     {
         "Access-Control-Allow-Credentials": true,
         // 'Access-Control-Allow-Credentials': true,
-        origin: ['http://localhost:3000', 'https://compassionate-almeida-31a739.netlify.app'],
+        origin: ['http://localhost:3000', 'https://campus-tudor-vladimirescu.netlify.app/'],
         // credentials: true,
         optionSuccessStatus:200
     }
