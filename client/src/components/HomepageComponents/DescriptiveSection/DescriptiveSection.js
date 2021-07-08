@@ -25,7 +25,6 @@ function DescriptiveSection({scrollPosition}) {
                         height={"100%"}
                         width={"100%"}
                     />
-                    {/* <img src={showcaseImage} alt="Auditoriul Universității" className="background-image" /> */}
                 </div>
                 <div className="descriptive-content">
                     <p className="descriptive-content-paragraph paragraph">Palatul Universității din Copou, construit între anii 1893-1897 în locul fostului Mare Teatru din Copou și al Școlii Belle-Arte, prezintă un stil arhitectural extravagant eclectic. Procesul de construcție a început la 28 aprilie 1892, în prezența Alteței sale Regale, prințul moștenitor Ferdinand. Piatra de temelie a fost pusă undeva sub Atriumul Universității Tehnice „Gheorghe Asachi” din Iași.</p>

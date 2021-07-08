@@ -11,31 +11,37 @@ import "swiper/components/pagination/pagination.min.css"
 
 const communityProjectsCards = [
     {
+        path: '/news/post',
         label: 'Proiectele comunitatii',
         title: 'Revitalizarea zonei verzi dintre căminele T3 și T4',
         image: require(`../../../assets/images/MenuCardsImages/parcela-t3-t4-13-min.jpg`)
     },
     {
+        path: '/news/post',
         label: 'Proiectele comunitatii',
         title: '„Centrul civic” al campusului: un amfiteatru în aer liber',
         image: require(`../../../assets/images/MenuCardsImages/parc-cezar-oprisan-5.jpg`)
     },
     {
+        path: '/news/post',
         label: 'Proiectele comunitatii',
         title: 'Chipul lui Gheorghe Asachi creat de studenți',
         image: require(`../../../assets/images/MenuCardsImages/amfiteatru-t3-9-min.jpg`)
     },
     {
+        path: '/news/post',
         label: 'Proiectele comunitatii',
         title: 'Centre de consiliere, de învățare și săli de lectură moderne',
         image: require(`../../../assets/images/MenuCardsImages/sali-lectura-00005 (1).jpg`)
     },
     {
+        path: '/news/post',
         label: 'Proiectele comunitatii',
         title: 'Cea mai tare cameră de cămin primește cazare gratuită',
         image: require(`../../../assets/images/MenuCardsImages/cea-mai-tare-camera-de-camin-6-min.jpg`)
     },
     {
+        path: '/news/post',
         label: 'Proiectele comunitatii',
         title: 'Sala de lectură dintre căminele T3 și T4',
         image: require(`../../../assets/images/MenuCardsImages/amfiteatru-t3-t4-1-min.jpg`)

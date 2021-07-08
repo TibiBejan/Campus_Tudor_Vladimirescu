@@ -30,7 +30,7 @@ app.use(helmet());
 app.use(cors(
     {
         "Access-Control-Allow-Credentials": true,
-        // 'Access-Control-Allow-Credentials': true,
+        "Access-Control-Allow-Origin": 'https://campus-tudor-vladimirescu.netlify.app',
         origin: ['http://localhost:3000', 'https://campus-tudor-vladimirescu.netlify.app'],
         // credentials: true,
         optionSuccessStatus:200

@@ -11,7 +11,6 @@ function DssTeam({  scrollPosition }) {
         <section className="dss-team-section">
             <div className="dss-team-section-inner">
                 <div className="dss-team-section-content">
-
                     <div className="dss-team-left">
                         <span className="dss-team-number-label number-label-large">01</span>
                         <div className="description-title-wrapper">
@@ -27,7 +26,6 @@ function DssTeam({  scrollPosition }) {
                             <p className="dss-team-description paragraph">De asemenea, studenții TUIAȘI, sub îndrumarea conducerii DSS, participă în fiecare an la Marșul Absolvenților, asigurându-se că Universitatea Tehnică este cel mai bine reprezentată. Grupul de la TUIAȘI se remarcă în fiecare an, fiind cel mai bine dispus și cu cele mai inedite sloganuri.</p>
                         </div>
                     </div>
-                    
                     <div className="dss-team-right">
                         <div className="image-block">
                             <div className="image-block-overlay"></div>
@@ -42,7 +40,6 @@ function DssTeam({  scrollPosition }) {
                                     height={"120%"}
                                     width={"120%"}
                                 />
-                                {/* <img src={DssTeamImage_left} alt="" className="background-image" /> */}
                             </div>
                         </div>
                         <div className="image-block">
@@ -56,11 +53,9 @@ function DssTeam({  scrollPosition }) {
                                     className="background-image"
                                     height={"100%"}
                                 />
-                                {/* <img src={DssTeamImage_right} alt="" className="background-image" /> */}
                             </div>
                         </div>
                     </div>
-
                 </div>  
             </div>
         </section>
