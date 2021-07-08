@@ -38,29 +38,46 @@ function LoginComponent() {
             password: values.password
         }
 
-        const reqConfig = {
-            headers: {
-                'Content-Type': 'application/json',
-                withCredentials: true,
-                credentials: 'include'
-            },
-        }
+        // const reqConfig = {
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         withCredentials: true,
+        //     },
+        // }
 
         // INIT REQ
         dispatch(requestLogin());
 
         ///api/v1/users/login
 
-        axios.post("https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/login", user, reqConfig).then((response) => {
-            const { userData } = response.data;
+        // axios.post("https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/login", user, reqConfig).then((response) => {
+        //     const { userData } = response.data;
             
-            if(response.status === 200 || response.status === 201) {
-                dispatch(receiveLogin(userData));
-                history.push('/');
-            } else {
-                dispatch(loginError('There is an error, please try again'));
-            }
-        }).catch(err => {
+            // if(response.status === 200 || response.status === 201) {
+            //     dispatch(receiveLogin(userData));
+            //     history.push('/');
+            // } else {
+            //     dispatch(loginError('There is an error, please try again'));
+            // }
+        // }).catch(err => {
+            // const { message } = err.response.data;
+            // setFormError(message);
+            // dispatch(loginError(message));
+        // });
+        fetch("https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/login", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                credentials: 'include',
+            },
+            body: JSON.stringify(user)
+        }
+        ).then(res => res.json()).then(data => {
+            const { userData } = data; 
+            dispatch(receiveLogin(userData));
+            history.push('/');
+        })
+        .catch(err => {
             const { message } = err.response.data;
             setFormError(message);
             dispatch(loginError(message));

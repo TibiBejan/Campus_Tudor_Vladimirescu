@@ -15,8 +15,8 @@
     "main.css": "/static/css/main.bddf4659.chunk.css",
     "main.js": "/static/js/main.498a6ffc.chunk.js",
     "main.js.map": "/static/js/main.498a6ffc.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.083e4f86.js",
-    "runtime-main.js.map": "/static/js/runtime-main.083e4f86.js.map",
+    "runtime-main.js": "/static/js/runtime-main.1d9af9c9.js",
+    "runtime-main.js.map": "/static/js/runtime-main.1d9af9c9.js.map",
     "static/css/7.10eea35f.chunk.css": "/static/css/7.10eea35f.chunk.css",
     "static/js/7.c73b8513.chunk.js": "/static/js/7.c73b8513.chunk.js",
     "static/js/7.c73b8513.chunk.js.map": "/static/js/7.c73b8513.chunk.js.map",
@@ -113,8 +113,8 @@
     "static/js/38.a77d95a4.chunk.js": "/static/js/38.a77d95a4.chunk.js",
     "static/js/38.a77d95a4.chunk.js.map": "/static/js/38.a77d95a4.chunk.js.map",
     "static/css/39.c908df4d.chunk.css": "/static/css/39.c908df4d.chunk.css",
-    "static/js/39.d67989e8.chunk.js": "/static/js/39.d67989e8.chunk.js",
-    "static/js/39.d67989e8.chunk.js.map": "/static/js/39.d67989e8.chunk.js.map",
+    "static/js/39.78d36d53.chunk.js": "/static/js/39.78d36d53.chunk.js",
+    "static/js/39.78d36d53.chunk.js.map": "/static/js/39.78d36d53.chunk.js.map",
     "static/css/40.1c737c6a.chunk.css": "/static/css/40.1c737c6a.chunk.css",
     "static/js/40.38649669.chunk.js": "/static/js/40.38649669.chunk.js",
     "static/js/40.38649669.chunk.js.map": "/static/js/40.38649669.chunk.js.map",
@@ -325,7 +325,7 @@
     "static/media/Ștefan-MOCANU.png": "/static/media/Ștefan-MOCANU.c59954b4.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.083e4f86.js",
+    "static/js/runtime-main.1d9af9c9.js",
     "static/js/13.6dfe15e1.chunk.js",
     "static/css/main.bddf4659.chunk.css",
     "static/js/main.498a6ffc.chunk.js"
