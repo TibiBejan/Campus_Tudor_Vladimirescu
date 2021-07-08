@@ -18,10 +18,6 @@ import { campusRoutes, publicRoutes, studentRoutes, adminRoutes } from './utils/
 
 const Page404 = lazy(()=> import('./pages/Page404'));
 
-
-//"proxy": "http://localhost:8001/"
-
-
 function App() {
 
   // HOOKS
@@ -37,16 +33,16 @@ function App() {
       // INIT REQ
       dispatch(requestCheckLogin);
 
-      const reqConfig = {
-        headers: {
-            'Content-Type': 'application/json',
-            withCredentials: true,
-            credentials: 'include'
-        },
-        mode: 'cors'
-      }
+      // const reqConfig = {
+      //   headers: {
+      //       'Content-Type': 'application/json',
+      //       withCredentials: true,
+      //       credentials: 'include'
+      //   },
+      //   mode: 'cors'
+      // }
   
-      axios.get("/api/v1/users/checkLogin", reqConfig).then((response) => {
+      axios.get("/api/v1/users/checkLogin").then((response) => {
           if(response.status === 200 || response.status === 201) {
             const { userData } = response.data;
             dispatch(receiveCheckLogin(userData));
