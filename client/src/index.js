@@ -11,7 +11,6 @@ import './scss/_reset.scss';
 import './scss/_globalStyles.scss';
 import './scss/_typography.scss';
 
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={ store }>

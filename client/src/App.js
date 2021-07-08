@@ -7,7 +7,7 @@ import axios from 'axios';
 
 // REDUX
 import { useDispatch, useSelector } from 'react-redux';
-import { requestCheckLogin, receiveCheckLogin, checkLoginError } from './redux/userSlice';
+import { requestCheckLogin, receiveCheckLogin, checkLoginError, userSelector } from './redux/userSlice';
 import { adminSelector } from './redux/adminSlice';
 
 // UTILS
@@ -22,41 +22,43 @@ function App() {
 
   // HOOKS
   const dispatch = useDispatch();
-  const adminState = useSelector(adminSelector);
+  const userState = useSelector(userSelector);
   const location = useLocation();
 
   // REF"S
   const app = useRef(null);
   // FETCH AUTH USER ON RENDER
-  useEffect(() => {
-    const fetchUser = () => {
-      // INIT REQ
-      dispatch(requestCheckLogin);
+  // useEffect(() => {
+  //   const fetchUser = () => {
+  //     // INIT REQ
+  //     dispatch(requestCheckLogin);
 
-      // const reqConfig = {
-      //   headers: {
-      //       'Content-Type': 'application/json',
-      //       withCredentials: true,
-      //       credentials: 'include'
-      //   },
-      //   mode: 'cors'
-      // }
+  //     const reqConfig = {
+  //       headers: {
+  //           'Content-Type': 'application/json',
+  //           withCredentials: true,
+  //           credentials: 'include'
+  //       },
+  //       mode: 'cors'
+  //     }
   
-      axios.get("/api/v1/users/checkLogin").then((response) => {
-          if(response.status === 200 || response.status === 201) {
-            const { userData } = response.data;
-            dispatch(receiveCheckLogin(userData));
-          } else {
-              dispatch(checkLoginError('There is an error, please try again'));
-          }
-      }).catch(err => {
-          const { message } = err.response.data;
-          dispatch(checkLoginError(message ? message : ''));
-      })
-    }
+  //     axios.get("/api/v1/users/checkLogin", reqConfig).then((response) => {
+  //         if(response.status === 200 || response.status === 201) {
+  //           // const { userData } = response.data;
+  //           // dispatch(receiveCheckLogin(userData));
+  //           console.log(response)
+  //         } else {
+  //             dispatch(checkLoginError('There is an error, please try again'));
+  //         }
+  //     }).catch(err => {
+  //       console.log(err)
+  //         // const { message } = err.response.data;
+  //         // dispatch(checkLoginError(message ? message : ''));
+  //     })
+  //   }
 
-    fetchUser();
-  }, [dispatch]);
+  //   fetchUser();
+  // }, [dispatch]);
 
   //EFFECT
   useEffect(() => {

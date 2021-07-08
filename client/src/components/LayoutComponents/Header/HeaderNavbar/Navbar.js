@@ -45,7 +45,7 @@ function Navbar({ disabled, toggled, handleMenu, scroll }) {
                     </button>
                 </div>
                 <div className="action-account">
-                    {userState.isAuthenticated ? (
+                    {userState.isAuthenticated && userState.user ? (
                         <>
                             <Link 
                                 to={userState.user.role === 'admin' ? '/admin' : `/${userState.user.first_name}.${userState.user.last_name}/dashboard` }

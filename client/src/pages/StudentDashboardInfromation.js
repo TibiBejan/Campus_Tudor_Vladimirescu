@@ -42,8 +42,6 @@ function StudentDashboardInfromation() {
             
             dispatch(requestGetMeta());
 
-            ///api/v1/users/student-meta
-
             axios.get(`/api/v1/users/student-meta`, reqConfig).then((response) => {
                 const { studentMeta } = response.data;
                 dispatch(receiveGetMeta(studentMeta));
