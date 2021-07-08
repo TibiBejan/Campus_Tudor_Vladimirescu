@@ -32,15 +32,6 @@ app.use(cors({
     credentials: true,
 }));
 
-
-// {
-//     "Access-Control-Allow-Credentials": true,
-//     "Access-Control-Allow-Origin": '*',
-//     // origin: ['http://localhost:3000', 'https://campus-tudor-vladimirescu.netlify.app'],
-//     credentials: true,
-//     optionSuccessStatus:200
-// }
-
 app.use(cookieParser());
 app.use(compression());
 
@@ -52,9 +43,6 @@ app.use(express.urlencoded({ extended: true }));
 if(process.env.NODE_ENV === 'development') {
     app.use(morgan('combined'));
 }
-
-// // REACT STATIC FILES
-// app.use(express.static(path.join(__dirname, 'client/build')));
 
 // REQUEST LIMITER MIDDLEWEAR
 const limiter = rateLimit({
@@ -72,13 +60,6 @@ app.use('/api/v1/users', studentMetaRouter);
 app.use('/api/v1/halls', hallRouter);
 app.use('/api/v1/', accommodationRouter);
 app.use(adminRouter);
-
-// The "catchall" handler: for any request that doesn't
-// match one above, send back React's index.html file.
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname+'/client/build/index.html'));
-// });
-
 
 // ERROR MIDDLEWEAR
 app.all('*', (req, res, next) => {
