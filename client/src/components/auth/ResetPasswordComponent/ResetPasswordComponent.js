@@ -30,15 +30,15 @@ function ResetPasswordComponent() {
     const onSubmit = async (values) => {
         executeScroll();
 
-        const reqConfig = {
-            headers: {
-                'Content-Type': 'application/json',
-                withCredentials: true,
-                credentials: 'include'
-            },         
-        }
+        // const reqConfig = {
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         withCredentials: true,
+        //         credentials: 'include'
+        //     },         
+        // }
 
-        axios.patch(`/api/v1/users/resetPassword/${params.id}`,  values, reqConfig).then((response) => {
+        axios.patch(`/api/v1/users/resetPassword/${params.id}`,  values).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 console.log('Password successfully changed!');
                 history.push('/login');

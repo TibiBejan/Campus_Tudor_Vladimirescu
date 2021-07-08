@@ -33,15 +33,15 @@ function RegisterComponent() {
             password: values.password
         }
 
-        const reqConfig = {
-            headers: {
-                'Content-Type': 'application/json',
-                withCredentials: true,
-                credentials: 'include'
-            },
-        }
+        // const reqConfig = {
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         withCredentials: true,
+        //         credentials: 'include'
+        //     },
+        // }
 
-        axios.post("/api/v1/users/register", user, reqConfig).then((response) => {
+        axios.post("/api/v1/users/register", user).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 console.log('registration success');
                 history.push('/login');

@@ -38,18 +38,18 @@ function LoginComponent() {
             password: values.password
         }
 
-        const reqConfig = {
-            headers: {
-                'Content-Type': 'application/json',
-                withCredentials: true,
-            },
-            mode: 'cors',
-        }
+        // const reqConfig = {
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         withCredentials: true,
+        //     },
+        //     mode: 'cors',
+        // }
 
         // INIT REQ
         dispatch(requestLogin());
 
-        axios.post("/api/v1/users/login", reqConfig, user).then((response) => {
+        axios.post("/api/v1/users/login", user).then((response) => {
             const { userData } = response.data;
             
             if(response.status === 200 || response.status === 201) {
