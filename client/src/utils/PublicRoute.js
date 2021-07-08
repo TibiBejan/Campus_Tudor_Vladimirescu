@@ -4,9 +4,7 @@ import { useSelector } from 'react-redux';
 import { userSelector } from '../redux/userSlice';
 
 function PublicRoute({ component: Component, ...rest }) {
-
     const userState = useSelector(userSelector);
-
     return (
         <Route {...rest} render={props => (
             userState.isAuthenticated ? 
@@ -15,5 +13,4 @@ function PublicRoute({ component: Component, ...rest }) {
         )} />
     );
 }
-
 export default PublicRoute;
