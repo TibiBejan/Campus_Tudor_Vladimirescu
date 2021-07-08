@@ -13,10 +13,10 @@ const createToken = (user, statusCode, message, res) => {
 
     // GENERATE HTTP_ONLY COOCKIE FOR CLIENT SIDE
     res.cookie('jwt', token, {
+        httpOnly: true,
         expires: new Date(Date.now() + process.env.JWT_EXPIRES_COOKIE_IN * 24 * 60 * 60 * 1000), // MS
         secure: process.env.NODE_ENV === 'production' ? true : false,
-        httpOnly: true,
-        domain: 'campus-tudor-vladimirescu.netlify.app',
+        sameSite:'none',
     });
 
     return res.status(statusCode).json({
