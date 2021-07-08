@@ -56,10 +56,16 @@ function DashboardStudentsNeighbors() {
             }
 
             axios.get(`/api/v1/student-neighbors/${adminState.selectedUser.uuid}`, reqConfig).then((response) => {
-                const { fetchedNeighbors } = response.data;
-                const filteredNeighbors = fetchedNeighbors.filter(student => student.email !== adminState.selectedUser.email);
-                setStudents(filteredNeighbors);
-                setIsLoading(false);
+                if(response.status === 200 || response.status === 201) {
+                    const { fetchedNeighbors } = response.data;
+                    const filteredNeighbors = fetchedNeighbors.filter(student => student.email !== adminState.selectedUser.email);
+                    setStudents(filteredNeighbors);
+                    setIsLoading(false);
+                } else {
+                    setIsLoading(false);
+                    setError('Neighbors can not be fetched, please try to refresh the page');
+                }
+               
             }).catch(err => {
                 const message = err.response.data.errors ? err.response.data.errors[0].msg : err.response.data.message;
                 setStudents([]);

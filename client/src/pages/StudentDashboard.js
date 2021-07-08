@@ -38,21 +38,21 @@ function StudentDashboard() {
             const reqConfig = {
                 headers: {
                     'Content-Type': 'application/json',
-                    "Access-Control-Allow-Origin": "*",
                     withCredentials: true,
                     credentials: 'include'
                 }, 
             }
-
             dispatch(requestAccommodation());
-
-            ///api/v1/accommodation/${userState.user.uuid}
-
             axios.get(`/api/v1/accommodation/${userState.user.uuid}`, reqConfig).then((response) => {
-                const { accommodatedUser } = response.data;
-                dispatch(receiveAccommodation(accommodatedUser));
-                setIsAccommodated(accommodatedUser);
-                setIsLoading(false);
+                if(response.status === 200 || response.status === 201) {
+                    const { accommodatedUser } = response.data;
+                    dispatch(receiveAccommodation(accommodatedUser));
+                    setIsAccommodated(accommodatedUser);
+                    setIsLoading(false);
+                } else {
+                    dispatch(accommodationError('There is an error with your informations, please try again later'));
+                    setIsLoading(false);
+                }
             }).catch(err => {
                 dispatch(accommodationError('There is an error with your informations, please try again later'));
                 setIsLoading(false);

@@ -22,16 +22,16 @@ function ForgotPasswordComponent() {
 
         executeScroll();
         
-        // const reqConfig = {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         // "Access-Control-Allow-Origin": "*",
-        //         withCredentials: true,
-        //         credentials: 'include'
-        //     },
-        // }
+        const reqConfig = {
+            headers: {
+                'Content-Type': 'application/json',
+                // "Access-Control-Allow-Origin": "*",
+                withCredentials: true,
+                credentials: 'include'
+            },
+        }
 
-        axios.post("/api/v1/users/forgotPassword", values).then((response) => {
+        axios.post("/api/v1/users/forgotPassword", reqConfig, values).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 setCurrentEmail(values);
             } else {

@@ -42,6 +42,12 @@ function AdminDashboardCreateUser() {
         ///api/v1/users/
 
         axios.post(`/api/v1/users/`, values, reqConfig).then((response) => {
+            if(response.status === 200 || response.status === 201) {
+                setFormError('Student creat!');
+                resetForm();
+            } else {
+                setFormError('There is an error, please try again');
+            }
             setFormError('Student creat!');
             resetForm();
         }).catch(err => {

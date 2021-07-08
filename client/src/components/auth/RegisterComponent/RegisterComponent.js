@@ -33,18 +33,20 @@ function RegisterComponent() {
             password: values.password
         }
 
-        // const reqConfig = {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         withCredentials: true,
-        //         credentials: 'include'
-        //     },
-        // }
+        const reqConfig = {
+            headers: {
+                'Content-Type': 'application/json',
+                withCredentials: true,
+                credentials: 'include'
+            },
+        }
 
-        axios.post("/api/v1/users/register", user).then((response) => {
+        axios.post("/api/v1/users/register", reqConfig, user).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 console.log('registration success');
                 history.push('/login');
+            } else {
+                setFormError('There is an error, please try again');
             }
         }).catch(err => {
             const { message } = err.response.data;

@@ -38,9 +38,14 @@ function DashboardStudentAccommodation() {
         }
 
         axios.get(`/api/v1/accommodated-user/${adminState.selectedUser.uuid}`, reqConfig).then((response) => {
-            const { user } = response.data;
-            setStudent(user);
-            setIsLoading(false);
+            if(response.status === 200 || response.status === 201) {
+                const { user } = response.data;
+                setStudent(user);
+                setIsLoading(false);
+            } else {
+                setIsLoading(false);
+                setError('Student can not be fetched, please try to refresh the page');
+            }
         }).catch(err => {
             setStudent({});
             setIsLoading(false);

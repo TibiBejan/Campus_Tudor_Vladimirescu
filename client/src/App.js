@@ -28,37 +28,37 @@ function App() {
   // REF"S
   const app = useRef(null);
   // FETCH AUTH USER ON RENDER
-  // useEffect(() => {
-  //   const fetchUser = () => {
-  //     // INIT REQ
-  //     dispatch(requestCheckLogin);
+  useEffect(() => {
+    const fetchUser = () => {
+      // INIT REQ
+      dispatch(requestCheckLogin);
 
-  //     const reqConfig = {
-  //       headers: {
-  //           'Content-Type': 'application/json',
-  //           withCredentials: true,
-  //           credentials: 'include'
-  //       },
-  //       mode: 'cors'
-  //     }
+      const reqConfig = {
+        headers: {
+            'Content-Type': 'application/json',
+            withCredentials: true,
+            credentials: 'include'
+        },
+        mode: 'cors'
+      }
   
-  //     axios.get("/api/v1/users/checkLogin", reqConfig).then((response) => {
-  //         if(response.status === 200 || response.status === 201) {
-  //           // const { userData } = response.data;
-  //           // dispatch(receiveCheckLogin(userData));
-  //           console.log(response)
-  //         } else {
-  //             dispatch(checkLoginError('There is an error, please try again'));
-  //         }
-  //     }).catch(err => {
-  //       console.log(err)
-  //         // const { message } = err.response.data;
-  //         // dispatch(checkLoginError(message ? message : ''));
-  //     })
-  //   }
+      axios.get("/api/v1/users/checkLogin", reqConfig).then((response) => {
+          if(response.status === 200 || response.status === 201) {
+            const { userData } = response.data;
+            dispatch(receiveCheckLogin(userData));
+          } else {
+            dispatch(checkLoginError('There is an error, please try again'));
+          }
+      }).catch(err => {
+        console.log(err)
+        let message;
+        err.response ? message = err.response.data.message : message = 'There is an error, please log in or register';
+        dispatch(checkLoginError(message));
+      })
+    }
 
-  //   fetchUser();
-  // }, [dispatch]);
+    fetchUser();
+  }, [dispatch]);
 
   //EFFECT
   useEffect(() => {

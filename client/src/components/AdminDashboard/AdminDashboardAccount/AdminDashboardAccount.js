@@ -50,6 +50,9 @@ function AdminDashboardAccount() {
                 const { user } = response.data;
                 dispatch(receiveAccountUpdate(user));
                 setFormError('');
+            } else {
+                dispatch(updateAccountError('There is an error, please try again'));
+                setFormError('There is an error, please try again');
             }
         }).catch(err => {
             const message = err.response.data.errors ? err.response.data.errors[0].msg : err.response.data.message;

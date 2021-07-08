@@ -37,11 +37,11 @@ function DashboardStudentUpdateAccount() {
             },
         }
 
-        ///api/v1/users/${adminState.selectedUser.uuid}
-
         axios.patch(`/api/v1/users/${adminState.selectedUser.uuid}`, values, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 setFormError('');
+            } else {
+                setFormError('There is an error, please try again');
             }
         }).catch(err => {
             const message = err.response.data.errors ? err.response.data.errors[0].msg : err.response.data.message;

@@ -51,11 +51,16 @@ function StudentDashboardCreateEnroll() {
         ///api/v1/users/enrollment
 
         axios.post(`/api/v1/users/enrollment`,  values, reqConfig).then((response) => {
-            const { enrollment } = response.data;
-            dispatch(receiveEnroll(enrollment));
-            resetForm();
-            setFormError('');
-            history.push(`/${userState.user.first_name}.${userState.user.last_name}/enrollment/success`);
+            if(response.status === 200 || response.status === 201) {
+                const { enrollment } = response.data;
+                dispatch(receiveEnroll(enrollment));
+                resetForm();
+                setFormError('');
+                history.push(`/${userState.user.first_name}.${userState.user.last_name}/enrollment/success`);
+            } else {
+                setFormError('There is an error, please try again');
+                dispatch(enrollError('There is an error, please try again'));
+            }
         }).catch(err => {
             const message = err.response.data.errors ? err.response.data.errors[0].msg : err.response.data.message;
             dispatch(enrollError(message));

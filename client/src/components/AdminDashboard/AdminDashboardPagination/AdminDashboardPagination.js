@@ -48,9 +48,15 @@ function AdminDashboardPagination({ studentsData }) {
         }
         dispatch(requestDeleteStudents());
         axios.delete(`/api/v1/users/${studentId}`, reqConfig).then((response) => {
-            setModalOpen(false);
-            setStudentId(null);
-            dispatch(receiveDeleteStudents(studentId));
+            if(response.status === 200 || response.status === 201) {
+                setModalOpen(false);
+                setStudentId(null);
+                dispatch(receiveDeleteStudents(studentId));
+            } else {
+                setModalOpen(false);
+                setError('Student can not be deleted, please try again later');
+                dispatch(studentsDeleteError('Student can not be deleted, please try again later'));
+            }
         }).catch(err => {
             setModalOpen(false);
             setStudentId(null);

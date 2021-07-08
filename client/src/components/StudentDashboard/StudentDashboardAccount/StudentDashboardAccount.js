@@ -49,6 +49,9 @@ function StudentDashboardAccount() {
                 const { user } = response.data;
                 dispatch(receiveAccountUpdate(user));
                 setFormError('');
+            } else {
+                setFormError('There is an error, please try again');
+                dispatch(updateAccountError('There is an error, please try again'));
             }
         }).catch(err => {
             const message = err.response.data.errors ? err.response.data.errors[0].msg : err.response.data.message;
