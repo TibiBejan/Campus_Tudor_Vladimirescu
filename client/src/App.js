@@ -16,47 +16,11 @@ import PrivateRoute from './utils/PrivateRoute';
 import PublicRoute from './utils/PublicRoute';
 import { campusRoutes, publicRoutes, studentRoutes, adminRoutes } from './utils/Routes';
 
-// LAZY ROUTES
-// const Index = lazy(()=> import('./pages/Index'));
-// const About = lazy(()=> import('./pages/About'));
-// const Contact = lazy(()=> import('./pages/Contact'));
-// const News = lazy(()=> import('./pages/News'));
-// const Organisations = lazy(()=> import('./pages/Organisations'));
-// const StudentServices = lazy(()=> import('./pages/StudentServices'));
-// const Cafetaria = lazy(()=> import('./pages/Cafetaria'));
-// const SportsBase = lazy(()=> import('./pages/SportsBase'));
-// const Tuiasi = lazy(()=> import('./pages/Tuiasi'));
-// const HealthSecurity = lazy(()=> import('./pages/HealthSecurity'));
-// const Police = lazy(()=> import('./pages/Police'));
-// const Dispensary = lazy(()=> import('./pages/Dispensary'));
-// const CounselingCenter = lazy(()=> import('./pages/CounselingCenter'));
-// const Accommodation = lazy(()=> import('./pages/Accommodation'));
-// const ResidenceHalls = lazy(()=> import('./pages/ResidenceHalls'));
-// const ResidenceHall = lazy(()=> import('./pages/ResidenceHall'));
-// const FAQ = lazy(()=> import('./pages/FAQ'));
-// const Post = lazy(()=> import('./pages/Post'));
-
-// const AdminDashboard = lazy(()=> import('./pages/AdminDashboard'));
-// const AdminDashboardAccountInfo = lazy(()=> import('./pages/AdminDashboardAccountInfo'));
-// const AdminDashboardPassword = lazy(()=> import('./pages/AdminDashboardPassword'));
-// const AdminDashboardCreateAcc = lazy(()=> import('./pages/AdminDashboardCreateAcc'));
-// const AdminDashboardStudent = lazy(()=> import('./pages/AdminDashboardStudent'));
-
-// const StudentDashboard = lazy(()=> import('./pages/StudentDashboard'));
-// const StudentDashboardPwdUpdate = lazy(()=> import('./pages/StudentDashboardPwdUpdate'));
-// const StudentDashboardAccountInfo = lazy(()=> import('./pages/StudentDashboardAccountInfo'));
-// const StudentDashboardEnrollment = lazy(()=> import('./pages/StudentDashboardEnrollment'));
-// const StudentDashboardEnrollmentConfirm = lazy(()=> import('./pages/StudentDashboardEnrollmentConfirm'));
-// const StudentDashboardInformation = lazy(()=> import('./pages/StudentDashboardInfromation'));
-// const StudentDashboardKin = lazy(()=> import('./pages/StudentDashboardKin'));
-// const StudentDashboardKinUpdate = lazy(()=> import('./pages/StudentDashboardKinUpdate'));
-
-// const Login = lazy(()=> import('./pages/Login'));
-// const Register = lazy(()=> import('./pages/Register'));
-// const ForgotPassword = lazy(()=> import('./pages/ForgotPassword'));
-// const ResetPassword = lazy(()=> import('./pages/ResetPassword'));
-
 const Page404 = lazy(()=> import('./pages/Page404'));
+
+
+//"proxy": "http://localhost:8001/"
+
 
 function App() {
 
@@ -68,53 +32,35 @@ function App() {
   // REF"S
   const app = useRef(null);
   // FETCH AUTH USER ON RENDER
-  // useEffect(() => {
-  //   const fetchUser = () => {
-  //     // INIT REQ
-  //     dispatch(requestCheckLogin);
+  useEffect(() => {
+    const fetchUser = () => {
+      // INIT REQ
+      dispatch(requestCheckLogin);
 
-  //     //"/api/v1/users/checkLogin"
+      const reqConfig = {
+        headers: {
+            'Content-Type': 'application/json',
+            withCredentials: true,
+            credentials: 'include'
+        },
+        mode: 'cors'
+      }
+  
+      axios.get("/api/v1/users/checkLogin", reqConfig).then((response) => {
+          if(response.status === 200 || response.status === 201) {
+            const { userData } = response.data;
+            dispatch(receiveCheckLogin(userData));
+          } else {
+              dispatch(checkLoginError('There is an error, please try again'));
+          }
+      }).catch(err => {
+          const { message } = err.response.data;
+          dispatch(checkLoginError(message ? message : ''));
+      })
+    }
 
-  //     // fetch("https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/checkLogin")
-  //     //   .then((res) => res.json())
-  //     //   .then((data) => {
-  //     //     if(data.status === 200 || data.status === 201) {
-  //     //       const { userData } = data.data;
-  //     //       dispatch(receiveCheckLogin(userData));
-  //     //       } else {
-  //     //           dispatch(checkLoginError('There is an error, please try again'));
-  //     //       }
-  //     // }).catch(err => {
-          
-  //     //       const { message } = err.response.data;
-  //     //       dispatch(checkLoginError(message ? message : ''));
-  //     // });
-
-  //     const reqConfig = {
-  //       headers: {
-  //           'Content-Type': 'application/json',
-  //           // "Access-Control-Allow-Origin": "*",
-  //           withCredentials: true,
-  //           credentials: 'include'
-  //       },
-  //   }
-
-  //     axios.get("https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/checkLogin", reqConfig).then((response) => {
-  //           if(response.status === 200 || response.status === 201) {
-  //             const { userData } = response.data;
-  //             dispatch(receiveCheckLogin(userData));
-  //           } else {
-  //               dispatch(checkLoginError('There is an error, please try again'));
-  //           }
-  //       }).catch(err => {
-            
-  //           const { message } = err.response.data;
-  //           dispatch(checkLoginError(message ? message : ''));
-  //       });
-  //   }
-
-  //   fetchUser();
-  // }, [dispatch]);
+    fetchUser();
+  }, [dispatch]);
 
   //EFFECT
   useEffect(() => {

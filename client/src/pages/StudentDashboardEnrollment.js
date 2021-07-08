@@ -34,7 +34,6 @@ function StudentDashboardEnrollment() {
             const reqConfig = {
                 headers: {
                     'Content-Type': 'application/json',
-                    "Access-Control-Allow-Origin": "*",
                     withCredentials: true,
                     credentials: 'include'
                 }, 
@@ -44,7 +43,7 @@ function StudentDashboardEnrollment() {
 
             ///api/v1/users/enrollment
 
-            axios.get('https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/enrollment', reqConfig).then((response) => {
+            axios.get('/api/v1/users/enrollment', reqConfig).then((response) => {
                 const { enrollment } = response.data;
                 dispatch(receiveEnroll(enrollment));
                 setCurrentEnroll(enrollment);

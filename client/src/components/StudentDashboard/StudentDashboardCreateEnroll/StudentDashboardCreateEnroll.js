@@ -41,7 +41,6 @@ function StudentDashboardCreateEnroll() {
         const reqConfig = {
             headers: {
                 'Content-Type': 'application/json',
-                "Access-Control-Allow-Origin": "*",
                 withCredentials: true,
                 credentials: 'include'
             }, 
@@ -51,7 +50,7 @@ function StudentDashboardCreateEnroll() {
 
         ///api/v1/users/enrollment
 
-        axios.post(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/enrollment`,  values, reqConfig).then((response) => {
+        axios.post(`/api/v1/users/enrollment`,  values, reqConfig).then((response) => {
             const { enrollment } = response.data;
             dispatch(receiveEnroll(enrollment));
             resetForm();

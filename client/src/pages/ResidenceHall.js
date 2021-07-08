@@ -30,15 +30,12 @@ function ResidenceHall() {
         const reqConfig = {
             headers: {
                 'Content-Type': 'application/json',
-                "Access-Control-Allow-Origin": "*",
-                // withCredentials: true,
+                withCredentials: true,
                 credentials: 'include'
             },
         }
 
-        //`/api/v1/halls/${hallName}`
-
-        axios.get(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/halls/${hallName}`, reqConfig).then((response) => {
+        axios.get(`/api/v1/halls/${hallName}`, reqConfig).then((response) => {
             setHallData(response.data.hall);
             setIsLoading(false);
         }).catch(err => {

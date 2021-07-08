@@ -27,14 +27,20 @@ const app = express();
 // GLOBAL MIDDLEWEAR
 // HELMET HEADERS SECURITY MIDDLEWEAR
 app.use(helmet());
-app.use(cors(
-    {
-        "Access-Control-Allow-Credentials": true,
-        origin: ['http://localhost:3000', 'https://campus-tudor-vladimirescu.netlify.app'],
-        credentials: true,
-        optionSuccessStatus:200
-    }
-));
+app.use(cors({
+    origin: '*',
+    credentials: true,
+}));
+
+
+// {
+//     "Access-Control-Allow-Credentials": true,
+//     "Access-Control-Allow-Origin": '*',
+//     // origin: ['http://localhost:3000', 'https://campus-tudor-vladimirescu.netlify.app'],
+//     credentials: true,
+//     optionSuccessStatus:200
+// }
+
 app.use(cookieParser());
 app.use(compression());
 

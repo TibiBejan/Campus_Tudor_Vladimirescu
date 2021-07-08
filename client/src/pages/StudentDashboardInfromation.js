@@ -35,7 +35,6 @@ function StudentDashboardInfromation() {
             const reqConfig = {
                 headers: {
                     'Content-Type': 'application/json',
-                    "Access-Control-Allow-Origin": "*",
                     withCredentials: true,
                     credentials: 'include'
                 }, 
@@ -45,7 +44,7 @@ function StudentDashboardInfromation() {
 
             ///api/v1/users/student-meta
 
-            axios.get(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/student-meta`, reqConfig).then((response) => {
+            axios.get(`/api/v1/users/student-meta`, reqConfig).then((response) => {
                 const { studentMeta } = response.data;
                 dispatch(receiveGetMeta(studentMeta));
                 setCurrentInfo(studentMeta);

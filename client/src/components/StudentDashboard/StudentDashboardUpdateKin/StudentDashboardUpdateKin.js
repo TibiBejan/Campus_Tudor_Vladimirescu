@@ -41,10 +41,8 @@ function StudentDashboardUpdateKin() {
                     credentials: 'include'
                 }, 
             }
-
-            ///api/v1/users/kins/${id}
     
-            axios.get(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/kins/${id}`, reqConfig).then((response) => {
+            axios.get(`/api/v1/users/kins/${id}`, reqConfig).then((response) => {
                 const { kin } = response.data;
                 setCurrentKin(kin);
                 setIsLoading(false);
@@ -72,9 +70,7 @@ function StudentDashboardUpdateKin() {
             }, 
         }
 
-        ///api/v1/users/kins/${id}
-
-        axios.patch(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/kins/${id}`,  values, reqConfig).then((response) => {
+        axios.patch(`/api/v1/users/kins/${id}`,  values, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 resetForm();
                 setFormError('');
@@ -99,9 +95,7 @@ function StudentDashboardUpdateKin() {
             }, 
         }
 
-        ///api/v1/users/kins/${id}
-
-        axios.delete(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/kins/${id}`, reqConfig).then((response) => {
+        axios.delete(`/api/v1/users/kins/${id}`, reqConfig).then((response) => {
             if(response.status === 204) {
                 history.push(`/${userState.user.first_name}.${userState.user.last_name}/kins`);
                 window.location.reload();

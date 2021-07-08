@@ -83,7 +83,6 @@ function StudentDashboardKins() {
             const reqConfig = {
                 headers: {
                     'Content-Type': 'application/json',
-                    "Access-Control-Allow-Origin": "*",
                     withCredentials: true,
                     credentials: 'include'
                 }, 
@@ -93,7 +92,7 @@ function StudentDashboardKins() {
 
             ///api/v1/users/kins
     
-            axios.get(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/kins`, reqConfig).then((response) => {
+            axios.get(`/api/v1/users/kins`, reqConfig).then((response) => {
                 if(response.status === 200 || response.status === 201) {
                     const { kins } = response.data;
                     dispatch(receiveKins(kins));

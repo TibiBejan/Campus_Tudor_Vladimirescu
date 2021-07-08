@@ -48,10 +48,7 @@ function AdminDashboardPasswordUpdate() {
 
         // INIT REQ
         dispatch(requestUpdatePwd());
-
-        ///api/v1/users/updateMyPassword
-
-        axios.patch(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/updateMyPassword`,  body, reqConfig).then((response) => {
+        axios.patch(`/api/v1/users/updateMyPassword`,  body, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 const { userData } = response.data;
                 dispatch(receiveUpdatePwd(userData));

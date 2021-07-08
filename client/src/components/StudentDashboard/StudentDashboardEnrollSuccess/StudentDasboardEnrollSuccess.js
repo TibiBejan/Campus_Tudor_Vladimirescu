@@ -32,7 +32,6 @@ function StudentDasboardEnrollSuccess() {
         const reqConfig = {
             headers: {
                 'Content-Type': 'application/json',
-                "Access-Control-Allow-Origin": "*",
                 withCredentials: true,
                 credentials: 'include'
             }, 
@@ -40,7 +39,7 @@ function StudentDasboardEnrollSuccess() {
 
         ///api/v1/users/studentAllocation
 
-        axios.get('https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/studentAllocation', reqConfig).then((response) => {
+        axios.get('/api/v1/users/studentAllocation', reqConfig).then((response) => {
             history.push(`/${userState.user.first_name}.${userState.user.last_name}/dashboard`);
         }).catch(err => {
             const message = err.response.data.errors ? err.response.data.errors[0].msg : err.response.data.message;

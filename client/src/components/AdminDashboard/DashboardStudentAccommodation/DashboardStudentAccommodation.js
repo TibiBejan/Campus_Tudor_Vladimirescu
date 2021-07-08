@@ -37,9 +37,7 @@ function DashboardStudentAccommodation() {
             },   
         }
 
-        ///api/v1/accommodated-user/${adminState.selectedUser.uuid}
-
-        axios.get(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/accommodated-user/${adminState.selectedUser.uuid}`, reqConfig).then((response) => {
+        axios.get(`/api/v1/accommodated-user/${adminState.selectedUser.uuid}`, reqConfig).then((response) => {
             const { user } = response.data;
             setStudent(user);
             setIsLoading(false);

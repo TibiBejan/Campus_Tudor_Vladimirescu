@@ -38,7 +38,6 @@ function AdminDashboardPagination({ studentsData }) {
     // HANDLE DELETE STUDENT
     const handleDelete = () => {
         executeScroll()
-
         const reqConfig = {
             headers: {
                 'Content-Type': 'application/json',
@@ -47,12 +46,8 @@ function AdminDashboardPagination({ studentsData }) {
                 credentials: 'include'
             },   
         }
-
-        ///api/v1/users/${studentId}
-
         dispatch(requestDeleteStudents());
-
-        axios.delete(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/${studentId}`, reqConfig).then((response) => {
+        axios.delete(`/api/v1/users/${studentId}`, reqConfig).then((response) => {
             setModalOpen(false);
             setStudentId(null);
             dispatch(receiveDeleteStudents(studentId));
@@ -67,7 +62,6 @@ function AdminDashboardPagination({ studentsData }) {
     // HANDLE DISPATCH SELECTED STUDENT
     const dispatchSelectedStudent = (id) => {
         const studentId = id;
-
         const reqConfig = {
             headers: {
                 'Content-Type': 'application/json',
@@ -76,9 +70,7 @@ function AdminDashboardPagination({ studentsData }) {
                 credentials: 'include'
             },   
         }
-
         dispatch(requestSelectedUser());
-
         axios.get(`/api/v1/users/${studentId}`, reqConfig).then((response) => {
             const { user } = response.data;
             dispatch(receiveSelectedUser(user));

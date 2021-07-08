@@ -36,7 +36,6 @@ function StudentDashboardCreateInfo() {
         const reqConfig = {
             headers: {
                 'Content-Type': 'application/json',
-                "Access-Control-Allow-Origin": "*",
                 withCredentials: true,
                 credentials: 'include'
             }, 
@@ -46,7 +45,7 @@ function StudentDashboardCreateInfo() {
 
         ///api/v1/users/student-meta
 
-        axios.post(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/student-meta`,  values, reqConfig).then((response) => {
+        axios.post(`/api/v1/users/student-meta`,  values, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 const { studentMeta } = response.data;
                 resetForm();

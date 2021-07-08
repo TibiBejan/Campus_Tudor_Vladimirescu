@@ -52,9 +52,7 @@ function StudentDashboardUpdateInfo({ sectionData }) {
 
         dispatch(requestUpdateMeta());
 
-        ///api/v1/users/student-meta/${sectionData.uuid}
-
-        axios.patch(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/student-meta/${sectionData.uuid}`, values, reqConfig).then((response) => {
+        axios.patch(`/api/v1/users/student-meta/${sectionData.uuid}`, values, reqConfig).then((response) => {
             const { studentMeta } = response.data;
             setFormError('');
             dispatch(receiveUpdateMeta(studentMeta));
@@ -79,9 +77,7 @@ function StudentDashboardUpdateInfo({ sectionData }) {
 
         dispatch(requestDeleteMeta());
 
-        ///api/v1/users/student-meta/${sectionData.uuid}
-
-        axios.delete(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/student-meta/${sectionData.uuid}`, reqConfig).then((response) => {
+        axios.delete(`/api/v1/users/student-meta/${sectionData.uuid}`, reqConfig).then((response) => {
             if(response.status === 204) {
                 dispatch(receiveDeleteMeta());
                 history.push(`/${userState.user.first_name}.${userState.user.last_name}/dashboard`);

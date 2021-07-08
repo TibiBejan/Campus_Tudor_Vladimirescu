@@ -55,9 +55,7 @@ function DashboardStudentsNeighbors() {
                 },   
             }
 
-            ///api/v1/student-neighbors/${adminState.selectedUser.uuid}
-    
-            axios.get(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/student-neighbors/${adminState.selectedUser.uuid}`, reqConfig).then((response) => {
+            axios.get(`/api/v1/student-neighbors/${adminState.selectedUser.uuid}`, reqConfig).then((response) => {
                 const { fetchedNeighbors } = response.data;
                 const filteredNeighbors = fetchedNeighbors.filter(student => student.email !== adminState.selectedUser.email);
                 setStudents(filteredNeighbors);
@@ -85,12 +83,9 @@ function DashboardStudentsNeighbors() {
                 credentials: 'include'
             },   
         }
-
-        ///api/v1/users/${studentId}
-
         dispatch(requestSelectedUser());
 
-        axios.get(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/${studentId}`, reqConfig).then((response) => {
+        axios.get(`/api/v1/users/${studentId}`, reqConfig).then((response) => {
             const { user } = response.data;
             dispatch(receiveSelectedUser(user));
             history.push(`/admin/${user.uuid}`);

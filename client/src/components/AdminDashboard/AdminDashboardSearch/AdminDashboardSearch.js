@@ -38,10 +38,7 @@ function AdminDashboardSearch() {
 
              // INIT REQ
              dispatch(requestStudents());
-
-             ///api/v1/users/
-
-             axios.get('https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/', reqConfig).then((response) => {
+             axios.get('/api/v1/users/', reqConfig).then((response) => {
                 const { students } = response.data;
                 dispatch(receiveStudents(students));
                 setFormError('');
@@ -68,20 +65,15 @@ function AdminDashboardSearch() {
             },   
         }
 
-        ///api/v1/search-users?${values.university ? `university=${values.university}
-        //`/api/v1/search-users?university=${values.university}`
-        //`/api/v1/search-users?searchQuerry=${values.searchQuerry}`
-        ///api/v1/users/
-
         let reqUrl = null;
         if(values.university && values.searchQuerry) {
-            reqUrl = `https://campus-tudor-vladimirescu.herokuapp.com/api/v1/search-users?${values.university ? `university=${values.university}` : ''}&${values.searchQuerry ? `searchQuerry=${values.searchQuerry}` : ''}`;
+            reqUrl = `/api/v1/search-users?${values.university ? `university=${values.university}` : ''}&${values.searchQuerry ? `searchQuerry=${values.searchQuerry}` : ''}`;
         } else if(values.university && (!values.searchQuerry || values.searchQuerry === '')) {
-            reqUrl = `https://campus-tudor-vladimirescu.herokuapp.com/api/v1/search-users?university=${values.university}`;
+            reqUrl = `/api/v1/search-users?university=${values.university}`;
         } else if (values.searchQuerry && (!values.university || values.university === '')) {
-            reqUrl = `https://campus-tudor-vladimirescu.herokuapp.com/api/v1/search-users?searchQuerry=${values.searchQuerry}`;
+            reqUrl = `/api/v1/search-users?searchQuerry=${values.searchQuerry}`;
         } else if((!values.university || values.university === '') && (!values.searchQuerry || values.searchQuerry === '')) {
-            reqUrl = 'https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/'
+            reqUrl = '/api/v1/users/'
         }
 
         // INIT REQ

@@ -33,15 +33,12 @@ function ResetPasswordComponent() {
         const reqConfig = {
             headers: {
                 'Content-Type': 'application/json',
-                // "Access-Control-Allow-Origin": "*",
                 withCredentials: true,
                 credentials: 'include'
             },         
         }
 
-        ///api/v1/users/resetPassword/${params.id}
-
-        axios.patch(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/resetPassword/${params.id}`,  values, reqConfig).then((response) => {
+        axios.patch(`/api/v1/users/resetPassword/${params.id}`,  values, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 console.log('Password successfully changed!');
                 history.push('/login');

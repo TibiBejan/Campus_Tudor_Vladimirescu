@@ -49,7 +49,6 @@ function StudentDashboardUpdateEnroll({ sectionData }) {
         const reqConfig = {
             headers: {
                 'Content-Type': 'application/json',
-                "Access-Control-Allow-Origin": "*",
                 withCredentials: true,
                 credentials: 'include'
             }, 
@@ -57,9 +56,7 @@ function StudentDashboardUpdateEnroll({ sectionData }) {
 
         dispatch(requestUpdateEnroll());
 
-        //`/api/v1/users/enrollment/${sectionData.uuid}`
-
-        axios.patch(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/enrollment/${sectionData.uuid}`,  values, reqConfig).then((response) => {
+        axios.patch(`/api/v1/users/enrollment/${sectionData.uuid}`,  values, reqConfig).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 const { enrollment } = response.data;
                 dispatch(receiveUpdateEnroll(enrollment));
@@ -82,7 +79,6 @@ function StudentDashboardUpdateEnroll({ sectionData }) {
         const reqConfig = {
             headers: {
                 'Content-Type': 'application/json',
-                "Access-Control-Allow-Origin": "*",
                 withCredentials: true,
                 credentials: 'include'
             }, 
@@ -90,9 +86,7 @@ function StudentDashboardUpdateEnroll({ sectionData }) {
 
         dispatch(requestDeleteEnroll());
 
-        ///api/v1/users/enrollment/${sectionData.uuid}
-
-        axios.delete(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/enrollment/${sectionData.uuid}`, reqConfig).then((response) => {
+        axios.delete(`/api/v1/users/enrollment/${sectionData.uuid}`, reqConfig).then((response) => {
             if(response.status === 204) {
                 dispatch(receiveDeleteEnroll());
                 history.push(`/${userState.user.first_name}.${userState.user.last_name}/kins`);
