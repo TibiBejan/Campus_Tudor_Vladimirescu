@@ -38,7 +38,7 @@ function ResetPasswordComponent() {
             },         
         }
 
-        axios.patch(`https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/resetPassword/${params.id}`, reqConfig,  values).then((response) => {
+        axios.patch(`http://localhost:3000/api/v1/users/resetPassword/${params.id}`, reqConfig,  values).then((response) => {
             if(response.status === 200 || response.status === 201) {
                 console.log('Password successfully changed!');
                 history.push('/login');

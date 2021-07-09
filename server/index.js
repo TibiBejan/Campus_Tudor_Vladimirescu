@@ -28,16 +28,12 @@ const app = express();
 // HELMET HEADERS SECURITY MIDDLEWEAR
 app.use(helmet());
 
-var whitelist = ['http://localhost:3000', 'https://campus-tudor-vladimirescu.netlify.app']
 var corsOptions = {
-  credentials: true,
-  origin: function(origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
+  "Access-Control-Allow-Credentials": true,
+  // 'Access-Control-Allow-Credentials': true,
+  origin: ['http://localhost:3000', 'https://campus-tudor-vladimirescu.netlify.app'],
+  // credentials: true,
+  optionSuccessStatus:200
 }
 
 app.use(cors(corsOptions));

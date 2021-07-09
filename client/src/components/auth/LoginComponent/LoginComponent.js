@@ -48,7 +48,7 @@ function LoginComponent() {
 
         // INIT REQ
         dispatch(requestLogin());
-        axios.post("https://campus-tudor-vladimirescu.herokuapp.com/api/v1/users/login", reqConfig, user).then((response) => {
+        axios.post("http://localhost:3000/api/v1/users/login", reqConfig, user).then((response) => {
             const { userData } = response.data;
             if(response.status === 200 || response.status === 201) {
                 dispatch(receiveLogin(userData));
